@@ -1,0 +1,115 @@
+#mapWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .mapContainer {
+        display: flex;
+  } */
+
+.directions {
+    margin-top: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    width: 1200px;
+}
+
+#map {
+    width: 1100px;
+    height: 400px;
+    margin: 20px auto 0 auto;
+}
+
+.address_information {
+    position: relative;
+    display: flex;
+    margin: 0 auto;
+    width: 1100px;
+    height: 150px;
+    background-color: #f7f8fa;
+}
+
+.address_phone {
+    width: 33.3333333333%;
+    display: flex;
+    align-self: center;
+}
+
+.address_phone:nth-child(1) {
+    margin-left: 80px;
+}
+
+.address_phone:nth-child(2) {
+    margin-left: 80px;
+}
+
+.address_phone:nth-child(3) {
+    margin-left: 50px;
+}
+
+.address_phone > div {
+    height: 100%;
+}
+
+.address_phone img {
+    width: 70px;
+    height: 70px;
+    /* margin-left: 50px; */
+}
+
+.address_text {
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.address_text p:nth-child(1) {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.address_text p:nth-child(1) {
+    font-weight: bold;
+}
+
+.transportation {
+    margin: 50px auto;
+    width: 1100px;
+    font-size: 18px;
+}
+
+.transportation th {
+    border: 1px solid;
+    box-sizing: border-box;
+    padding: 10px 20px;
+}
+
+.transportation td {
+    padding-left: 30px;
+}
+
+.bus_tag1,
+.bus_tag2,
+.bus_tag3 {
+    display: inline-block;
+    font-weight: bold;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 5px 8px;
+    margin-top: 10px;
+    margin-right: 10px;
+    color: white;
+}
+
+.bus_tag1 {
+    margin-top: initial;
+    background-color: #00afbd;
+}
+
+.bus_tag2 {
+    background-color: #47af1b;
+}
+
+.bus_tag3 {
+    background-color: #ff451e;
+}

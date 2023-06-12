@@ -1,0 +1,149 @@
+/* ############################### container전체 ############################ */
+#simple_inquiry_container {
+    max-width: 1240px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 0 40px 20px 40px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    clear: both;
+
+
+    /* ############################## main ###############################*/
+
+    .main_first_text,
+    .main_text {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .main_first_text {
+        font-size: 30px;
+    }
+
+    .main_text {
+        line-height: 30px;
+    }
+
+    .main_text>div {
+        margin: 30px;
+    }
+
+    .main_text strong {
+        color: #084875b7;
+        font-size: 20px;
+    }
+
+
+
+    .contens {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    table {
+        border-collapse: collapse;
+        margin: 0 auto;
+    }
+
+    th,
+    td {
+        border-bottom: 1px lightgray solid;
+        padding: 15px 20px;
+    }
+
+    .contens p {
+        text-align: end;
+        margin-right: 20px;
+    }
+
+    col:nth-child(1) {
+        width: 20%;
+    }
+
+    col:nth-child(2) {
+        width: 80%;
+    }
+
+    th {
+        padding: 20px;
+    }
+
+    .contens span,
+    .agree_container>p span {
+        color: lightsalmon;
+        margin-left: 10px;
+    }
+
+    .contens td span {
+        color: initial;
+    }
+
+
+    /* 입력박스 */
+
+    .contens input,
+    .contens select {
+        border: 1px lightgray solid;
+        border-radius: 4px;
+        padding: 10px 5px;
+        margin-bottom: 5px;
+    }
+
+    .simple_inquirybox label:nth-child(n+2) {
+        margin-left: 15px;
+    }
+
+    .contens textarea {
+        padding: 10px 5px;
+    }
+
+    .contens tbody a {
+        border: 1px solid lightgray;
+        padding: 5px 10px;
+        vertical-align: middle;
+        margin-left: 10px;
+    }
+
+    /* margin */
+    .contens p {
+        margin: 30px;
+        margin-right: 40px;
+    }
+
+    .agree_container {
+        margin-top: 70px;
+    }
+
+    .agree_container>p {
+        font-weight: bolder;
+        margin-bottom: 15px;
+    }
+
+    .agree_text {
+        line-height: 25px;
+    }
+
+    .agree_use {
+        margin-top: 15px;
+    }
+
+    .agree_submit * {
+        font-size: 85%;
+        color: white;
+        padding: 20px 70px;
+        margin: 0 10px;
+        border: none;
+        background-color: #084875b7;
+        cursor: pointer;
+
+        /* margin: auto; */
+        margin-bottom: 60px;
+    }
+
+    .agree_submit {
+        text-align: center;
+        padding: 60px;
+    }
+}

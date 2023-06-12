@@ -1,0 +1,77 @@
+#styletest_container {
+    max-width: 1240px;
+    padding: 0 40px 100px 40px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    clear: both;
+    display: grid;
+    justify-content: space-around;
+
+    .hidden {
+        display: none;
+    }
+
+    .styletest_box {
+        box-sizing: border-box;
+        width: 400px;
+        height: 600px;
+
+        margin-top: 100px;
+        padding: 30px 30px;
+
+        border: 2px solid lightgray;
+        border-radius: 10px;
+
+        display: grid;
+        grid-template-rows: 25% 55% 20%;
+    }
+
+
+
+    .test_question {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+
+
+    .test_select {
+        margin: 70px 0;
+
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .selectBox {
+        height: 100%;
+    }
+
+    .selectBox button {
+        width: 100%;
+        height: 100%;
+        padding: 0 10px;
+        text-align: left;
+    }
+
+
+
+    .test_btn {
+        text-align: center;
+    }
+
+    .preBtn, .nextBtn {
+        width: 40px;
+    }
+
+    .btnContainer button {
+        height: 40px;
+        margin: 0 5px;
+    }
+
+    .resultBtn {
+        width: 100px;
+    }
+}

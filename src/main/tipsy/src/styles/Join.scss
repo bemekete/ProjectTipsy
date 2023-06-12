@@ -1,0 +1,90 @@
+/* ############################### container전체 ############################ */
+
+#join_container {
+    max-width: 1240px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 0 40px 100px 40px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    clear: both;
+
+    /* ===================== main ============================= */
+
+    .pageTitle {
+        width: 100%;
+        font-size: 30px;
+        text-align: center;
+        padding: 45px 0;
+    }
+
+    #contents {
+        margin: auto;
+        width: 95%;
+    }
+
+    /* ======================== 약관 박스 ===================== */
+    .joinbox {
+        width: 718px;
+        margin: auto;
+        border: 1px lightgray solid;
+    }
+
+    .joinbox > p {
+        font-size: 18px;
+        font-weight: bold;
+        border-bottom: black double;
+        margin: 0 5%;
+        padding: 10px;
+        padding-top: 30px;
+    }
+
+    .agree.all {
+        border-bottom: 1px solid;
+    }
+
+    .agree {
+        padding: 10px;
+        padding-top: 30px;
+        margin: 0 5%;
+        position: relative;
+    }
+
+    .agree span {
+        font-weight: bold;
+        color: darkred;
+    }
+
+    .termOfRegister p {
+        font-size: 15px;
+        white-space: pre-line;
+        padding: 5px;
+        height: 200px;
+        overflow: auto;
+        border: 1px solid lightgray;
+        margin: 0 6%;
+    }
+
+    .joinbox input {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translate(-100%, 50%);
+    }
+
+    .agree_submit {
+        text-align: center;
+        margin: 30px 0;
+    }
+
+    .agree_submit button {
+        font-size: 85%;
+        color: white;
+        padding: 10px 20px;
+        margin: 0 10px;
+        border: none;
+        background-color: #084875b7;
+        cursor: pointer;
+    }
+}

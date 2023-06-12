@@ -1,0 +1,155 @@
+/* ############################### container전체 ############################ */
+
+#search_container {
+    max-width: 1240px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 0 40px 100px 40px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    clear: both;
+
+
+
+    /* ===================== main ============================= */
+
+    .pageTitle {
+        width: 100%;
+        font-size: 30px;
+        text-align: center;
+        padding: 45px 0;
+    }
+
+    #contents {
+        margin: auto;
+        width: 95%;
+    }
+
+    /* ================ 검색바 ================= */
+
+    .searchPageBar form {
+        width: 500px;
+        height: 60px;
+        text-align: center;
+        margin: auto;
+        margin-bottom: 50px;
+        border-bottom: 1px solid lightgrey;
+    }
+
+    .searchPageBar input {
+        width: 400px;
+        height: 50px;
+        font-size: 30px;
+        margin: 0 10px;
+        border: none;
+    }
+
+    .searchPageBar button {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .searchPageBar img {
+        width: 50px;
+        height: auto;
+        vertical-align: middle;
+        margin: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* =================== 검색결과 상자 ====================== */
+
+    /* 카테고리 */
+    .searchPageBox {
+        width: 100%;
+    }
+
+    .searchPageCategories {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .searchPageCategories li {
+        display: inline-block;
+        font-size: 90%;
+        width: 170px;
+        padding: 5px 0;
+        box-sizing: border-box;
+        border: 1px solid lightgray;
+    }
+
+    /* 
+.searchPageCategories li:hover {
+    border-width: 2px;
+} */
+
+    .searchCategory p {
+        color: gray;
+        text-decoration: none;
+    }
+
+    .searchPageCategories span {
+        font-weight: bold;
+        color: black;
+    }
+
+    /* 결과창 */
+    .totalSearchArea {
+        width: 100%;
+    }
+
+    .totalSearch {
+        margin-bottom: 100px;
+    }
+
+    .noneResult {
+        line-height: 400px;
+        text-align: center;
+    }
+
+    .totalSearch table {
+        border-collapse: collapse;
+        border-right: hidden;
+        border-left: hidden;
+        width: 95%;
+        margin: 10px auto;
+    }
+
+    /* .totalSearch thead {
+    height: 40px;
+    background-color: #efefef;
+} */
+
+    tr,
+    td {
+        border: .5px solid rgba(166, 166, 166, 0.7);
+        border-right: none;
+        border-left: none;
+    }
+
+    .totalSearch tbody td {
+        /* padding: 10px; */
+        line-height: 50px;
+    }
+
+    th {
+        border-collapse: collapse;
+        border-bottom: 2px solid rgba(166, 166, 166, 0.7);
+        text-align: center;
+        line-height: 30px;
+    }
+
+    .totalSearch tbody img {
+        width: 80px;
+        vertical-align: middle;
+        padding: 10px;
+        margin-right: 20px;
+        border-radius: 20px;
+    }
+
+    .totalSearch tbody td+td {
+        text-align: center;
+    }
+}

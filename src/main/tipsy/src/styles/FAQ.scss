@@ -1,0 +1,193 @@
+/* ############################# ===== main ===== ################################# ========================================== */
+/* FAQ text */
+#FAQ_main {
+    #faq_maincontainer {
+        max-width: 1240px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .FAQ_first_text {
+        font-size: 30px;
+        margin: 50px;
+    }
+
+    .FAQ_text {
+        line-height: 25px;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    /* 고객문의 바로가기 */
+    .customer_inquiry_button {
+        margin: 45px;
+        white-space: nowrap;
+    }
+
+    .customer_inquiry_button a {
+        border: 2px solid silver;
+        padding: 15px;
+    }
+
+    /* Q box */
+
+    .Qbox_container {
+        display: flex;
+        flex-flow: column;
+        margin: 40px;
+    }
+
+    .Qbox_container>ul {
+        /* display: flex; */
+        white-space: nowrap;
+    }
+
+    .Qbox_container>ul>li {
+        display: inline-block;
+        background-color: #adc6dbfd;
+        height: 100px;
+        /* flex: 1; */
+        padding: 0 25px;
+
+        position: relative;
+        line-height: 100px;
+    }
+
+    .Qbox_container>ul>li>ul {
+        background-color: rgb(248, 248, 248);
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 999;
+
+        display: none;
+    }
+
+    .Qbox_container>ul>li>ul li {
+        margin: 20px;
+    }
+
+    .Qbox_container>ul>li:hover ul {
+        display: block;
+    }
+
+    .Qbox1 {
+        margin-right: 20px;
+    }
+
+    .Qbox3 {
+        margin-left: 20px;
+    }
+
+    .Qbox_container>ul>li::before {
+        content: 'Q.';
+        font-size: 1.2em;
+        font-weight: bold;
+        margin: 10px;
+    }
+
+    .Qbox_container p {
+        line-height: 30px;
+        padding: 0 25px;
+        text-align: start;
+        white-space: initial;
+
+        /* 이거 안됨,,,,;;; */
+        /* text-align: justify; */
+        /* word-break: break-all; */
+    }
+
+    .Qbox_container>ul>li>ul>li p::before {
+        content: 'A.';
+        font-size: 1.2em;
+        font-weight: bold;
+        margin: 10px;
+    }
+
+    /* FAQ search */
+
+    .FAQ_search {
+        display: inline-block;
+        width: 570px;
+        line-height: 80px;
+        margin: 10px;
+    }
+
+    .FAQ_search form {
+        border-bottom: 1px solid;
+        height: 65px;
+        /* border: solid; */
+    }
+
+    .FAQ_search input {
+        border: none;
+        width: 500px;
+        height: 40px;
+        padding: 0 5px;
+        /* border: red solid; */
+        font-size: 20px;
+    }
+
+    .FAQ_search button {
+        border: none;
+        background: none;
+    }
+
+    .FAQ_search button img {
+        height: 40px;
+        vertical-align: middle;
+        opacity: 0.7;
+    }
+
+    /* ======================# main 문의 #================================================== */
+    /* 문의(inquiry) box */
+
+    #FAQ_main a:not([href*='#']) {
+        background-color: white;
+    }
+
+    .inquiry_box {
+        display: flex;
+        width: 100%;
+        margin: 30px 0;
+    }
+
+    .inquiry_box ul {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .inquiry_box ul li {
+        display: flex;
+        border: 1px solid;
+        box-sizing: border-box;
+    }
+
+    .box_background ul li {
+        background-color: #f1f1f1eb;
+    }
+
+    .inquiry_box a {
+        display: flex;
+
+        /* 이거 안먹음 왜지 뭐야 width랑 height 여기에 주니까 됨*/
+        justify-content: center;
+        align-items: center;
+
+        width: 150px;
+        height: 50px;
+    }
+
+    .inquiry_box1 {
+        margin-right: 5px;
+    }
+
+    .inquiry_box3 {
+        margin-left: 5px;
+    }
+
+    /* 문의 box 클릭시 이동 후 높이 */
+}

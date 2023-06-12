@@ -1,0 +1,119 @@
+.board_table_main {
+    max-width: 1240px;
+    margin: 0 auto;
+    white-space: pre-wrap;
+
+    .board_table {
+        width: 90%;
+        margin: auto;
+    }
+
+    .board_table table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: smaller;
+        table-layout: fixed;
+    }
+
+    .board_table thead {
+        background-color: #efefef;
+    }
+
+    .board_table thead th {
+        height: 50px;
+    }
+
+    .board_table tr {
+        border-bottom: 1px solid silver;
+    }
+
+    .board_table tbody th {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .board_table td {
+        text-align: start;
+    }
+
+    .board_table tbody th,
+    .board_table td {
+        padding: 20px 0;
+        cursor: default;
+    }
+
+    .board_table summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .board_table summary span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .board_table summary img {
+        width: 15px;
+        height: 15px;
+        margin-right: 30px;
+        transition: 0.3s;
+    }
+
+    .board_table .innerCon {
+        width: 80%;
+        height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: 0.3s;
+    }
+
+    .board_table details[open] img {
+        transform: rotateX(180deg);
+    }
+
+    .board_table details[open]+.innerCon {
+        height: 100%;
+        padding: 20px 0 10px 0;
+        overflow: initial;
+        white-space: break-spaces;
+        opacity: 1;
+    }
+
+    /* <-1,2,3-> */
+
+    .board_page_button {
+        margin: 20px;
+        margin-bottom: 100px;
+    }
+
+    .board_page_button a {
+        font-weight: bold;
+        background-color: #efefef;
+        border-radius: 50%;
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+    }
+
+    .board_page_button::before {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: url(../assets/notice_img/arrow-left.svg) 0/100% 100%;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    .board_page_button::after {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: url(../assets/notice_img/arrow-right.svg) 0/100% 100%;
+        vertical-align: middle;
+        margin-left: 5px;
+    }
+}

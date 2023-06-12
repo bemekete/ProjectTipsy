@@ -1,0 +1,134 @@
+#find_container {
+    margin-bottom: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    main {
+        text-align: center;
+    }
+
+    .find_logo_div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 0 50px 0;
+    }
+
+    .find_logo {
+        width: 150px;
+        height: 150px;
+        text-indent: -9999em;
+        background: url(../assets/find_img/login_logo2.png) no-repeat center/100%;
+        margin-left: 15px;
+        display: inline-block;
+    }
+
+    .find_form_wrap {
+        width: 1200px;
+    }
+
+    .find_tab_btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .find_tab_btn a {
+        display: inline-block;
+        width: 172px;
+        height: 47px;
+        line-height: 47px;
+        background-color: white;
+        border: 1px solid black;
+        margin-bottom: 100px;
+        font-weight: bold;
+    }
+
+    .find_tab_btn a:not([href='#']) {
+        border: 1px solid #ccc;
+    }
+
+    .form_container .form_tit {
+        margin: 0 0 20px 0;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .form_list {
+        border-top: 1px solid #ccc;
+        text-align: left;
+    }
+
+    .form_list li {
+        border-bottom: 1px solid #ccc;
+    }
+
+    .form_list>li dl {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .form_list>li dl dt {
+        display: table-cell;
+        padding: 25px 0 9px 42px;
+        width: 110px;
+        font-size: 14px;
+        color: #333;
+        vertical-align: top;
+    }
+
+    .form_list>li dl dd {
+        display: table-cell;
+        padding: 16px;
+    }
+
+    .input_line {
+        margin: 10px 0 0 0;
+    }
+
+    .input_line:first-of-type {
+        margin: 0;
+    }
+
+    input[type='text'],
+    input[type='password'],
+    input[type='number'] {
+        height: 35px;
+        padding: 0 10px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        color: #333;
+        line-height: 35px;
+        box-sizing: border-box;
+        background: #fff;
+    }
+
+    .input_type1 {
+        width: 235px;
+    }
+
+    .button_type1 {
+        margin: 0 5px;
+        padding: 9px 0;
+        width: 125px;
+        background: #ccc;
+        text-align: center;
+        border: 1px solid #ccc;
+        cursor: pointer;
+    }
+
+    .btnList {
+        display: block;
+        width: 146px;
+        margin: 80px auto 0 auto;
+        text-align: center;
+        font-size: 15px;
+        line-height: 48px;
+        color: #fff;
+        background: #084875b7;
+    }
+}

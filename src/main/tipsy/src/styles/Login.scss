@@ -1,0 +1,134 @@
+/* ================================================================ login ================================================================ */
+#login_main {
+    text-align: center;
+
+    ol,
+    ul,
+    li {
+        list-style: none;
+    }
+
+    .hide {
+        display: inline-block;
+        text-indent: -5000px;
+    }
+
+    .find {
+        text-decoration: none;
+        font-size: 14px;
+        color: black;
+    }
+
+    .find2 {
+        font-size: 14px;
+        color: black;
+    }
+
+    .find2:hover {
+        opacity: 0.5;
+    }
+
+    /* #################################################################### */
+
+    #login_wrap {
+        height: 100vh;
+    }
+
+    #login_container {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -60%);
+
+        height: 600px;
+        width: 1000px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login_form {
+        padding: 50px 70px 50px 50px;
+        border-right: 2px solid #ccc;
+        /* border: 1px solid; */
+    }
+
+    /* ======== 메인로그인 ========= */
+    .login_logo {
+        width: 100px;
+        height: 100px;
+        text-indent: -9999em;
+        background: url(../assets/login_img/login_logo2.png) no-repeat
+            center/100%;
+        margin-left: 15px;
+        display: inline-block;
+    }
+
+    .login_input {
+        width: 450px;
+        height: 50px;
+        box-sizing: border-box;
+        font-size: 18px;
+        padding: 16px;
+        border-radius: 5px;
+        margin-top: 15px;
+    }
+
+    .login_btn {
+        width: 450px;
+        height: 40px;
+        margin-top: 15px;
+
+        border: 1px #084875b7;
+        background-color: #084875b7;
+        color: white;
+
+        box-sizing: border-box;
+        border-radius: 5px;
+
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .find_div {
+        margin: 20px 0 20px 0;
+    }
+
+    /* ========= 아이디저장 ========== */
+    .keepIdDiv {
+        text-align: left;
+        margin-top: 10px;
+        padding-left: 5px;
+    }
+
+    /* ========= sns로그인 ========== */
+    .sns_login {
+        padding-left: 70px;
+        padding-bottom: 38px;
+    }
+
+    .sns_login_tit {
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+    .sns_login_img {
+        width: 200px;
+        /* height: 45px; */
+    }
+
+    .sns_login_img2 {
+        width: 205px;
+        height: 50px;
+    }
+
+    .sns_login div:first-child {
+        padding-bottom: 40px;
+    }
+
+    .sns_login div:nth-of-type(n + 2) {
+        padding: 10px 0 10px 0;
+    }
+}

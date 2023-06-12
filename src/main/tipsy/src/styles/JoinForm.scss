@@ -1,0 +1,125 @@
+/* ############################### container전체 ############################ */
+#joinform_container {
+    max-width: 1240px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 0 40px 100px 40px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    clear: both;
+
+    /* ===================== main ============================= */
+    .pageTitle {
+        width: 100%;
+        font-size: 30px;
+        text-align: center;
+        padding: 45px 0;
+    }
+
+    #contents {
+        margin: auto;
+        width: 95%;
+    }
+
+    /* ================main============== */
+    .joinbox {
+        box-sizing: border-box;
+        width: 800px;
+        margin: auto;
+        margin-bottom: 100px;
+        overflow: hidden;
+        white-space: nowrap;
+        position: relative;
+        padding: 30px;
+        border: 1px lightgray solid;
+    }
+
+    /* 타이틀 */
+    .joinbox > p {
+        position: absolute;
+        right: 30px;
+        font-weight: bold;
+    }
+
+    /* 표 */
+    figcaption {
+        padding-bottom: 10px;
+        font-weight: bold;
+    }
+
+    table {
+        width: 100%;
+        font-size: 85%;
+        margin-bottom: 10px;
+        text-align: left;
+        border-collapse: collapse;
+    }
+
+    colgroup col {
+        width: 170px;
+    }
+
+    colgroup col + col {
+        width: auto;
+    }
+
+    .joinbox th,
+    .joinbox td {
+        border-bottom: lightgray 1px solid;
+        padding: 15px 20px;
+        white-space: nowrap;
+    }
+
+    /* 필수표시 */
+    .joinbox span {
+        color: lightsalmon;
+        font-weight: bold;
+    }
+
+    /* 세부설명 */
+    .joinbox td span {
+        color: initial;
+        font-size: 12px;
+        margin-left: 5px;
+    }
+
+    .joinbox td .notice {
+        color: gray;
+    }
+
+    /* 입력박스 */
+    .joinbox input,
+    .joinbox select {
+        border: 1px lightgray solid;
+        border-radius: 4px;
+        padding: 10px 5px;
+        margin-bottom: 5px;
+    }
+
+    .joinbox tbody a {
+        border: 1px solid lightgray;
+        padding: 5px 10px;
+        vertical-align: middle;
+        margin-left: 10px;
+    }
+
+    #userPhoneVerification {
+        display: none;
+    }
+
+    /* 제출버튼 */
+    .joinButton {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .joinButton button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #084875b7;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+}
