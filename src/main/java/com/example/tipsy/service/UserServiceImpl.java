@@ -1,15 +1,13 @@
-package com.example.demo.service;
+package com.example.tipsy.service;
+
+import com.example.tipsy.model.UserDAO;
+import com.example.tipsy.vo.UserVO;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
-import com.example.demo.model.UserDAO;
-import com.example.demo.vo.UserVO;
-
-import lombok.AllArgsConstructor;
-
-@Repository
+@Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 

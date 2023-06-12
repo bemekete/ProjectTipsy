@@ -1,16 +1,14 @@
-package com.example.demo.controller;
+package com.example.tipsy.controller;
 
-import java.util.List;
-
+import com.example.tipsy.service.ProService;
+import com.example.tipsy.vo.ProVO;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.service.ProService;
-import com.example.demo.vo.ProVO;
-
-import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import java.util.List;
 
 @RestController
 @RequestMapping("/restpro")

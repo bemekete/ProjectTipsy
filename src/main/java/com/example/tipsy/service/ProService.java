@@ -1,8 +1,7 @@
-package com.example.demo.service;
+package com.example.tipsy.service;
 
+import com.example.tipsy.vo.ProVO;
 import java.util.List;
-
-import com.example.demo.vo.ProVO;
 
 public interface ProService {
 	List<ProVO> productList();

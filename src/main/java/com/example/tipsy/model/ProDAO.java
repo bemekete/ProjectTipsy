@@ -1,8 +1,7 @@
-package com.example.demo.model;
+package com.example.tipsy.model;
 
+import com.example.tipsy.vo.ProVO;
 import java.util.List;
-
-import com.example.demo.vo.ProVO;
 
 public interface ProDAO {
 

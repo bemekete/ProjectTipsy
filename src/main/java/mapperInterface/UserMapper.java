@@ -1,10 +1,10 @@
 package mapperInterface;
 
-import java.util.List;
-
+import com.example.tipsy.vo.UserVO;
 import org.apache.ibatis.annotations.Select;
 
-import com.example.demo.vo.UserVO;
+import java.util.List;
+
 
 public interface UserMapper {
 

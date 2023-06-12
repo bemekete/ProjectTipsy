@@ -1,13 +1,11 @@
-package com.example.demo.model;
+package com.example.tipsy.model;
 
-import java.util.List;
-
-import org.springframework.stereotype.Repository;
-
-import com.example.demo.vo.UserVO;
-
+import com.example.tipsy.vo.UserVO;
 import lombok.AllArgsConstructor;
 import mapperInterface.UserMapper;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @AllArgsConstructor

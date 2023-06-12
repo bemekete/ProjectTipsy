@@ -1,15 +1,13 @@
-package com.example.demo.service;
+package com.example.tipsy.service;
+
+import com.example.tipsy.model.ProDAO;
+import com.example.tipsy.vo.ProVO;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
-import com.example.demo.model.ProDAO;
-import com.example.demo.vo.ProVO;
-
-import lombok.AllArgsConstructor;
-
-@Repository
+@Service
 @AllArgsConstructor
 public class ProServiceImpl implements ProService {
 

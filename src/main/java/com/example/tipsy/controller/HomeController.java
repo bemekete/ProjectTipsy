@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.tipsy.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

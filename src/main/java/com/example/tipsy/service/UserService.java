@@ -1,8 +1,9 @@
-package com.example.demo.service;
+package com.example.tipsy.service;
+
+import com.example.tipsy.vo.UserVO;
 
 import java.util.List;
 
-import com.example.demo.vo.UserVO;
 
 public interface UserService {
 	List<UserVO> selectList();
