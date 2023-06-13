@@ -26,42 +26,40 @@ function Main() {
     return (
         <>
             <div>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/mainpage" element={<Mainpage />} />
-                        <Route path="/detail" element={<Detail />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/join" element={<Join />} />
-                        <Route path="/joinform" element={<JoinForm />} />
-                        <Route path="/mypage" element={<Mypage />} />
-                        <Route
-                            path="/customerpage"
-                            element={<Customerpage />}
-                        />
-                        <Route path="/notice" element={<Notice />} />
-                        <Route path="/searchresult" element={<Searchpage />} />
-                        <Route
-                            path="/simpleinquiry"
-                            element={<Simpleinquiry />}
-                        />
-                        <Route path="/orderend" element={<Orderend />} />
-                        <Route path="/eventboard" element={<Eventboard />} />
-                        <Route path="/findid" element={<FindId />} />
-                        <Route
-                            path="/findpassword"
-                            element={<FindPassword />}
-                        />
-                        <Route path="/faq" element={<FAQ />} />
-                        <Route path="/createorder" element={<CreateOrder />} />
-                        <Route path="/shopbasket" element={<Shopbasket />} />
-                        <Route
-                            path="/alcstyletest"
-                            element={<Alcstyletest />}
-                        />
-                        <Route path="/map" element={<Map />} />
-                    </Routes>
-                </BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/mainpage" element={<Mainpage />} />
+                    <Route path="/detail" element={<Detail />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/join" element={<Join />} />
+                    <Route path="/joinform" element={<JoinForm />} />
+                    <Route path="/mypage" element={<Mypage />} />
+                    <Route
+                        path="/customerpage"
+                        element={<Customerpage />}
+                    />
+                    <Route path="/notice" element={<Notice />} />
+                    <Route path="/searchresult" element={<Searchpage />} />
+                    <Route
+                        path="/simpleinquiry"
+                        element={<Simpleinquiry />}
+                    />
+                    <Route path="/orderend" element={<Orderend />} />
+                    <Route path="/eventboard" element={<Eventboard />} />
+                    <Route path="/findid" element={<FindId />} />
+                    <Route
+                        path="/findpassword"
+                        element={<FindPassword />}
+                    />
+                    <Route path="/faq" element={<FAQ />} />
+                    <Route path="/createorder" element={<CreateOrder />} />
+                    <Route path="/shopbasket" element={<Shopbasket />} />
+                    <Route
+                        path="/alcstyletest"
+                        element={<Alcstyletest />}
+                    />
+                    <Route path="/map" element={<Map />} />
+                </Routes>
             </div>
         </>
     );
