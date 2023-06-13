@@ -73,7 +73,7 @@ function header() {
                             <Link to="/map">매장찾기</Link>
                         </li>
                         <li>
-                            <Link to="/eventboard">매장찾기</Link>
+                            <Link to="/eventboard">이벤트</Link>
                         </li>
                     </ul>
                     <div className="mainSearch">
