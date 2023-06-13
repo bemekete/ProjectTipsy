@@ -3,6 +3,7 @@ package com.example.tipsy.model;
 
 import com.example.tipsy.vo.ProVO;
 import lombok.AllArgsConstructor;
+import mapperinterface.ProductMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
