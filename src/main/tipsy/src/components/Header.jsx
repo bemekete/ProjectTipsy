@@ -1,27 +1,36 @@
 import React from 'react';
+import { Link, Route, Routes } from 'react-router-dom/dist';
+import Customerpage from '../pages/Customerpage';
+import Join from '../pages/Join';
+import Login from '../pages/Login';
+import Mainpage from '../pages/Mainpage';
+import Shopbasket from '../pages/Shopbasket';
+import Detail from '../pages/Detail';
 import '../styles/Header.scss';
+import Map from '../pages/Map/Map';
+import Eventboard from '../pages/Eventboard';
+
+
 
 function header() {
     return (
         <>
             <div className="headertop_cover">
                 <div className="headerTop">
-                    <a href="/" className="mainLogo">
-                        tipsy
-                    </a>
+                    <a href="/" className="mainLogo">tipsy</a>
                     <div className="serviceTab">
                         <ul className="serviceTabList">
                             <li>
-                                <a href="/login">로그인</a>
+                                <Link to="/login">로그인</Link >
                             </li>
                             <li>
-                                <a href="/join">회원가입</a>
+                                <Link to="/join">회원가입</Link>
                             </li>
                             <li>
-                                <a href="/shopbasket">장바구니</a>
+                                <Link to="/shopbasket">장바구니</Link>
                             </li>
                             <li>
-                                <a href="/customerpage">고객지원</a>
+                                <Link to="/customerpage">고객지원</Link>
                             </li>
                         </ul>
                     </div>
@@ -31,54 +40,40 @@ function header() {
                 <div className="headerMenu">
                     <ul className="mainCategoryList">
                         <li className="bannerCategory">
-                            <a href="/mainpage">카테고리</a>
+                            <Link to="/mainpage">카테고리</Link>
                             <div className="detailCategoryList">
                                 <ul>
                                     <li className="hoverCategory">
-                                        <a href="./mainPage/mainPage_wine.html">
-                                            주류
-                                        </a>
+                                        <Link to="/mainpage">주류</Link>
                                         <ul className="detailCategoryListof">
                                             <li>
-                                                <a href="./mainPage/mainPage_wine.html">
-                                                    와인
-                                                </a>
+                                                <Link to="/mainpage">와인</Link>
                                             </li>
                                             <li>
-                                                <a href="./mainPage/mainPage_soju.html">
-                                                    소주
-                                                </a>
+                                                <Link to="/mainpage">소주</Link>
                                             </li>
                                             <li>
-                                                <a href="./mainPage/mainPage_makgeolli.html">
-                                                    막걸리, 탁주
-                                                </a>
+                                                <Link to="/mainpage">막걸리, 탁주</Link>
                                             </li>
                                             <li>
-                                                <a href="./mainPage/mainPage_cheongju.html">
-                                                    약주, 청주
-                                                </a>
+                                                <Link to="/mainpage">약주, 청주</Link>
                                             </li>
                                             <li>
-                                                <a href="./mainPage/mainPage_fruit.html">
-                                                    과실주
-                                                </a>
+                                                <Link to="/mainpage">과실주</Link>
                                             </li>
                                         </ul>
                                     </li>
                                     <li className="hoverCategory">
-                                        <a href="./mainpage/mainPage_side.html">
-                                            안주
-                                        </a>
+                                        <Link to="/mainpage">안주</Link>
                                     </li>
                                 </ul>
                             </div>
                         </li>
                         <li>
-                            <a href="/map">매장찾기</a>
+                            <Link to="/map">매장찾기</Link>
                         </li>
                         <li>
-                            <a href="/eventboard">이벤트</a>
+                            <Link to="/eventboard">매장찾기</Link>
                         </li>
                     </ul>
                     <div className="mainSearch">
