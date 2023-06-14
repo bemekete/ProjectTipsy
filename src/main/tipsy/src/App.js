@@ -4,7 +4,7 @@ import Footer from './components/Footer';
 import Main from './components/Main';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {
 
     const [user_ID, setUser_ID] = useState();
@@ -22,9 +22,11 @@ function App() {
     return (
         <>
             <div className="App">
-                <Header />
-                <Main />
-                <Footer />
+                <BrowserRouter>
+                    <Header />
+                    <Main />
+                    <Footer />
+                </BrowserRouter>
             </div>
         </>
     );

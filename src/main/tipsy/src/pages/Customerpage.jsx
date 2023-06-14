@@ -45,19 +45,19 @@ export default function Customerpage() {
                             </a>
                         </li>
                         <li className="menu2">
-                            <a href="../eventboard/eventboard.html">
+                            <a href="/eventboard">
                                 <span className="menuicon event"></span>
                                 <span>이벤트</span>
                             </a>
                         </li>
                         <li className="menu3">
-                            <a href="../map/map.html">
+                            <a href="/map">
                                 <span className="menuicon map"></span>
                                 <span>매장찾기</span>
                             </a>
                         </li>
                         <li className="menu4">
-                            <a href="/mypage">
+                            <a href="/mypage/shipment">
                                 <span className="menuicon myPage"></span>
                                 <span>마이페이지</span>
                             </a>

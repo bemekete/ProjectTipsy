@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Switch } from 'react-router-dom';
 
 import Home from '../pages/HomePage/Home';
 import Mainpage from '../pages/Mainpage';
@@ -18,9 +18,11 @@ import FindId from '../pages/Find_id';
 import FindPassword from '../pages/Find_password';
 import FAQ from '../pages/FAQ';
 import CreateOrder from '../pages/CreateOrder';
-import Shopbasket from '../pages/Shopbasket';
+import Shopbasket from '../pages/Shopbasket/Shopbasket';
 import Alcstyletest from '../pages/Alcstyletest';
 import Map from '../pages/Map/Map';
+import Adminpage from '../pages/AdminPage/Adminpage';
+import { UserModify } from '../pages/AdminPage/UserModify';
 
 function Main() {
     return (
@@ -34,7 +36,7 @@ function Main() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/join" element={<Join />} />
                         <Route path="/joinform" element={<JoinForm />} />
-                        <Route path="/mypage" element={<Mypage />} />
+                        <Route path="/mypage/:data" element={<Mypage />} />
                         <Route
                             path="/customerpage"
                             element={<Customerpage />}
@@ -60,6 +62,10 @@ function Main() {
                             element={<Alcstyletest />}
                         />
                         <Route path="/map" element={<Map />} />
+                        <Route path="/adminpage/:data"
+                            element={<Adminpage />}
+                        />
+                        <Route path="/usermodify" element={<UserModify />} />
                     </Routes>
                 </BrowserRouter>
             </div>
