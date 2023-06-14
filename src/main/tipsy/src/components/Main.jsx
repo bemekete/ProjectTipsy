@@ -18,7 +18,7 @@ import FindId from '../pages/Find_id';
 import FindPassword from '../pages/Find_password';
 import FAQ from '../pages/FAQ';
 import CreateOrder from '../pages/CreateOrder';
-import Shopbasket from '../pages/Shopbasket';
+import Shopbasket from '../pages/Shopbasket/Shopbasket';
 import Alcstyletest from '../pages/Alcstyletest';
 import Map from '../pages/Map/Map';
 import Adminpage from '../pages/AdminPage/Adminpage';
