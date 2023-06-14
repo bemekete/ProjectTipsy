@@ -1,17 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
 
 
 
 export default function ProductData() {
-
+    const [basketList, setBasketList] = useState(null);
     useEffect(() => {
-        
-
-
+        async()=>{
+            response = await axios.get("/cart/list");
+            setBasketList(response);
+            console.log(response);
+        }
     }, [])
+
+
 
     return (
         <tbody>

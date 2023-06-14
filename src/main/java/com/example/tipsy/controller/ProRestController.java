@@ -22,4 +22,5 @@ public class ProRestController {
 	public List<ProVO> selectPro() {
 		return service.productList();
 	}
+
 }
