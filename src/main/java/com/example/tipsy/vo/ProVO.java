@@ -1,8 +1,12 @@
 package com.example.tipsy.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProVO {
 	int p_seq;
 	String p_name;

@@ -1,4 +1,4 @@
-package mapperinterface;
+package mapperInterface;
 
 import com.example.tipsy.vo.UserVO;
 import org.apache.ibatis.annotations.Select;

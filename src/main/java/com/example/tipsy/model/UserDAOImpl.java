@@ -2,7 +2,7 @@ package com.example.tipsy.model;
 
 import com.example.tipsy.vo.UserVO;
 import lombok.AllArgsConstructor;
-import mapperinterface.UserMapper;
+import mapperInterface.UserMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
