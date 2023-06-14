@@ -4,7 +4,7 @@ import Customerpage from '../pages/Customerpage';
 import Join from '../pages/Join';
 import Login from '../pages/Login';
 import Mainpage from '../pages/Mainpage';
-import Shopbasket from '../pages/Shopbasket';
+import Shopbasket from '../pages/Shopbasket/Shopbasket';
 import Detail from '../pages/Detail';
 import '../styles/Header.scss';
 import Map from '../pages/Map/Map';
@@ -44,7 +44,7 @@ function header() {
                             <div className="detailCategoryList">
                                 <ul>
                                     <li className="hoverCategory">
-                                        <Link to="/mainpage">주류</Link>
+                                        <Link to="/mainpage?p_category=1">주류</Link>
                                         <ul className="detailCategoryListof">
                                             <li>
                                                 <Link to="/mainpage">와인</Link>
@@ -73,7 +73,7 @@ function header() {
                             <Link to="/map">매장찾기</Link>
                         </li>
                         <li>
-                            <Link to="/eventboard">매장찾기</Link>
+                            <Link to="/eventboard">이벤트</Link>
                         </li>
                     </ul>
                     <div className="mainSearch">

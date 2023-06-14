@@ -8,7 +8,7 @@ function Mainpage() {
     const [productCnt, setProductCnt] = useState(0);
 
     useEffect(() => {
-        axios.get("/restpro/selectpro")
+        axios.get("/product/selectpro")
             .then((data) => {
                 setProductCnt(data.data.length);
             }).catch(() => {

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/restpro")
+@RequestMapping("/product")
 @AllArgsConstructor
 @Log4j2
 public class ProRestController {
