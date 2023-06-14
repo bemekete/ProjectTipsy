@@ -36,7 +36,7 @@ function Main() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/join" element={<Join />} />
                         <Route path="/joinform" element={<JoinForm />} />
-                        <Route path="/mypage" element={<Mypage />} />
+                        <Route path="/mypage/:data" element={<Mypage />} />
                         <Route
                             path="/customerpage"
                             element={<Customerpage />}
