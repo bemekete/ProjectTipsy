@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Switch } from 'react-router-dom';
 
 import Home from '../pages/HomePage/Home';
 import Mainpage from '../pages/Mainpage';
@@ -21,6 +21,8 @@ import CreateOrder from '../pages/CreateOrder';
 import Shopbasket from '../pages/Shopbasket';
 import Alcstyletest from '../pages/Alcstyletest';
 import Map from '../pages/Map/Map';
+import Adminpage from '../pages/AdminPage/Adminpage';
+import { UserModify } from '../pages/AdminPage/UserModify';
 
 function Main() {
     return (
@@ -60,6 +62,10 @@ function Main() {
                             element={<Alcstyletest />}
                         />
                         <Route path="/map" element={<Map />} />
+                        <Route path="/adminpage/:data"
+                            element={<Adminpage />}
+                        />
+                        <Route path="/usermodify" element={<UserModify />} />
                     </Routes>
                 </BrowserRouter>
             </div>

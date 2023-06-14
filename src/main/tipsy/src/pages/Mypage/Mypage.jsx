@@ -12,7 +12,7 @@ export default function Mypage() {
                             <div>회원 님</div>
                             <div>
                                 <a href="#">배송지 목록</a>
-                                <a href="#">개인정보 수정</a>
+                                <a href="/usermodify">개인정보 수정</a>
                             </div>
                         </div>
                         <div className="profile part2">
@@ -21,14 +21,6 @@ export default function Mypage() {
                                 <span>0</span> 원
                             </div>
                         </div>
-                        {/* <div className="profile part3">
-                            <a href="#">
-                                <div>쿠폰</div>
-                            </a>
-                            <div>
-                                <span>0</span> 개
-                            </div>
-                        </div> */}
                         <div className="profile part4">
                             <a href="#">
                                 <div>마이 스타일</div>
