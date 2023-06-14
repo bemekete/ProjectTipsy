@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import Home from '../pages/HomePage/Home';
 import Mainpage from '../pages/Mainpage';
@@ -34,30 +34,18 @@ function Main() {
                     <Route path="/join" element={<Join />} />
                     <Route path="/joinform" element={<JoinForm />} />
                     <Route path="/mypage" element={<Mypage />} />
-                    <Route
-                        path="/customerpage"
-                        element={<Customerpage />}
-                    />
+                    <Route path="/customerpage" element={<Customerpage />} />
                     <Route path="/notice" element={<Notice />} />
                     <Route path="/searchresult" element={<Searchpage />} />
-                    <Route
-                        path="/simpleinquiry"
-                        element={<Simpleinquiry />}
-                    />
+                    <Route path="/simpleinquiry" element={<Simpleinquiry />} />
                     <Route path="/orderend" element={<Orderend />} />
                     <Route path="/eventboard" element={<Eventboard />} />
                     <Route path="/findid" element={<FindId />} />
-                    <Route
-                        path="/findpassword"
-                        element={<FindPassword />}
-                    />
+                    <Route path="/findpassword" element={<FindPassword />} />
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/createorder" element={<CreateOrder />} />
                     <Route path="/shopbasket" element={<Shopbasket />} />
-                    <Route
-                        path="/alcstyletest"
-                        element={<Alcstyletest />}
-                    />
+                    <Route path="/alcstyletest" element={<Alcstyletest />} />
                     <Route path="/map" element={<Map />} />
                 </Routes>
             </div>
