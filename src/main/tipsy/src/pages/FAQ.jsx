@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/FAQ.scss';
+import { Link } from 'react-router-dom';
 
 import { BoardTitle, BoardSearch, BoardScope } from './Boardtable';
 
@@ -36,9 +37,9 @@ function FAQ() {
                     <div className="customer_inquiry">
                         <ul>
                             <li className="customer_inquiry_button">
-                                <a href="/simpleinquiry">
+                                <Link to="/simpleinquiry">
                                     고객문의 바로가기
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
@@ -51,17 +52,16 @@ function FAQ() {
         return (
             <div className="Qbox_container">
                 <ul>
-                    {
-                        faqContainer.map((el) => (
-                            <li className="Qbox">{el.Question}
-                                <ul className='Abox'>
-                                    <li>
-                                        <p>{el.Answer}</p>
-                                    </li>
-                                </ul>
-                            </li>
-                        ))
-                    }
+                    {faqContainer.map((el) => (
+                        <li className="Qbox">
+                            {el.Question}
+                            <ul className="Abox">
+                                <li>
+                                    <p>{el.Answer}</p>
+                                </li>
+                            </ul>
+                        </li>
+                    ))}
                 </ul>
             </div>
         );
@@ -72,38 +72,39 @@ const page = {
     title: 'faq',
     korTitle: 'FAQ',
     scope: ['전체', '홈페이지 관련', '제품 관련'],
-}
+};
 
 const items = [
     {
-        scope: "1",
-        title: "faq1",
-        contents: "faq1",
+        scope: '1',
+        title: 'faq1',
+        contents: 'faq1',
     },
     {
-        scope: "2",
-        title: "faq2",
-        contents: "faq2",
+        scope: '2',
+        title: 'faq2',
+        contents: 'faq2',
     },
     {
-        scope: "3",
-        title: "faq3",
-        contents: "faq3",
+        scope: '3',
+        title: 'faq3',
+        contents: 'faq3',
     },
-]
+];
 
 const faqContainer = [
     {
-        Question: "아이디와 비밀번호가 기억나지 않아요.",
-        Answer: "로그인 화면에서 아이디 찾기/비밀번호 찾기를 통해 확인 가능합니다.",
+        Question: '아이디와 비밀번호가 기억나지 않아요.',
+        Answer: '로그인 화면에서 아이디 찾기/비밀번호 찾기를 통해 확인 가능합니다.',
     },
     {
-        Question: "상품을 받았는데 환불하고 싶어요.",
-        Answer: "환불은 배송 완료 후 7일 이내일 경우에만 접수 가능합니다.",
-    }, {
-        Question: "품절 된 술들은 언제쯤 재입고 되나요?",
-        Answer: "품절 상품 재입고 여부 및 일정은 정확한 확인이 가능하지 않지만 재입고 알람을 등록하면 알림톡으로 확인 할 수 있습니다.",
+        Question: '상품을 받았는데 환불하고 싶어요.',
+        Answer: '환불은 배송 완료 후 7일 이내일 경우에만 접수 가능합니다.',
     },
-]
+    {
+        Question: '품절 된 술들은 언제쯤 재입고 되나요?',
+        Answer: '품절 상품 재입고 여부 및 일정은 정확한 확인이 가능하지 않지만 재입고 알람을 등록하면 알림톡으로 확인 할 수 있습니다.',
+    },
+];
 
 export default FAQ;

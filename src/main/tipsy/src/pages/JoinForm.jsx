@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/JoinForm.scss';
+import { Link } from 'react-router-dom';
 
 function JoinForm() {
     return (
@@ -176,7 +177,7 @@ const JoinBox = () => {
                                         size="10px"
                                         readOnly
                                     />
-                                    <a href="#">우편번호</a>
+                                    <Link to="#">우편번호</Link>
                                     <br />
                                     <input
                                         type="text"

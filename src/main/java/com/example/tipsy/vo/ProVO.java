@@ -13,8 +13,8 @@ public class ProVO {
 	int p_price;
 	String p_category;
 	String p_alc;
-	String p_div;
-	String p_str;
+	String p_sweet;
+	String p_sour;
 	String p_regdate;
 //	Date p_regdate;
 	String p_img;
