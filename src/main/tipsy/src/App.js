@@ -1,27 +1,40 @@
 import './App.css';
+import React, { useState, useNavigate } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Main from './components/Main';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { BrowserRouter, HashRouter } from 'react-router-dom';
-function App() {
-    const [user_ID, setUser_ID] = useState();
-    const [user_password, setUser_password] = useState();
+import axios from 'axios';
 
-    useEffect(() => {
+function App() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 저장하는 상태 변수
+
+    const handleLogin = () => {
+        // 로그인 상태 변경 로직
+        setIsLoggedIn(true);
+    };
+
+    const handleLogout = () => {
         axios
-            .get('')
-            .then(() => {})
-            .catch(() => {});
-    });
+            .get('/user/logout')
+            .then((response) => {
+                console.log('로그아웃 성공');
+                setIsLoggedIn(false);
+            })
+            .catch((error) => {
+                console.error('로그아웃 실패');
+            });
+    };
 
     return (
         <>
             <div className="App">
                 <BrowserRouter>
-                    <Header />
-                    <Main />
+                    <Header
+                        isLoggedIn={isLoggedIn}
+                        handleLogout={handleLogout}
+                    />
+                    <Main handleLogin={handleLogin} />
                     <Footer />
                 </BrowserRouter>
             </div>

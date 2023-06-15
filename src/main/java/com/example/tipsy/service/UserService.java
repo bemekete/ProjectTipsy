@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface UserService {
 	List<UserVO> selectList();
+
+	UserVO selectOne(UserVO vo);
 }

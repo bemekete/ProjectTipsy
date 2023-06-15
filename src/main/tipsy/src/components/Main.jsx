@@ -22,15 +22,18 @@ import Shopbasket from '../pages/Shopbasket/Shopbasket';
 import Alcstyletest from '../pages/Alcstyletest';
 import Map from '../pages/Map/Map';
 
-function Main() {
+function Main({ handleLogin }) {
     return (
         <>
             <div>
                 <Routes>
-                    <Route path="/home" element={<Home />} />
+                    <Route path="/" element={<Home />} />
                     <Route path="/mainpage" element={<Mainpage />} />
                     <Route path="/detail" element={<Detail />} />
-                    <Route path="/login" element={<Login />} />
+                    <Route
+                        path="/login"
+                        element={<Login handleLogin={handleLogin} />}
+                    />
                     <Route path="/join" element={<Join />} />
                     <Route path="/joinform" element={<JoinForm />} />
                     <Route path="/mypage" element={<Mypage />} />

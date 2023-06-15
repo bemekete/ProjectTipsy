@@ -1,8 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom/dist';
 import '../styles/Header.scss';
 
-function header() {
+function header({ isLoggedIn, handleLogout }) {
     return (
         <>
             <div className="headertop_cover">
@@ -12,18 +11,36 @@ function header() {
                     </a>
                     <div className="serviceTab">
                         <ul className="serviceTabList">
-                            <li>
-                                <Link to="/login">로그인</Link>
-                            </li>
-                            <li>
-                                <Link to="/join">회원가입</Link>
-                            </li>
-                            <li>
-                                <Link to="/shopbasket">장바구니</Link>
-                            </li>
-                            <li>
-                                <Link to="/customerpage">고객지원</Link>
-                            </li>
+                            {isLoggedIn ? (
+                                <>
+                                    <li>
+                                        <Link to="/" onClick={handleLogout}>
+                                            로그아웃
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/shopbasket">장바구니</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/customerpage">고객지원</Link>
+                                    </li>
+                                </>
+                            ) : (
+                                <>
+                                    <li>
+                                        <Link to="/login">로그인</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/join">회원가입</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/shopbasket">장바구니</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/customerpage">고객지원</Link>
+                                    </li>
+                                </>
+                            )}
                         </ul>
                     </div>
                 </div>

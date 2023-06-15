@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/Login.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-function Login() {
+function Login({ handleLogin }) {
+    const navigate = useNavigate();
     return (
         <>
             {/* <!-- ================================================= main =============================================== --> */}
             <main id="login_main">
                 <div id="login_wrap">
                     <div id="login_container">
-                        <LoginForm />
+                        <LoginForm
+                            navigate={navigate}
+                            handleLogin={handleLogin}
+                        />
                         <SNSLogin />
                     </div>
                 </div>
@@ -21,17 +26,46 @@ function Login() {
 export default Login;
 
 ///////////////////////////////////// 기본 로그인 /////////////////////////////////////
-const LoginForm = () => {
+const LoginForm = ({ navigate, handleLogin }) => {
+    const [inputId, setInputId] = useState('');
+    const [inputPw, setInputPw] = useState('');
+
+    const handleInputId = (e) => {
+        setInputId(e.target.value);
+    };
+    const handleInputPw = (e) => {
+        setInputPw(e.target.value);
+    };
+
+    const onClickLogin = (e) => {
+        e.preventDefault();
+
+        // 서버에 로그인 요청을 보냅니다.
+        axios
+            .post('/user/login', { id: inputId, password: inputPw })
+            .then((response) => {
+                // 로그인 성공 시 처리할 작업을 수행합니다.
+                console.log('로그인 성공');
+                handleLogin();
+                navigate('/');
+            })
+            .catch((error) => {
+                // 로그인 실패 시 처리할 작업을 수행합니다.
+                alert('로그인실패 - 다시 ㄱㄱ');
+                console.error('로그인 실패');
+            });
+    };
+
     return (
         <>
             <form
-                action="../index.html"
+                onSubmit={onClickLogin}
                 id="login_form"
                 className="login_form"
-                method="post"
+                method="POST"
             >
                 <div className="login_tit">
-                    <Link to="/" className="login_logo">
+                    <Link to="/home" className="login_logo">
                         tipsy
                     </Link>
                 </div>
@@ -42,8 +76,10 @@ const LoginForm = () => {
                                 className="login_input"
                                 type="text"
                                 id="login_id"
-                                name="login_id"
+                                name="id"
                                 placeholder="아이디를 입력하세요."
+                                value={inputId}
+                                onChange={handleInputId}
                             />
                         </li>
                     </ul>
@@ -53,8 +89,10 @@ const LoginForm = () => {
                                 className="login_input"
                                 type="password"
                                 id="login_pw"
-                                name="login_pw"
+                                name="password"
                                 placeholder="비밀번호를 입력하세요."
+                                value={inputPw}
+                                onChange={handleInputPw}
                             />
                         </li>
                     </ul>
@@ -84,7 +122,7 @@ const LoginForm = () => {
                     <span>
                         <strong>아직 회원이 아니신가요?</strong>
                         &nbsp;
-                        <Link to="../join/join.html" className="find2">
+                        <Link to="/join" className="find2">
                             <strong>회원가입</strong>
                         </Link>
                     </span>
