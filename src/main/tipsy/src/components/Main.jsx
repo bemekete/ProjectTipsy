@@ -21,6 +21,8 @@ import CreateOrder from '../pages/CreateOrder';
 import Shopbasket from '../pages/Shopbasket/Shopbasket';
 import Alcstyletest from '../pages/Alcstyletest';
 import Map from '../pages/Map/Map';
+import Adminpage from '../pages/AdminPage/Adminpage';
+import { UserModify } from '../pages/AdminPage/UserModify';
 
 function Main() {
     return (
