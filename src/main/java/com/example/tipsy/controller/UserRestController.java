@@ -5,9 +5,7 @@ import com.example.tipsy.vo.UserVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +23,9 @@ public class UserRestController {
 
         return service.selectList();
     }
+    @PostMapping("/join")
+    public int joinUser(@RequestParam UserVO vo){
 
+        return service.joinUser(vo);
+    }
 }
