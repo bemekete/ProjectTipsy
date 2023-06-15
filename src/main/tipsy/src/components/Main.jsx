@@ -21,15 +21,13 @@ import CreateOrder from '../pages/CreateOrder';
 import Shopbasket from '../pages/Shopbasket/Shopbasket';
 import Alcstyletest from '../pages/Alcstyletest';
 import Map from '../pages/Map/Map';
-import Adminpage from '../pages/AdminPage/Adminpage';
-import { UserModify } from '../pages/AdminPage/UserModify';
 
 function Main() {
     return (
         <>
             <div>
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home />} />
                     <Route path="/mainpage" element={<Mainpage />} />
                     <Route path="/detail" element={<Detail />} />
                     <Route path="/login" element={<Login />} />

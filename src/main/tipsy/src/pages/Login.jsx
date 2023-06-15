@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/Login.scss';
+import { Link } from 'react-router-dom';
 
 function Login() {
     return (
@@ -30,9 +31,9 @@ const LoginForm = () => {
                 method="post"
             >
                 <div className="login_tit">
-                    <a href="/" className="login_logo">
+                    <Link to="/" className="login_logo">
                         tipsy
-                    </a>
+                    </Link>
                 </div>
                 <div className="login_text">
                     <ul>
@@ -69,23 +70,23 @@ const LoginForm = () => {
                 </div>
                 <div className="find_div">
                     <span>
-                        <a href="/findid" className="find">
+                        <Link to="/findid" className="find">
                             <strong>아이디찾기 &#124; </strong>
-                        </a>
+                        </Link>
                     </span>
                     <span>
-                        <a href="/findpassword" className="find">
+                        <Link to="/findpassword" className="find">
                             <strong>비밀번호찾기</strong>
-                        </a>
+                        </Link>
                     </span>
                 </div>
                 <div>
                     <span>
                         <strong>아직 회원이 아니신가요?</strong>
                         &nbsp;
-                        <a href="../join/join.html" className="find2">
+                        <Link to="../join/join.html" className="find2">
                             <strong>회원가입</strong>
-                        </a>
+                        </Link>
                     </span>
                 </div>
             </form>
@@ -100,31 +101,31 @@ const SNSLogin = () => {
             <div className="sns_login">
                 <div className="sns_login_tit">SNS 로그인</div>
                 <div>
-                    <a href="https://accounts.kakao.com/login/?continue=https%3A%2F%2Fmail.kakao.com%2F">
+                    <Link to="https://accounts.kakao.com/login/?continue=https%3A%2F%2Fmail.kakao.com%2F">
                         <img
                             className="sns_login_img"
                             src={require('../assets/login_img/kakao_login_icon.png')}
                             alt="카카오 로그인"
                         />
-                    </a>
+                    </Link>
                 </div>
                 <div>
-                    <a href="https://nid.naver.com/nidlogin.login">
+                    <Link to="https://nid.naver.com/nidlogin.login">
                         <img
                             className="sns_login_img"
                             src={require('../assets/login_img/naver_login_icon.png')}
                             alt="네이버 로그인"
                         />
-                    </a>
+                    </Link>
                 </div>
                 <div>
-                    <a href="https://accounts.google.com/accountchooser/identifier?checkedDomains=youtube&dsh=S486541525%3A1672737939199566&flowEntry=AccountChooser&flowName=GlifWebSignIn&hl=ko&ifkv=AeAAQh4DnVYnd_O3p6ugUPFpl0JlJzD23WIxi8cpZoMsU6rAWSabyk3Hp9rjCAGLV3jna0WNq5B3nw&pstMsg=1">
+                    <Link to="https://accounts.google.com/accountchooser/identifier?checkedDomains=youtube&dsh=S486541525%3A1672737939199566&flowEntry=AccountChooser&flowName=GlifWebSignIn&hl=ko&ifkv=AeAAQh4DnVYnd_O3p6ugUPFpl0JlJzD23WIxi8cpZoMsU6rAWSabyk3Hp9rjCAGLV3jna0WNq5B3nw&pstMsg=1">
                         <img
                             className="sns_login_img2"
                             src={require('../assets/login_img/google_login_icon.png')}
                             alt="구글 로그인"
                         />
-                    </a>
+                    </Link>
                 </div>
             </div>
         </>

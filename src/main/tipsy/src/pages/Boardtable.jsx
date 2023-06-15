@@ -1,4 +1,5 @@
 import '../styles/Boardtable.scss';
+import { Link } from 'react-router-dom';
 
 function Boardtable({ page, items }) {
     return (
@@ -11,7 +12,7 @@ function Boardtable({ page, items }) {
                 </div>
             </div>
         </>
-    )
+    );
 
     //=================================================================
     //=================================================================
@@ -27,10 +28,18 @@ function BoardSearch() {
         <div className="board_search">
             <form action="#">
                 <label>
-                    <input type="text" name="Search_board" id="Search_board" placeholder="검색어를 입력하세요" />
+                    <input
+                        type="text"
+                        name="Search_board"
+                        id="Search_board"
+                        placeholder="검색어를 입력하세요"
+                    />
                 </label>
                 <button type="submit">
-                    <img src={require('../assets/notice_img/noun-search-687065.png')} alt="" />
+                    <img
+                        src={require('../assets/notice_img/noun-search-687065.png')}
+                        alt=""
+                    />
                 </button>
             </form>
         </div>
@@ -46,7 +55,7 @@ function BoardScope({ page, items }) {
                 <BoardTable items={items} />
                 <PageButton />
             </div>
-        </div >
+        </div>
     );
 }
 
@@ -54,16 +63,14 @@ function ScopeBox({ page }) {
     return (
         <div className="board_scope">
             <ul>
-                {
-                    page.scope.map((item) => (
-                        <li className='board_scope_box'>
-                            <a href='#'>{item}</a>
-                        </li>
-                    ))
-                }
+                {page.scope.map((item) => (
+                    <li className="board_scope_box">
+                        <Link to="#">{item}</Link>
+                    </li>
+                ))}
             </ul>
         </div>
-    )
+    );
 }
 
 function BoardTable({ items }) {
@@ -96,12 +103,16 @@ function BodyTable({ items }) {
     return items.map((item, i) => (
         <tr key={'boarditem' + i}>
             <th scope="row">
-                <span>{item.scope}</span></th>
+                <span>{item.scope}</span>
+            </th>
             <td className="contents">
                 <details>
                     <summary>
                         <span>{item.title}</span>
-                        <img src={require('../assets/notice_img/down.svg')} alt="" />
+                        <img
+                            src={require('../assets/notice_img/down.svg')}
+                            alt=""
+                        />
                     </summary>
                 </details>
                 <div className="innerCon">
@@ -109,7 +120,7 @@ function BodyTable({ items }) {
                 </div>
             </td>
         </tr>
-    ))
+    ));
 }
 
 function PageButton() {
@@ -117,11 +128,10 @@ function PageButton() {
         <div className="board_page_button">
             {/* <!-- <-1,2,3-> 버튼 --> */}
             <b>
-                <a href="#">1</a>
+                <Link to="#">1</Link>
             </b>
         </div>
     );
 }
-
 
 export { BoardTitle, BoardSearch, BoardScope, Boardtable, PageButton };

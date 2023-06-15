@@ -1,6 +1,5 @@
 import React from 'react';
 import '../styles/Join.scss';
-import joinform from '../pages/JoinForm';
 
 function Join() {
     return (
@@ -308,7 +307,7 @@ const JoinBox = () => {
                 </div>
                 <div className="agree_submit">
                     <button type="reset">취소</button>
-                    <button 
+                    <button
                         onClick={() => {
                             window.location.href = '/JoinForm';
                         }}
