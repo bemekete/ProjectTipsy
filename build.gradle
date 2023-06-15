@@ -20,9 +20,9 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.12'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
     implementation 'mysql:mysql-connector-java:8.0.32'
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.12'
     compileOnly 'org.projectlombok:lombok:1.18.26'
     developmentOnly 'org.springframework.boot:spring-boot-devtools:2.7.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'

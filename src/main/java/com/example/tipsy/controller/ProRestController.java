@@ -18,9 +18,16 @@ public class ProRestController {
 
 	ProService service;
 
+//	상품 목록
 	@GetMapping("/selectpro")
 	public List<ProVO> selectPro() {
 		return service.productList();
 	}
 
+//	상품 상세(디테일)
+	@GetMapping("/detailpro")
+	public ProVO detailPro(ProVO vo){
+		vo = service.detailPro(vo);
+		return vo;
+	}
 }
