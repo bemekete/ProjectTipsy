@@ -1,0 +1,99 @@
+/* ############################# ===== main ===== ################################# ========================================== */
+#notice_main {
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+#notice_maincontainer {
+    text-align: center;
+
+
+    /* notice text */
+    .notice_first_text {
+        font-size: 30px;
+        margin: 50px;
+    }
+
+    /* notice search */
+
+    .notice_search {
+        display: inline-block;
+        width: 570px;
+        line-height: 80px;
+        margin: 10px;
+    }
+
+    .notice_search form {
+        border-bottom: 1px solid;
+        height: 65px;
+    }
+
+    .notice_search input {
+        border: none;
+        width: 500px;
+        height: 40px;
+        padding: 0 5px;
+        font-size: 20px;
+    }
+
+    .notice_search button {
+        border: none;
+        background: none;
+    }
+
+    .notice_search button img {
+        height: 40px;
+        vertical-align: middle;
+        opacity: .7;
+    }
+
+    /* ======================# main 문의 #================================================== */
+    /* 문의(notice) box */
+    #notice_main a:not([href*='#']) {
+        background-color: white;
+    }
+
+    .notice_box {
+        display: flex;
+        width: 100%;
+        margin: 30px 0;
+    }
+
+    .notice_box ul {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .notice_box ul li {
+        display: flex;
+        border: 1px solid;
+        box-sizing: border-box;
+    }
+
+    .notice_box a {
+        display: flex;
+
+        /* 이거 안먹음 왜지 뭐야 width랑 height 여기에 주니까 됨*/
+        justify-content: center;
+        align-items: center;
+
+        width: 150px;
+        height: 50px;
+    }
+
+    .notice_box1 {
+        margin-right: 5px;
+        /* 페이지 여러게 없어서 box1로 지정해줌 배경색 */
+        background-color: #f1f1f1eb;
+    }
+
+    .notice_box3,
+    .notice_box4 {
+        margin-left: 5px;
+    }
+
+    /* 문의 box 클릭시 이동 후 높이 */
+
+    /* 구분, 제목 및 제품문의 */
+}

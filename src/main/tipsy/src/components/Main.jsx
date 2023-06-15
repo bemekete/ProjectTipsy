@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Home from '../pages/HomePage/Home';
 import Mainpage from '../pages/Mainpage';
@@ -33,7 +33,7 @@ function Main() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/join" element={<Join />} />
                     <Route path="/joinform" element={<JoinForm />} />
-                    <Route path="/mypage/:data" element={<Mypage />} />
+                    <Route path="/mypage" element={<Mypage />} />
                     <Route
                         path="/customerpage"
                         element={<Customerpage />}

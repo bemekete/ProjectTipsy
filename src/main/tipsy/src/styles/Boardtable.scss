@@ -1,79 +1,8 @@
-/* ############################# ===== main ===== ################################# ========================================== */
-#board_main {
+.board_table_main {
     max-width: 1240px;
     margin: 0 auto;
-}
+    white-space: pre-wrap;
 
-#board_maincontainer {
-    text-align: center;
-
-    /* board text */
-    .board_first_text {
-        font-size: 30px;
-        margin: 50px;
-    }
-
-    /* ======================# main 문의 #================================================== */
-
-
-    /* board search */
-    .board_search {
-        display: inline-block;
-        width: 570px;
-        line-height: 80px;
-        margin: 10px;
-    }
-
-    .board_search form {
-        border-bottom: 1px solid;
-        height: 65px;
-    }
-
-    .board_search input {
-        border: none;
-        width: 500px;
-        height: 40px;
-        padding: 0 5px;
-        font-size: 20px;
-    }
-
-    .board_search button {
-        border: none;
-        background: none;
-    }
-
-    .board_search button img {
-        height: 40px;
-        vertical-align: middle;
-        opacity: .7;
-    }
-
-    /* ======================# table Scope BOX #================================================== */
-    /* board Scope box */
-    .board_scope {
-        margin: 30px 0;
-    }
-
-    .board_scope ul {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-    }
-
-    .board_scope ul li {
-        border: 1px solid;
-        box-sizing: border-box;
-    }
-
-    .board_scope a {
-        display: inline-block;
-        width: 150px;
-        height: 50px;
-        line-height: 50px;
-    }
-
-
-    /* ======================# table #================================================== */
     .board_table {
         width: 90%;
         margin: auto;

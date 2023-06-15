@@ -9,5 +9,6 @@ public interface ProductMapper {
     @Select(value = "select * from product")
     List<ProVO> productList();
 
-    ProVO detailPro(ProVO vo);
+
+
 }
