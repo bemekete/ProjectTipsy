@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 
 import { Boardtable } from './Boardtable';
 
 export default function Notice() {
+    useEffect(() => {
+        axios.get("/boardlist")
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }, [])
+
     return (
         <Boardtable page={page} items={items} />
     );

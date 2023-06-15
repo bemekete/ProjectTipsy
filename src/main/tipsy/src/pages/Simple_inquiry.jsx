@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import '../styles/Simple_inquiry.scss';
 
 export default function Simple_inquiry() {
+
     return (
         <div id="simple_inquiry">
             <div id="simple_inquiry_container">
