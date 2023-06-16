@@ -1,7 +1,7 @@
 /* ############################# ===== main ===== ################################# ========================================== */
 /* FAQ text */
-#FAQ_main {
-    #faq_maincontainer {
+#Board_main {
+    #board_maincontainer {
         max-width: 1240px;
         text-align: center;
         margin: 0 auto;
@@ -38,12 +38,14 @@
         margin: 40px;
     }
 
-    .Qbox_container>ul {
-        /* display: flex; */
+    .Qbox_container > ul {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
         white-space: nowrap;
     }
 
-    .Qbox_container>ul>li {
+    .Qbox_container > ul > li {
         display: inline-block;
         background-color: #adc6dbfd;
         height: 100px;
@@ -54,7 +56,7 @@
         line-height: 100px;
     }
 
-    .Qbox_container>ul>li>ul {
+    .Qbox_container > ul > li > ul {
         background-color: rgb(248, 248, 248);
         width: 100%;
         position: absolute;
@@ -65,23 +67,15 @@
         display: none;
     }
 
-    .Qbox_container>ul>li>ul li {
+    .Qbox_container > ul > li > ul li {
         margin: 20px;
     }
 
-    .Qbox_container>ul>li:hover ul {
+    .Qbox_container > ul > li:hover ul {
         display: block;
     }
 
-    .Qbox1 {
-        margin-right: 20px;
-    }
-
-    .Qbox3 {
-        margin-left: 20px;
-    }
-
-    .Qbox_container>ul>li::before {
+    .Qbox_container > ul > li::before {
         content: 'Q.';
         font-size: 1.2em;
         font-weight: bold;
@@ -99,7 +93,7 @@
         /* word-break: break-all; */
     }
 
-    .Qbox_container>ul>li>ul>li p::before {
+    .Qbox_container > ul > li > ul > li p::before {
         content: 'A.';
         font-size: 1.2em;
         font-weight: bold;
