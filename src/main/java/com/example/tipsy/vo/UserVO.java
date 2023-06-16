@@ -15,5 +15,4 @@ public class UserVO {
 	String address_2;
 	String email;
 	int point;
-
 }

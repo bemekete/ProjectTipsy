@@ -17,4 +17,9 @@ public class UserDAOImpl implements UserDAO {
 	public List<UserVO> selectList() {
 		return mapper.selectList();
 	}
+
+	@Override
+	public UserVO selectOne(UserVO vo){
+		return mapper.selectOne(vo);
+	};
 }
