@@ -7,21 +7,21 @@ import Boardtable from './Boardtable';
 function FAQ() {
     const items = [
         {
-            scope: "1",
-            title: "faq1",
-            contents: "faq1",
+            scope: '1',
+            title: 'faq1',
+            contents: 'faq1',
         },
         {
-            scope: "2",
-            title: "faq2",
-            contents: "faq2",
+            scope: '2',
+            title: 'faq2',
+            contents: 'faq2',
         },
         {
-            scope: "3",
-            title: "faq3",
-            contents: "faq3",
+            scope: '3',
+            title: 'faq3',
+            contents: 'faq3',
         },
-    ]
+    ];
 
     return (
         <>
@@ -126,19 +126,19 @@ function FAQ() {
                                 {/* <!-- 전체 문의, 홈페이지 문의, 제품 문의, A/S문의, 이전 설치 --> */}
                                 <ul>
                                     <li className="inquiry_box1">
-                                        <a href="#">전체 문의</a>
+                                        <Link to="#">전체 문의</Link>
                                     </li>
 
                                     <li className="inquiry_box2">
-                                        <a href="./inquiry_box2.html">
+                                        <Link to="./inquiry_box2.html">
                                             홈페이지 문의
-                                        </a>
+                                        </Link>
                                     </li>
 
                                     <li className="inquiry_box3">
-                                        <a href="./inquiry_box3.html">
+                                        <Link to="./inquiry_box3.html">
                                             제품 문의
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>

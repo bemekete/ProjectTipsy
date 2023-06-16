@@ -18,4 +18,8 @@ public class ProServiceImpl implements ProService {
 		return dao.productList();
 	}
 
+	@Override
+	public ProVO detailPro(ProVO vo) {
+		return dao.detailPro(vo);
+	}
 }

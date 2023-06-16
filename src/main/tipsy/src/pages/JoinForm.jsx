@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/JoinForm.scss';
-import axios from "axios";
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 export default JoinForm;
 
@@ -17,6 +17,9 @@ function JoinForm() {
         </>
     );
 }
+export default JoinForm;
+
+const fetchData = async (userData) => {
 // 서버에 데이터 전송
 const fetchData = async (userData)=>{
     try {
@@ -31,45 +34,44 @@ const fetchData = async (userData)=>{
 };
 
 const JoinBox = () => {
-
-    const [userData,setUserData] = useState({});
+    const [userData, setUserData] = useState({});
     const [phoneNum, setPhoneNum] = useState({
-        firstNum : "",
-        secondNum : "",
-        lastNum : "",
+        firstNum: '',
+        secondNum: '',
+        lastNum: '',
     });
 
-    const phoneFunc =  (e)=>{
-        const {name,value} = e.target;
-             setPhoneNum((phoneData)=>({
-                ...phoneData,
-                [name] : value,
-            }));
-    }
-
-    useEffect(()=>{
-        setUserData((data)=>({
-            ...data,
-            phone :`${phoneNum.firstNum}-${phoneNum.secondNum}-${phoneNum.lastNum}`
+    const phoneFunc = (e) => {
+        const { name, value } = e.target;
+        setPhoneNum((phoneData) => ({
+            ...phoneData,
+            [name]: value,
         }));
-    },[phoneNum]);
+    };
 
-    const handleChange = (e)=>{
-        const {name: varName, value : varValue} = e.target;
-        setUserData((data)=>({
+    useEffect(() => {
+        setUserData((data) => ({
             ...data,
-            [varName] : varValue,
-        }))
-    }
+            phone: `${phoneNum.firstNum}-${phoneNum.secondNum}-${phoneNum.lastNum}`,
+        }));
+    }, [phoneNum]);
 
-    const dataSubmit = async (e)=>{
+    const handleChange = (e) => {
+        const { name: varName, value: varValue } = e.target;
+        setUserData((data) => ({
+            ...data,
+            [varName]: varValue,
+        }));
+    };
+
+    const dataSubmit = async (e) => {
         e.preventDefault();
         await fetchData(userData);
     };
 
     return (
         <>
-            <form onSubmit={dataSubmit} className="joinbox" method='POST'>
+            <form onSubmit={dataSubmit} className="joinbox" method="POST">
                 <p>
                     <span>*</span> 필수 입력 사항
                 </p>
@@ -141,7 +143,11 @@ const JoinBox = () => {
                                     비밀번호 확인 질문 <span>*</span>
                                 </th>
                                 <td>
-                                    <select name="password_q" onChange={handleChange} required>
+                                    <select
+                                        name="password_q"
+                                        onChange={handleChange}
+                                        required
+                                    >
                                         <option value="pswQ1">
                                             기억에 남는 추억의 장소는?
                                         </option>
@@ -258,8 +264,10 @@ const JoinBox = () => {
                                     휴대전화 <span>*</span>
                                 </th>
                                 <td>
-                                    <select name="firstNum"
-                                            onChange={phoneFunc} >
+                                    <select
+                                        name="firstNum"
+                                        onChange={phoneFunc}
+                                    >
                                         <option value="선택">선택</option>
                                         <option value="010">010</option>
                                         <option value="011">011</option>
@@ -319,5 +327,4 @@ const JoinBox = () => {
             </form>
         </>
     );
-}
-
+};

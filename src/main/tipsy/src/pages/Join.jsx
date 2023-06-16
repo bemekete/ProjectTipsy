@@ -363,10 +363,8 @@ function Join() {
                                 />
                             </div>
                             <div className="agree_submit">
-                                <Link className="Link" to="/">취소</Link>
-                                <Link className="Link" to="/JoinForm" >
-                                    확인
-                                </Link>
+                                <button type="button">취소</button>
+                                <button type="submit">확인</button>
                             </div>
                         </form>
                     </div>

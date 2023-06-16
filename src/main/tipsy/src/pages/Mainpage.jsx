@@ -1,22 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/Mainpage.scss';
 import axios from 'axios';
 import {Link} from "react-router-dom";
 function Mainpage() {
-
-
-    const [productCnt, setProductCnt] = useState(0);
-
-    useEffect(() => {
-        axios.get("/product/selectpro")
-            .then((data) => {
-                setProductCnt(data.data.length);
-            }).catch(() => {
-            })
-    }, [])
-
-
-
     return (
         <>
             <div className="location_wrap">
@@ -42,44 +29,22 @@ export default Mainpage;
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
 function Content() {
-    const [products, setProducts] = useState([
-        {
-            id: 1,
-            imgUrl: require('../assets/mainpage_img/cheongju1.jpg'),
-            title: '천비향 약주',
-            price: '30,400원',
-        },
-        {
-            id: 2,
-            imgUrl: require('../assets/mainpage_img/sidemenu1.jpg'),
-            title: '직화 무뼈 닭발 160g',
-            price: '6,900원',
-        },
-        {
-            id: 3,
-            imgUrl: require('../assets/mainpage_img/fruit1.jpg'),
-            title: '장수 오미자주 4병 선물세트',
-            price: '26,100원',
-        },
-        {
-            id: 4,
-            imgUrl: require('../assets/mainpage_img/makgeolli1.jpg'),
-            title: '나루 생 막걸리 11.5% [3병/8병]',
-            price: '29,700원',
-        },
-        {
-            id: 5,
-            imgUrl: require('../assets/mainpage_img/soju1.png'),
-            title: '진맥소주 22%',
-            price: '22,000원',
-        },
-        {
-            id: 6,
-            imgUrl: require('../assets/mainpage_img/wine1.jpg'),
-            title: '오미로제 프리미어 와인 선물세트',
-            price: '51,000원',
-        },
-    ]);
+    const [product, setProduct] = useState([]);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('/product/selectpro');
+            setProduct(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    console.log(product.length);
 
     const [visibleProductCount, setVisibleProductCount] = useState(6);
     const [topSort, setTopSort] = useState('인기순');
@@ -87,16 +52,16 @@ function Content() {
     //////////////////////// 상단에 상품 개수 나타내기 ////////////////////////
     useEffect(() => {
         const listLeng = document.querySelector('.listLeng');
-        listLeng.innerHTML = `<p>총 <b>${products.length}</b>개의 상품이 있습니다.</p>`;
+        listLeng.innerHTML = `<p>총 <b>${product.length}</b>개의 상품이 있습니다.</p>`;
     }, []);
 
     //////////////////////// 더보기버튼 이벤트 ////////////////////////
     const handleBtnMoreClick = (e) => {
         e.preventDefault();
-        if (visibleProductCount + 6 <= products.length) {
+        if (visibleProductCount + 6 <= product.length) {
             setVisibleProductCount(visibleProductCount + 6);
         } else {
-            setVisibleProductCount(products.length);
+            setVisibleProductCount(product.length);
         }
     };
 
@@ -148,25 +113,25 @@ function Content() {
                     </ul>
                 </div>
                 <ul id="productList" className="list">
-                    {products.slice(0, visibleProductCount).map((product) => (
-                        <li key={product.id}>
-                            <a href="/detail">
+                    {product.slice(0, visibleProductCount).map((product) => (
+                        <li key={product.p_seq}>
+                            <Link to="/detail">
                                 <div className="img">
                                     <img
-                                        src={product.imgUrl}
+                                        src={product.p_img}
                                         alt="상품 이미지"
                                     />
                                 </div>
                                 <div className="tit">
-                                    <p>{product.title}</p>
+                                    <p>{product.p_name}</p>
                                 </div>
-                                <p className="price">{product.price}</p>
-                            </a>
+                                <p className="price">{product.p_price}원</p>
+                            </Link>
                         </li>
                     ))}
                 </ul>
             </div>
-            {visibleProductCount < products.length ? (
+            {visibleProductCount < product.length ? (
                 <BtnMore onClick={handleBtnMoreClick} />
             ) : null}
         </>
