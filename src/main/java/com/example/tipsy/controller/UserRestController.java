@@ -26,7 +26,6 @@ public class UserRestController {
 
         return service.selectList();
     }
-
     @PostMapping("/join")
     public int joinUser(@RequestBody UserVO vo){
         return service.joinUser(vo);

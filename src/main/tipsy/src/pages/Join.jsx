@@ -1,8 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
 import '../styles/Join.scss';
 import JoinForm from "./JoinForm";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 function Join() {
+    const navigate = useNavigate();
+    const [isCheckedAll, setIsCheckedAll] = useState(false);
+    const [checkItems, setCheckItems] = useState([]);
+
+    const data = [
+        { id: 1 },
+        { id: 2 },
+        { id: 3 },
+        // ... 추가적인 데이터 아이템들
+    ];
+
+    const handleAllCheck = (checked) => {
+        if (checked) {
+            const idArray = data.map((el) => el.id);
+            setCheckItems(idArray);
+        } else {
+            setCheckItems([]);
+        }
+        setIsCheckedAll(checked);
+    };
+
+    const handleItemCheck = (itemId) => {
+        let updatedItems;
+        if (checkItems.includes(itemId)) {
+            updatedItems = checkItems.filter((item) => item !== itemId);
+        } else {
+            updatedItems = [...checkItems, itemId];
+        }
+        setCheckItems(updatedItems);
+
+        const isAllChecked = updatedItems.length === data.length;
+        setIsCheckedAll(isAllChecked);
+    };
+
     return (
         <>
             <div id="join_container">
@@ -10,7 +44,7 @@ function Join() {
                 <div id="contents">
                     <div className="joinbox">
                         <p>약관 동의</p>
-                        <form action="/joinform">
+                        <form>
                             <div className="agree all">
                                 <label htmlFor="agree_all">
                                     회원가입 약관을 모두 확인했습니다.
@@ -20,7 +54,8 @@ function Join() {
                                     name="register_agree"
                                     id="agree_all"
                                     value="agree_all"
-                                    // onClick=""
+                                    onChange={(e) => handleAllCheck(e.target.checked)}
+                                    checked={isCheckedAll}
                                 />
                             </div>
                             <div className="agree use">
@@ -32,7 +67,8 @@ function Join() {
                                     name="register_agree"
                                     id="agree_use"
                                     value="agree_use"
-                                    required
+                                    onChange={() => handleItemCheck(data.id)}
+                                    checked={checkItems.includes(data.id)}
                                 />
                             </div>
                             <div className="termOfRegister">
@@ -81,7 +117,9 @@ function Join() {
                                     name="register_agree"
                                     id="agree_personal"
                                     value="agree_personal"
-                                    required
+                                    onChange={() => handleItemCheck(data.id)}
+                                    checked={checkItems.includes(data.id)}
+
                                 />
                             </div>
                             <div className="termOfRegister">
@@ -359,12 +397,13 @@ function Join() {
                                     name="register_agree"
                                     id="agree_age"
                                     value="agree_age"
-                                    required
+                                    onChange={() => handleItemCheck(data.id)}
+                                    checked={checkItems.includes(data.id)}
                                 />
                             </div>
                             <div className="agree_submit">
-                                <button type="button">취소</button>
-                                <button type="submit">확인</button>
+                                <Link className="linkBtn" onClick={()=>navigate(-1)}>취소</Link>
+                                <Link className="linkBtn" to ="/joinform">확인</Link>
                             </div>
                         </form>
                     </div>
