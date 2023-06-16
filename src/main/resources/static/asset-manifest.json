@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.b5fb4fa9.css",
-    "main.js": "/static/js/main.b08996ad.js",
+    "main.css": "/static/css/main.3c525b11.css",
+    "main.js": "/static/js/main.705b57c1.js",
     "static/js/787.0ff01fae.chunk.js": "/static/js/787.0ff01fae.chunk.js",
     "static/media/gift-main.png": "/static/media/gift-main.a0021fa24fc586e2e32a.png",
     "static/media/gift-small.png": "/static/media/gift-small.90345733bc45f07ba753.png",
@@ -14,7 +14,6 @@
     "static/media/event (5).png": "/static/media/event (5).048e3c8c300f2ebf265f.png",
     "static/media/makyo-main.png": "/static/media/makyo-main.e4e853aca7201375c183.png",
     "static/media/anju-main.png": "/static/media/anju-main.bc40802a243ee40a65a5.png",
-    "static/media/soju1.png": "/static/media/soju1.7f1d2550b4743aefeb85.png",
     "static/media/event (4).png": "/static/media/event (4).0cc9a479ee897ac69c1d.png",
     "static/media/slide4.png": "/static/media/slide4.0cc9a479ee897ac69c1d.png",
     "static/media/event (2).png": "/static/media/event (2).e529e06a8c0f4c8e4782.png",
@@ -22,15 +21,11 @@
     "static/media/anju-small.png": "/static/media/anju-small.ccff71b50c8487d64223.png",
     "static/media/event (8).png": "/static/media/event (8).cea58cc071ef6225c04b.png",
     "static/media/event (6).png": "/static/media/event (6).985a57c65b00ac1c64e4.png",
-    "static/media/sidemenu1.jpg": "/static/media/sidemenu1.7f2b855d68a730c6a895.jpg",
     "static/media/crop_logo_black.png": "/static/media/crop_logo_black.5019a8414ddc4929db8a.png",
     "static/media/login_logo2.png": "/static/media/login_logo2.eaae1d57f04f905e605b.png",
     "static/media/makyo-small.jpg": "/static/media/makyo-small.0d9ff6ae29e150463f02.jpg",
     "static/media/1.jpg": "/static/media/1.80b9accbeae403d5c935.jpg",
     "static/media/crop_logo_black2.png": "/static/media/crop_logo_black2.2f375408020a532188c5.png",
-    "static/media/cheongju1.jpg": "/static/media/cheongju1.a3d80b3c56726c1fe287.jpg",
-    "static/media/wine1.jpg": "/static/media/wine1.79d905ccd4dacb121313.jpg",
-    "static/media/fruit1.jpg": "/static/media/fruit1.fa932fab18a81c30f09c.jpg",
     "static/media/gift-text.png": "/static/media/gift-text.7fb85a78eff2ceca0711.png",
     "static/media/naver_login_icon.png": "/static/media/naver_login_icon.69b5671c002be65e1dab.png",
     "static/media/anju-text.png": "/static/media/anju-text.3b006ac8399ebad714df.png",
@@ -43,7 +38,6 @@
     "static/media/noun-shipment-1540091.png": "/static/media/noun-shipment-1540091.27cc3cc3553e6c447b1f.png",
     "static/media/noun-faq-2690303.png": "/static/media/noun-faq-2690303.f703ab1f00d1d442aee2.png",
     "static/media/noun-style-4384241.png": "/static/media/noun-style-4384241.594d38c3d1b1fc28f8bb.png",
-    "static/media/makgeolli1.jpg": "/static/media/makgeolli1.50f9d18ecf6c133c6e8d.jpg",
     "static/media/noun-event-1430234.png": "/static/media/noun-event-1430234.8bc8ae2fc6f969e69adf.png",
     "static/media/noun-search-687065.png": "/static/media/noun-search-687065.f7ba22559423e18c5728.png",
     "static/media/search.png": "/static/media/search.f7ba22559423e18c5728.png",
@@ -56,12 +50,12 @@
     "static/media/arrow-right.svg": "/static/media/arrow-right.570763fb06b0528a09d5.svg",
     "static/media/arrow-left.svg": "/static/media/arrow-left.c2f448c5164d01e45bc2.svg",
     "static/media/down.svg": "/static/media/down.c84a0bfbda313288feb7aed6b2c86394.svg",
-    "main.eb66ef2a.css.map": "/static/css/main.eb66ef2a.css.map",
-    "main.7b217002.js.map": "/static/js/main.7b217002.js.map",
+    "main.3c525b11.css.map": "/static/css/main.3c525b11.css.map",
+    "main.705b57c1.js.map": "/static/js/main.705b57c1.js.map",
     "787.0ff01fae.chunk.js.map": "/static/js/787.0ff01fae.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.eb66ef2a.css",
-    "static/js/main.7b217002.js"
+    "static/css/main.3c525b11.css",
+    "static/js/main.705b57c1.js"
   ]
 }
