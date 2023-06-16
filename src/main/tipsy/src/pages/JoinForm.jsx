@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import '../styles/JoinForm.scss';
 import axios from "axios";
-export default JoinForm;
 import { Link } from 'react-router-dom';
+export default JoinForm;
+
 
 function JoinForm() {
     return (
@@ -21,8 +22,10 @@ const fetchData = async (userData)=>{
     try {
         console.log(userData);
         const response = await axios.post("/user/join",userData);
+        alert("회원가입에 성공하셨습니다.");
         return response.data;
     }catch{
+        alert("회원가입에 실패하셨습니다.");
         console.log("error");
     }
 };
@@ -309,7 +312,7 @@ const JoinBox = () => {
                     </table>
                 </figure>
                 <div className="joinButton">
-                    <button type="submit" >
+                    <button type="submit" onClick={dataSubmit}>
                         회원가입
                     </button>
                 </div>
@@ -318,4 +321,3 @@ const JoinBox = () => {
     );
 }
 
-export default JoinForm;

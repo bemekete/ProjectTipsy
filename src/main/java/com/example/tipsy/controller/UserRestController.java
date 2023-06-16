@@ -2,16 +2,15 @@ package com.example.tipsy.controller;
 
 import com.example.tipsy.service.UserService;
 import com.example.tipsy.vo.UserVO;
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Log4j2
+@RequestMapping("/user")
 public class UserRestController {
     UserService service;
 
@@ -24,5 +23,6 @@ public class UserRestController {
     }
     @PostMapping("/join")
     public int joinUser(@RequestParam UserVO vo){
+        return service.joinUser(vo);
     }
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Mainpage.scss';
 import axios from 'axios';
-
+import {Link} from "react-router-dom";
 function Mainpage() {
 
 

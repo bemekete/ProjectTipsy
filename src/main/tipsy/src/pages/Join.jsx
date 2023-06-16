@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/Join.scss';
-
+import JoinForm from "./JoinForm";
+import {Link} from "react-router-dom";
 function Join() {
     return (
         <>
@@ -362,10 +363,10 @@ function Join() {
                                 />
                             </div>
                             <div className="agree_submit">
-                                <button type="button">취소</button>
-                                <button type="submit" onClick={joinform}>
+                                <Link className="Link" to="/">취소</Link>
+                                <Link className="Link" to="/JoinForm" >
                                     확인
-                                </button>
+                                </Link>
                             </div>
                         </form>
                     </div>

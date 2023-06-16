@@ -62,12 +62,10 @@ function Main({ handleLogin }) {
                         element={<Alcstyletest />}
                     />
                     <Route path="/map" element={<Map />} />
-                    <Route path="/adminpage/:data"
-                        element={<Adminpage />}
-                    />
-                    <Route path="/usermodify" element={<UserModify />} />
+ {/*                   <Route path="/adminpage/:data" element={<Adminpage />}/>
+                    <Route path="/usermodify" element={<UserModify />} />*/}
                 </Routes>
-            </div>
+            </div>k
         </>
     );
 }
