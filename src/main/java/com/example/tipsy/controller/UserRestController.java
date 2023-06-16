@@ -9,13 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
-@AllArgsConstructor
-@Log4j2
 public class UserRestController {
     UserService service;
 
@@ -28,5 +24,5 @@ public class UserRestController {
     }
     @PostMapping("/join")
     public int joinUser(@RequestParam UserVO vo){
-
+    }
 }

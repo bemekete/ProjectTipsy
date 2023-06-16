@@ -1,7 +1,7 @@
 /* ############################# ===== main ===== ################################# ========================================== */
 /* FAQ text */
-#Board_main {
-    #board_maincontainer {
+#FAQ_main {
+    #faq_maincontainer {
         max-width: 1240px;
         text-align: center;
         margin: 0 auto;
@@ -39,9 +39,7 @@
     }
 
     .Qbox_container>ul {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
+        /* display: flex; */
         white-space: nowrap;
     }
 
@@ -73,6 +71,14 @@
 
     .Qbox_container>ul>li:hover ul {
         display: block;
+    }
+
+    .Qbox1 {
+        margin-right: 20px;
+    }
+
+    .Qbox3 {
+        margin-left: 20px;
     }
 
     .Qbox_container>ul>li::before {

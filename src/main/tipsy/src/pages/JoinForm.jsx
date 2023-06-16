@@ -316,4 +316,6 @@ const JoinBox = () => {
             </form>
         </>
     );
-};
+}
+
+export default JoinForm;
