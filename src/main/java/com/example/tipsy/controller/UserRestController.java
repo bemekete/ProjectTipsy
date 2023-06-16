@@ -32,6 +32,7 @@ public class UserRestController {
         return service.joinUser(vo);
     }
 
+    // 로그인
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserVO vo, HttpServletRequest request, Model model){
 
@@ -55,6 +56,7 @@ public class UserRestController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인실패");
     }
 
+    // 로그아웃
     @GetMapping("/logout")
     public ResponseEntity<String> logout(HttpServletRequest request) {
         // 세션 초기화
