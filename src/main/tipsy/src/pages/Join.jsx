@@ -363,9 +363,7 @@ function Join() {
                             </div>
                             <div className="agree_submit">
                                 <button type="button">취소</button>
-                                <button type="submit" onClick={joinform}>
-                                    확인
-                                </button>
+                                <button type="submit">확인</button>
                             </div>
                         </form>
                     </div>

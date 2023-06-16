@@ -1,9 +1,8 @@
-import React from "react";
+import React from 'react';
 import '../styles/Simple_inquiry.scss';
 import { Link } from 'react-router-dom';
 
 export default function Simple_inquiry() {
-
     return (
         <div id="simple_inquiry">
             <div id="simple_inquiry_container">
