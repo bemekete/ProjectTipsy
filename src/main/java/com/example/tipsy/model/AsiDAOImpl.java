@@ -2,7 +2,7 @@ package com.example.tipsy.model;
 
 import com.example.tipsy.vo.AsiVO;
 import lombok.AllArgsConstructor;
-import mapperinterface.AsiMapper;
+import mapperInterface.AsiMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

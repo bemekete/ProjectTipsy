@@ -21,25 +21,27 @@ export default function Boardtable({ items }) {
                             </thead>
 
                             <tbody>
-                                {
-                                    items.map((item, i) => (
-                                        <tr key={'boarditem' + i}>
-                                            <th scope="row">
-                                                <span>{item.scope}</span></th>
-                                            <td className="contents">
-                                                <details>
-                                                    <summary>
-                                                        <span>{item.title}</span>
-                                                        <img src={require('../assets/notice_img/down.svg')} alt="" />
-                                                    </summary>
-                                                </details>
-                                                <div className="innerCon">
-                                                    <span>{item.contents}</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))
-                                }
+                                {items.map((item, i) => (
+                                    <tr key={'boarditem' + i}>
+                                        <th scope="row">
+                                            <span>{item.scope}</span>
+                                        </th>
+                                        <td className="contents">
+                                            <details>
+                                                <summary>
+                                                    <span>{item.title}</span>
+                                                    <img
+                                                        src={require('../assets/notice_img/down.svg')}
+                                                        alt=""
+                                                    />
+                                                </summary>
+                                            </details>
+                                            <div className="innerCon">
+                                                <span>{item.contents}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </figure>
@@ -48,10 +50,10 @@ export default function Boardtable({ items }) {
                 <div className="board_page_button">
                     {/* <!-- <-1,2,3-> 버튼 --> */}
                     <b>
-                        <a href="#">1</a>
+                        <Link href="#">1</Link>
                     </b>
                 </div>
             </div>
         </>
-    )
+    );
 }
