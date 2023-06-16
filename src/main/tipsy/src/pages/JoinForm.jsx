@@ -17,10 +17,6 @@ function JoinForm() {
         </>
     );
 }
-export default JoinForm;
-
-const fetchData = async (userData) => {
-// 서버에 데이터 전송
 const fetchData = async (userData)=>{
     try {
         console.log(userData);
@@ -64,14 +60,14 @@ const JoinBox = () => {
         }));
     };
 
-    const dataSubmit = async (e) => {
+    const dataSubmit =  (e) => {
         e.preventDefault();
-        await fetchData(userData);
+        fetchData(userData);
     };
 
     return (
         <>
-            <form onSubmit={dataSubmit} className="joinbox" method="POST">
+            <form onSubmit={dataSubmit} className="joinbox" method="post">
                 <p>
                     <span>*</span> 필수 입력 사항
                 </p>

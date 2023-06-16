@@ -2,7 +2,10 @@ package com.example.tipsy.controller;
 
 import com.example.tipsy.service.UserService;
 import com.example.tipsy.vo.UserVO;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +28,8 @@ public class UserRestController {
     }
 
     @PostMapping("/join")
-    public int joinUser(@RequestParam UserVO vo){
-        return 0;
+    public int joinUser(@RequestBody UserVO vo){
+        return service.joinUser(vo);
     }
 
     @PostMapping("/login")
@@ -39,15 +42,6 @@ public class UserRestController {
             if ( vo.getPassword().equals(userPw) ) {
                 request.getSession().setAttribute("loginID",vo.getId());
                 request.getSession().setAttribute("loginName",vo.getName());
-
-                // 로그 확인
-                System.out.println(vo.getId());
-                System.out.println(vo.getPassword());
-                System.out.println(vo.getEmail());
-                System.out.println(vo.getPoint());
-                System.out.println(vo.getPhone());
-
-
 
                 return ResponseEntity.ok("로그인성공");
             }else {
