@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Mainpage.scss';
 import axios from 'axios';
-
 function Mainpage() {
     return (
         <>

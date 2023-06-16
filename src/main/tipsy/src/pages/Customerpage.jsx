@@ -46,13 +46,13 @@ export default function Customerpage() {
                             </Link>
                         </li>
                         <li className="menu2">
-                            <Link href="../eventboard/eventboard.html">
+                            <Link to="/eventboard">
                                 <span className="menuicon event"></span>
                                 <span>이벤트</span>
                             </Link>
                         </li>
                         <li className="menu3">
-                            <Link href="../map/map.html">
+                            <Link to="/map">
                                 <span className="menuicon map"></span>
                                 <span>매장찾기</span>
                             </Link>
