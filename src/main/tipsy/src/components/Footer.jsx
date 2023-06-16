@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/Footer.scss';
+import { Link } from 'react-router-dom';
 
 function Footer() {
     return (
@@ -7,31 +8,29 @@ function Footer() {
             <div id="footer">
                 <div className="footer_cover">
                     <div>
-                        <a href="./index.html" className="foot_logo">
+                        <Link to="/home" className="foot_logo">
                             <img
                                 src={require('../assets/home_img/crop_logo_black2.png')}
                                 alt="이미지. 로고"
                             />
-                        </a>
+                        </Link>
 
                         <div className="foot_margin_top1">
                             <ul className="foot_list3">
                                 <li>
-                                    <a href="/">제휴/제안 문의</a>
+                                    <Link to="/">제휴/제안 문의</Link>
                                 </li>
                                 <li>
-                                    <a href="/">대리점 개설 문의</a>
+                                    <Link to="/">대리점 개설 문의</Link>
                                 </li>
                                 <li>
-                                    <a href="/">이용약관</a>
+                                    <Link to="/">이용약관</Link>
                                 </li>
                                 <li>
-                                    <a href="/">개인정보취급방침</a>
+                                    <Link to="/">개인정보취급방침</Link>
                                 </li>
                                 <li>
-                                    <a href="../customerpage/customerpage.html">
-                                        고객지원
-                                    </a>
+                                    <Link to="/customerpage">고객지원</Link>
                                 </li>
                             </ul>
                         </div>
@@ -43,12 +42,12 @@ function Footer() {
                                 <li>주소: 경기 성남시 분당구 돌마로 47</li>
                                 <li>
                                     이메일:
-                                    <a
-                                        href="mailto:seul8975@naver.com"
+                                    <Link
+                                        to="mailto:seul8975@naver.com"
                                         title="스팸성 메일 차단"
                                     >
                                         seul8975@naver.com
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>사업자등록번호: 100-21-12345</li>
                             </ul>
@@ -62,40 +61,40 @@ function Footer() {
                         </div>
                         <ul className="sns_src">
                             <li>
-                                <a
-                                    href="https://www.instagram.com"
+                                <Link
+                                    to="https://www.instagram.com"
                                     target="_blank"
                                     rel="noreferrer"
                                 >
                                     인스타그램
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a
-                                    href="https://www.youtube.com"
+                                <Link
+                                    to="https://www.youtube.com"
                                     target="_blank"
                                     rel="noreferrer"
                                 >
                                     유튜브
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a
-                                    href="https://www.facebook.com"
+                                <Link
+                                    to="https://www.facebook.com"
                                     target="_blank"
                                     rel="noreferrer"
                                 >
                                     페이스북
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a
-                                    href="https://twitter.com"
+                                <Link
+                                    to="https://twitter.com"
                                     target="_blank"
                                     rel="noreferrer"
                                 >
                                     트위터
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>

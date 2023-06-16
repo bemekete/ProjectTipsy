@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/Customerpage.scss';
+import { Link } from 'react-router-dom';
 
 export default function Customerpage() {
     return (
@@ -27,52 +28,52 @@ export default function Customerpage() {
                             </span>
                         </p>
                         <dl>
-                            <a href="#" target="_blank">
+                            <Link to="#" target="_blank">
                                 <dd>
                                     <img src="" alt="" />
                                 </dd>
                                 <dd>카카오톡 상담</dd>
-                            </a>
+                            </Link>
                         </dl>
                     </div>
                 </div>
                 <div className="customerMenu">
                     <ul>
                         <li className="menu1">
-                            <a href="/notice">
+                            <Link to="/notice">
                                 <span className="menuicon alert"></span>
                                 <span>공지사항</span>
-                            </a>
+                            </Link>
                         </li>
                         <li className="menu2">
-                            <a href="/eventboard">
+                            <Link to="/eventboard">
                                 <span className="menuicon event"></span>
                                 <span>이벤트</span>
-                            </a>
+                            </Link>
                         </li>
                         <li className="menu3">
-                            <a href="/map">
+                            <Link to="/map">
                                 <span className="menuicon map"></span>
                                 <span>매장찾기</span>
-                            </a>
+                            </Link>
                         </li>
                         <li className="menu4">
-                            <a href="/mypage/shipment">
+                            <Link to="/mypage">
                                 <span className="menuicon myPage"></span>
                                 <span>마이페이지</span>
-                            </a>
+                            </Link>
                         </li>
                         <li className="menu5">
-                            <a href="/faq">
+                            <Link to="/faq">
                                 <span className="menuicon FAQ"></span>
                                 <span>FAQ</span>
-                            </a>
+                            </Link>
                         </li>
                         <li className="menu6">
-                            <a href="/simpleinquiry">
+                            <Link to="/simpleinquiry">
                                 <span className="menuicon2 Simpleinquiry"></span>
                                 <span>간편문의</span>
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>

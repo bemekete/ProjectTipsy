@@ -1,5 +1,6 @@
 import { React, useState } from 'react';
 import '../styles/Detail.scss';
+import { Link } from 'react-router-dom';
 
 function Detail() {
     const [pieces, setPieces] = useState(0); // 구매 정보 - 상품 개수
@@ -351,16 +352,16 @@ function Detail() {
                         장바구니로 이동하시겠습니까?
                     </p>
                     <div className="popupBasketBtn">
-                        <a
-                            href="#"
+                        <Link
+                            to="#"
                             onClick={(e) => {
                                 e.preventDefault();
                                 whereis(where);
                             }}
                         >
                             쇼핑 계속하기
-                        </a>
-                        <a href="/shopbasket">장바구니 가기</a>
+                        </Link>
+                        <Link to="/shopbasket">장바구니 가기</Link>
                     </div>
                 </div>
                 <span

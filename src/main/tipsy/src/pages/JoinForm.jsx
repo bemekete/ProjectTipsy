@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../styles/JoinForm.scss';
 import axios from "axios";
 export default JoinForm;
+import { Link } from 'react-router-dom';
 
 function JoinForm() {
     return (
@@ -228,7 +229,7 @@ const JoinBox = () => {
                                         size="10px"
                                         onChange={handleChange}
                                     />
-                                    <a href="#">우편번호</a>
+                                    <Link to="#">우편번호</Link>
                                     <br />
                                     <input
                                         type="text"

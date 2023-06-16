@@ -18,6 +18,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public UserVO selectOne(UserVO vo) {
+		return dao.selectOne(vo);
+	}
+	@Override
 	public int joinUser(UserVO vo) {
 		return dao.joinUser(vo);
 	}
