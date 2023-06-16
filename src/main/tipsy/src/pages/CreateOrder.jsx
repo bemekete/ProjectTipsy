@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/CreateOrder.scss';
+import { Link } from 'react-router-dom';
 
 function CreateOrder() {
     return (
@@ -12,9 +13,9 @@ function CreateOrder() {
                 <!-- 오른쪽 상단 위 --> */}
                     <div className="location">
                         <span>
-                            <a href="#" className="main_home">
+                            <Link to="#" className="main_home">
                                 HOME
-                            </a>{' '}
+                            </Link>{' '}
                             장바구니
                         </span>
                     </div>
@@ -24,9 +25,9 @@ function CreateOrder() {
                         <span>주문 / 결제</span>
                         <ul>
                             <li className="Now_select">
-                                <a href="../shopBasket/shopBasket.html">
+                                <Link to="../shopBasket/shopBasket.html">
                                     01 장바구니
-                                </a>
+                                </Link>
                                 <img
                                     className="tri_arrow"
                                     src={require('../assets/createorder_img/right-arrow-black-triangle.png')}

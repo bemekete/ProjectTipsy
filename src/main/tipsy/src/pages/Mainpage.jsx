@@ -1,14 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import '../styles/Mainpage.scss';
 import axios from 'axios';
 
 function Mainpage() {
+
+
+    const [productCnt, setProductCnt] = useState(0);
+
+    useEffect(() => {
+        axios.get("/product/selectpro")
+            .then((data) => {
+                setProductCnt(data.data.length);
+            }).catch(() => {
+            })
+    }, [])
+
+
+
     return (
         <>
             <div className="location_wrap">
                 <div className="location_con">
-                    <a href="/">홈</a> &gt; 전체상품
+                    <Link to="/home">홈</Link> &gt; 전체상품
                 </div>
             </div>
             <div id="mainpage_container">
@@ -29,22 +42,44 @@ export default Mainpage;
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
 function Content() {
-    const [product, setProduct] = useState([]);
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const fetchData = async () => {
-        try {
-            const response = await axios.get('/product/selectpro');
-            setProduct(response.data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    console.log(product.length);
+    const [products, setProducts] = useState([
+        {
+            id: 1,
+            imgUrl: require('../assets/mainpage_img/cheongju1.jpg'),
+            title: '천비향 약주',
+            price: '30,400원',
+        },
+        {
+            id: 2,
+            imgUrl: require('../assets/mainpage_img/sidemenu1.jpg'),
+            title: '직화 무뼈 닭발 160g',
+            price: '6,900원',
+        },
+        {
+            id: 3,
+            imgUrl: require('../assets/mainpage_img/fruit1.jpg'),
+            title: '장수 오미자주 4병 선물세트',
+            price: '26,100원',
+        },
+        {
+            id: 4,
+            imgUrl: require('../assets/mainpage_img/makgeolli1.jpg'),
+            title: '나루 생 막걸리 11.5% [3병/8병]',
+            price: '29,700원',
+        },
+        {
+            id: 5,
+            imgUrl: require('../assets/mainpage_img/soju1.png'),
+            title: '진맥소주 22%',
+            price: '22,000원',
+        },
+        {
+            id: 6,
+            imgUrl: require('../assets/mainpage_img/wine1.jpg'),
+            title: '오미로제 프리미어 와인 선물세트',
+            price: '51,000원',
+        },
+    ]);
 
     const [visibleProductCount, setVisibleProductCount] = useState(6);
     const [topSort, setTopSort] = useState('인기순');
@@ -52,16 +87,16 @@ function Content() {
     //////////////////////// 상단에 상품 개수 나타내기 ////////////////////////
     useEffect(() => {
         const listLeng = document.querySelector('.listLeng');
-        listLeng.innerHTML = `<p>총 <b>${product.length}</b>개의 상품이 있습니다.</p>`;
+        listLeng.innerHTML = `<p>총 <b>${products.length}</b>개의 상품이 있습니다.</p>`;
     }, []);
 
     //////////////////////// 더보기버튼 이벤트 ////////////////////////
     const handleBtnMoreClick = (e) => {
         e.preventDefault();
-        if (visibleProductCount + 6 <= product.length) {
+        if (visibleProductCount + 6 <= products.length) {
             setVisibleProductCount(visibleProductCount + 6);
         } else {
-            setVisibleProductCount(product.length);
+            setVisibleProductCount(products.length);
         }
     };
 
@@ -78,60 +113,60 @@ function Content() {
                     <p className="listLeng"></p>
                     <ul className="listSort">
                         <li>
-                            <a
+                            <Link
                                 className={
                                     topSort === '인기순' ? 'txt_bold' : ''
                                 }
-                                href="#"
+                                to="#"
                                 onClick={() => TopSortClick('인기순')}
                             >
                                 인기순
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
+                            <Link
                                 className={
                                     topSort === '등록순' ? 'txt_bold' : ''
                                 }
-                                href="#"
+                                to="#"
                                 onClick={() => TopSortClick('등록순')}
                             >
                                 등록순
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
+                            <Link
                                 className={
                                     topSort === '조회순' ? 'txt_bold' : ''
                                 }
-                                href="#"
+                                to="#"
                                 onClick={() => TopSortClick('조회순')}
                             >
                                 조회순
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
                 <ul id="productList" className="list">
-                    {product.slice(0, visibleProductCount).map((product) => (
-                        <li key={product.p_seq}>
-                            <Link to="/detail">
+                    {products.slice(0, visibleProductCount).map((product) => (
+                        <li key={product.id}>
+                            <a href="/detail">
                                 <div className="img">
                                     <img
-                                        src={product.p_img}
+                                        src={product.imgUrl}
                                         alt="상품 이미지"
                                     />
                                 </div>
                                 <div className="tit">
-                                    <p>{product.p_name}</p>
+                                    <p>{product.title}</p>
                                 </div>
-                                <p className="price">{product.p_price}원</p>
-                            </Link>
+                                <p className="price">{product.price}</p>
+                            </a>
                         </li>
                     ))}
                 </ul>
             </div>
-            {visibleProductCount < product.length ? (
+            {visibleProductCount < products.length ? (
                 <BtnMore onClick={handleBtnMoreClick} />
             ) : null}
         </>
@@ -144,14 +179,14 @@ function Content() {
 function BtnMore({ onClick }) {
     return (
         <div className="btnSection">
-            <a
-                href="#"
+            <Link
+                to="#"
                 id="btnMore"
                 className="btnMore btnMore_prod"
                 onClick={onClick}
             >
                 더보기
-            </a>
+            </Link>
         </div>
     );
 }
@@ -185,10 +220,10 @@ function MainpageSearch() {
             <div className="search_tit pageTit">카테고리</div>
             <div className="search_list cate_list">
                 <div className="cate_list_item">
-                    <a href="./mainPage_wine.html">주류</a>
+                    <Link to="/mainPage">주류</Link>
                 </div>
                 <div className="cate_list_item">
-                    <a href="./mainPage_side.html">안주</a>
+                    <Link to="/mainPage">안주</Link>
                 </div>
             </div>
             <div className="searchSorter">
@@ -205,29 +240,29 @@ function MainpageSearch() {
                         <dd>
                             <ul className="sortList">
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link href="#" onClick={sortClick}>
                                         0만원 ~ 1만원
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link href="#" onClick={sortClick}>
                                         1만원 ~ 3만원
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link href="#" onClick={sortClick}>
                                         3만원 ~ 5만원
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link href="#" onClick={sortClick}>
                                         5만원 ~ 10만원
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link to="#" onClick={sortClick}>
                                         10만원 이상
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </dd>
@@ -244,14 +279,14 @@ function MainpageSearch() {
                         <dd>
                             <ul className="sortList">
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link to="#" onClick={sortClick}>
                                         약주
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link to="#" onClick={sortClick}>
                                         청주
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </dd>
@@ -268,24 +303,24 @@ function MainpageSearch() {
                         <dd>
                             <ul className="sortList">
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link href="#" onClick={sortClick}>
                                         0%~10%
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link href="#" onClick={sortClick}>
                                         10%~20%
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link href="#" onClick={sortClick}>
                                         20%~30%
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link href="#" onClick={sortClick}>
                                         30%이상
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </dd>
@@ -302,19 +337,19 @@ function MainpageSearch() {
                         <dd>
                             <ul className="sortList">
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link to="#" onClick={sortClick}>
                                         약한
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link to="#" onClick={sortClick}>
                                         중간
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link to="#" onClick={sortClick}>
                                         강한
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </dd>
@@ -331,26 +366,26 @@ function MainpageSearch() {
                         <dd>
                             <ul className="sortList">
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link to="#" onClick={sortClick}>
                                         약한
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link to="#" onClick={sortClick}>
                                         중간
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#" onClick={sortClick}>
+                                    <Link to="#" onClick={sortClick}>
                                         강한
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </dd>
                     </dl>
                 </div>
                 <div className="sortFilter">
-                    <a href="#">전체 필터 초기화</a>
+                    <Link to="#">전체 필터 초기화</Link>
                 </div>
             </div>
         </>

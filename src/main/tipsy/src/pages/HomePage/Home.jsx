@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../styles/HomePage/Home.scss';
 import ImageSlider from '../../pages/HomePage/ImageSlider';
+import { Link } from 'react-router-dom';
 
 function Home() {
     return (
@@ -20,9 +21,9 @@ function Home() {
                                     <span>10.8% |&nbsp; </span>
                                     <strong> 36,000</strong>원
                                 </p>
-                                <a href="/detail" className="winePageButton">
+                                <Link to="/detail" className="winePageButton">
                                     자세히 알아보기
-                                </a>
+                                </Link>
                             </div>
                             <div>
                                 <p>동학 1957</p>
@@ -30,9 +31,9 @@ function Home() {
                                     <span>13% |&nbsp; </span>
                                     <strong> 2,980</strong>원
                                 </p>
-                                <a href="/detail" className="winePageButton">
+                                <Link to="/detail" className="winePageButton">
                                     자세히 알아보기
-                                </a>
+                                </Link>
                             </div>
                             <div>
                                 <p>오미로제 연</p>
@@ -40,9 +41,9 @@ function Home() {
                                     <span>8% |&nbsp; </span>
                                     <strong> 50,000</strong>원
                                 </p>
-                                <a href="/detail" className="winePageButton">
+                                <Link to="/detail" className="winePageButton">
                                     자세히 알아보기
-                                </a>
+                                </Link>
                             </div>
                         </div>
 
@@ -53,9 +54,9 @@ function Home() {
                                     <span>11% |&nbsp; </span>
                                     <strong> 20,160</strong>원
                                 </p>
-                                <a href="/detail" className="winePageButton">
+                                <Link to="/detail" className="winePageButton">
                                     자세히 알아보기
-                                </a>
+                                </Link>
                             </div>
                             <div>
                                 <p>한시울</p>
@@ -63,9 +64,9 @@ function Home() {
                                     <span>40% |&nbsp; </span>
                                     <strong> 21,000</strong>원
                                 </p>
-                                <a href="/detail" className="winePageButton">
+                                <Link to="/detail" className="winePageButton">
                                     자세히 알아보기
-                                </a>
+                                </Link>
                             </div>
                             <div>
                                 <p>밀담</p>
@@ -73,9 +74,9 @@ function Home() {
                                     <span>40% |&nbsp; </span>
                                     <strong> 17,910</strong>원
                                 </p>
-                                <a href="/detail" className="winePageButton">
+                                <Link to="/detail" className="winePageButton">
                                     자세히 알아보기
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -85,25 +86,25 @@ function Home() {
                     <div className="event_tit">EVENT</div>
                     <div className="event_main event_img1">
                         <div>
-                            <a href="/detail" className="winePageButton">
+                            <Link to="/detail" className="winePageButton">
                                 자세히 알아보기
-                            </a>
+                            </Link>
                         </div>
                         <div></div>
                     </div>
                     <div className="event_main event_img2">
                         <div></div>
                         <div>
-                            <a href="/detail" className="winePageButton">
+                            <Link to="/detail" className="winePageButton">
                                 자세히 알아보기
-                            </a>
+                            </Link>
                         </div>
                     </div>
                     <div className="event_main event_img3">
                         <div>
-                            <a href="/detail" className="winePageButton">
+                            <Link to="/detail" className="winePageButton">
                                 자세히 알아보기
-                            </a>
+                            </Link>
                         </div>
                         <div></div>
                     </div>
@@ -162,38 +163,36 @@ function Home() {
                                 <div>공지사항</div>
                             </div>
                             <div>
-                                <a href="./notice/notice.html">More+</a>
+                                <Link to="/notice">More+</Link>
                             </div>
                         </div>
                         <div className="intro_board_notice">
                             <ul>
                                 <li>
-                                    <a href="/">공지사항 입니다 5</a>
+                                    <Link to="/notice">공지사항 입니다 5</Link>
                                     <span className="date">2022.12.09</span>
                                 </li>
                                 <li>
-                                    <a href="/">공지사항 입니다 4</a>
+                                    <Link to="/notice">공지사항 입니다 4</Link>
                                     <span className="date">2022.12.08</span>
                                 </li>
                                 <li>
-                                    <a href="/">공지사항 입니다 3</a>
+                                    <Link to="/notice">공지사항 입니다 3</Link>
                                     <span className="date">2022.12.07</span>
                                 </li>
                                 <li>
-                                    <a href="/">공지사항 입니다 2</a>
+                                    <Link to="/notice">공지사항 입니다 2</Link>
                                     <span className="date">2022.12.06</span>
                                 </li>
                                 <li>
-                                    <a href="/">공지사항 입니다 1</a>
+                                    <Link to="/notice">공지사항 입니다 1</Link>
                                     <span className="date">2022.12.05</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <a href="/" className="topfloatingbar">
-                    /
-                </a>
+                <a href="/" className="topfloatingbar"></a>
             </main>
         </>
     );

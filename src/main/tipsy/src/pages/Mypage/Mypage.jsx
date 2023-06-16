@@ -1,6 +1,5 @@
 import '../../styles/Mypage.scss';
 import Category from './Category';
-import { Link } from 'react-router-dom';
 
 export default function Mypage() {
     return (
@@ -12,8 +11,8 @@ export default function Mypage() {
                         <div className="profile part1">
                             <div>회원 님</div>
                             <div>
-                                <Link to="#">배송지 목록</Link>
-                                <Link to="/usermodify">개인정보 수정</Link>
+                                <a href="#">배송지 목록</a>
+                                <a href="#">개인정보 수정</a>
                             </div>
                         </div>
                         <div className="profile part2">
@@ -22,10 +21,18 @@ export default function Mypage() {
                                 <span>0</span> 원
                             </div>
                         </div>
+                        {/* <div className="profile part3">
+                            <a href="#">
+                                <div>쿠폰</div>
+                            </a>
+                            <div>
+                                <span>0</span> 개
+                            </div>
+                        </div> */}
                         <div className="profile part4">
-                            <Link to="#">
+                            <a href="#">
                                 <div>마이 스타일</div>
-                            </Link>
+                            </a>
                         </div>
                     </div>
                 </div>

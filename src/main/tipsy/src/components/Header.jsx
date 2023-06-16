@@ -1,27 +1,19 @@
 import React from 'react';
-import { Link, Route, Routes } from 'react-router-dom/dist';
-import Customerpage from '../pages/Customerpage';
-import Join from '../pages/Join';
-import Login from '../pages/Login';
-import Mainpage from '../pages/Mainpage';
-import Shopbasket from '../pages/Shopbasket/Shopbasket';
-import Detail from '../pages/Detail';
+import { Link } from 'react-router-dom/dist';
 import '../styles/Header.scss';
-import Map from '../pages/Map/Map';
-import Eventboard from '../pages/Eventboard';
-
-
 
 function header() {
     return (
         <>
             <div className="headertop_cover">
                 <div className="headerTop">
-                    <a href="/" className="mainLogo">tipsy</a>
+                    <a href="/home" className="mainLogo">
+                        tipsy
+                    </a>
                     <div className="serviceTab">
                         <ul className="serviceTabList">
                             <li>
-                                <Link to="/login">로그인</Link >
+                                <Link to="/login">로그인</Link>
                             </li>
                             <li>
                                 <Link to="/join">회원가입</Link>
@@ -44,7 +36,9 @@ function header() {
                             <div className="detailCategoryList">
                                 <ul>
                                     <li className="hoverCategory">
-                                        <Link to="/mainpage?p_category=1">주류</Link>
+                                        <Link to="/mainpage?p_category=1">
+                                            주류
+                                        </Link>
                                         <ul className="detailCategoryListof">
                                             <li>
                                                 <Link to="/mainpage">와인</Link>
@@ -53,13 +47,19 @@ function header() {
                                                 <Link to="/mainpage">소주</Link>
                                             </li>
                                             <li>
-                                                <Link to="/mainpage">막걸리, 탁주</Link>
+                                                <Link to="/mainpage">
+                                                    막걸리, 탁주
+                                                </Link>
                                             </li>
                                             <li>
-                                                <Link to="/mainpage">약주, 청주</Link>
+                                                <Link to="/mainpage">
+                                                    약주, 청주
+                                                </Link>
                                             </li>
                                             <li>
-                                                <Link to="/mainpage">과실주</Link>
+                                                <Link to="/mainpage">
+                                                    과실주
+                                                </Link>
                                             </li>
                                         </ul>
                                     </li>

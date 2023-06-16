@@ -28,48 +28,48 @@
     width: 1100px;
     height: 150px;
     background-color: #f7f8fa;
+}
 
-    .address_phone {
-        width: 33.3333333333%;
-        display: flex;
-        align-self: center;
-    }
+.address_phone {
+    width: 33.3333333333%;
+    display: flex;
+    align-self: center;
+}
 
-    .address_phone:nth-child(1) {
-        margin-left: 80px;
-    }
+.address_phone:nth-child(1) {
+    margin-left: 80px;
+}
 
-    .address_phone:nth-child(2) {
-        margin-left: 80px;
-    }
+.address_phone:nth-child(2) {
+    margin-left: 80px;
+}
 
-    .address_phone:nth-child(3) {
-        margin-left: 50px;
-    }
+.address_phone:nth-child(3) {
+    margin-left: 50px;
+}
 
-    .address_phone > div {
-        height: 100%;
-    }
+.address_phone > div {
+    height: 100%;
+}
 
-    .address_phone img {
-        width: 70px;
-        height: 70px;
-        /* margin-left: 50px; */
-    }
+.address_phone img {
+    width: 70px;
+    height: 70px;
+    /* margin-left: 50px; */
+}
 
-    .address_text {
-        padding: 10px;
-        margin-left: 20px;
-    }
+.address_text {
+    padding: 10px;
+    margin-left: 20px;
+}
 
-    .address_text p:nth-child(1) {
-        font-weight: bold;
-        font-size: 20px;
-    }
+.address_text p:nth-child(1) {
+    font-weight: bold;
+    font-size: 20px;
+}
 
-    .address_text p:nth-child(1) {
-        font-weight: bold;
-    }
+.address_text p:nth-child(1) {
+    font-weight: bold;
 }
 
 .transportation {
