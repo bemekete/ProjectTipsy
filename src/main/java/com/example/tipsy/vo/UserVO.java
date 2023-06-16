@@ -1,12 +1,8 @@
 package com.example.tipsy.vo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class UserVO {
 	String id;
 	String name;

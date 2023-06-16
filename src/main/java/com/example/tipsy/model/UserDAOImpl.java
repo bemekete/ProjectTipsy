@@ -1,8 +1,8 @@
 package com.example.tipsy.model;
 
+import mapperInterface.UserMapper;
 import com.example.tipsy.vo.UserVO;
 import lombok.AllArgsConstructor;
-import mapperInterface.UserMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +22,11 @@ public class UserDAOImpl implements UserDAO {
 	public UserVO selectOne(UserVO vo){
 		return mapper.selectOne(vo);
 	};
+
+	@Override
+	public int joinUser(UserVO vo) {
+		return mapper.joinUser(vo);
+	}
+
+
 }

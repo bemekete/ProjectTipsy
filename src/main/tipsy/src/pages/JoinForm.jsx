@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import '../styles/JoinForm.scss';
+import axios from "axios";
+export default JoinForm;
 import { Link } from 'react-router-dom';
 
 function JoinForm() {
@@ -14,13 +16,56 @@ function JoinForm() {
         </>
     );
 }
-
-export default JoinForm;
+const fetchData = async (userData)=>{
+    try {
+        console.log(userData);
+        const response = await axios.post("/user/join",userData);
+        return response.data;
+    }catch{
+        console.log("error");
+    }
+};
 
 const JoinBox = () => {
+
+    const [userData,setUserData] = useState({});
+    const [phoneNum, setPhoneNum] = useState({
+        firstNum : "",
+        secondNum : "",
+        lastNum : "",
+    });
+
+    const phoneFunc =  (e)=>{
+        const {name,value} = e.target;
+             setPhoneNum((phoneData)=>({
+                ...phoneData,
+                [name] : value,
+            }));
+    }
+
+    useEffect(()=>{
+        setUserData((data)=>({
+            ...data,
+            phone :`${phoneNum.firstNum}-${phoneNum.secondNum}-${phoneNum.lastNum}`
+        }));
+    },[phoneNum]);
+
+    const handleChange = (e)=>{
+        const {name: varName, value : varValue} = e.target;
+        setUserData((data)=>({
+            ...data,
+            [varName] : varValue,
+        }))
+    }
+
+    const dataSubmit = async (e)=>{
+        e.preventDefault();
+        await fetchData(userData);
+    };
+
     return (
         <>
-            <form action="../login/login.html" className="joinbox">
+            <form onSubmit={dataSubmit} className="joinbox" method='POST'>
                 <p>
                     <span>*</span> 필수 입력 사항
                 </p>
@@ -42,8 +87,10 @@ const JoinBox = () => {
                                         type="text"
                                         minLength="4"
                                         maxLength="16"
-                                        name="userID"
+                                        name="id"
                                         id="userID"
+                                        onChange={handleChange}
+                                        required
                                     />
                                     <span>영소문자 및 숫자, 4자 이상</span>
                                 </td>
@@ -57,8 +104,10 @@ const JoinBox = () => {
                                         type="password"
                                         minLength="6"
                                         maxLength="16"
-                                        name="userPSW"
+                                        name="password"
                                         id="userPSW"
+                                        onChange={handleChange}
+                                        required
                                     />
                                     <span>
                                         영대소문자 및 특수문자(@$!%*#?&), 8자
@@ -75,8 +124,8 @@ const JoinBox = () => {
                                         type="password"
                                         minLength="6"
                                         maxLength="16"
-                                        name="rePSW"
                                         id="rePSW"
+                                        required
                                     />
                                     <span className="confirmPSW notice">
                                         일치하지 않음
@@ -88,7 +137,7 @@ const JoinBox = () => {
                                     비밀번호 확인 질문 <span>*</span>
                                 </th>
                                 <td>
-                                    <select name="userPSWhintQ">
+                                    <select name="password_q" onChange={handleChange} required>
                                         <option value="pswQ1">
                                             기억에 남는 추억의 장소는?
                                         </option>
@@ -148,9 +197,11 @@ const JoinBox = () => {
                                 <td>
                                     <input
                                         type="text"
-                                        name="userPSWhintA"
+                                        name="password_a"
                                         size="70px"
                                         id="ckpwa"
+                                        onChange={handleChange}
+                                        required
                                     />
                                 </td>
                             </tr>
@@ -163,8 +214,9 @@ const JoinBox = () => {
                                         type="text"
                                         minLength="2"
                                         maxLength="10"
-                                        name="userName"
+                                        name="name"
                                         id="userName"
+                                        onChange={handleChange}
                                     />
                                 </td>
                             </tr>
@@ -173,25 +225,26 @@ const JoinBox = () => {
                                 <td>
                                     <input
                                         type="text"
-                                        name="userPostcode1"
+                                        name="postal"
                                         size="10px"
-                                        readOnly
+                                        onChange={handleChange}
                                     />
                                     <Link to="#">우편번호</Link>
                                     <br />
                                     <input
                                         type="text"
-                                        name="userPostcode2"
+                                        name="address_1"
                                         size="50"
-                                        readOnly
+                                        onChange={handleChange}
                                     />
                                     <span>기본주소</span>
                                     <br />
                                     <input
                                         type="text"
-                                        name="userPostcode3"
+                                        name="address_2"
                                         size="50"
                                         id="address"
+                                        onChange={handleChange}
                                     />
                                     <span>상세주소 (선택입력)</span>
                                 </td>
@@ -201,7 +254,9 @@ const JoinBox = () => {
                                     휴대전화 <span>*</span>
                                 </th>
                                 <td>
-                                    <select name="userPhone[]" disabled>
+                                    <select name="firstNum"
+                                            onChange={phoneFunc} >
+                                        <option value="선택">선택</option>
                                         <option value="010">010</option>
                                         <option value="011">011</option>
                                         <option value="016">016</option>
@@ -212,24 +267,22 @@ const JoinBox = () => {
                                     -
                                     <input
                                         type="text"
-                                        name="userPhone[]"
+                                        name="secondNum"
                                         minLength="3"
                                         maxLength="4"
                                         size="5px"
                                         id="secondNum"
-                                        value="1234"
-                                        disabled
+                                        onChange={phoneFunc}
                                     />
                                     -
                                     <input
                                         type="text"
-                                        name="userPhone[]"
-                                        minLength="3"
+                                        name="lastNum"
+                                        minLength="4"
                                         maxLength="4"
                                         size="5px"
                                         id="thirdNum"
-                                        value="1234"
-                                        disabled
+                                        onChange={phoneFunc}
                                     />
                                     {/* <!-- <a href="#">인증번호전송</a><br /> --> */}
                                     {/* <!-- <input type="text" name="userPhoneVerification" minLength="6" maxLength="6"
@@ -244,9 +297,10 @@ const JoinBox = () => {
                                 <td>
                                     <input
                                         type="email"
-                                        name="userEmail"
+                                        name="email"
                                         size="30px"
                                         id="email"
+                                        onChange={handleChange}
                                     />
                                 </td>
                             </tr>
@@ -254,11 +308,13 @@ const JoinBox = () => {
                     </table>
                 </figure>
                 <div className="joinButton">
-                    <button type="button" onClick="join_check();">
+                    <button type="submit" >
                         회원가입
                     </button>
                 </div>
             </form>
         </>
     );
-};
+}
+
+export default JoinForm;
