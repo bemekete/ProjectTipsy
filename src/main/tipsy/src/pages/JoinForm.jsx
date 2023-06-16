@@ -16,6 +16,7 @@ function JoinForm() {
         </>
     );
 }
+// 서버에 데이터 전송
 const fetchData = async (userData)=>{
     try {
         console.log(userData);
