@@ -22,4 +22,11 @@ public class UserDAOImpl implements UserDAO {
 	public UserVO selectOne(UserVO vo){
 		return mapper.selectOne(vo);
 	};
+
+	@Override
+	public int joinUser(UserVO vo) {
+		return mapper.joinUser(vo);
+	}
+
+
 }

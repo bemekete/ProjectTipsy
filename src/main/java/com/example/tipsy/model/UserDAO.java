@@ -11,4 +11,6 @@ public interface UserDAO {
 
 	UserVO selectOne(UserVO vo);
 
+	int joinUser(UserVO vo);
+
 }

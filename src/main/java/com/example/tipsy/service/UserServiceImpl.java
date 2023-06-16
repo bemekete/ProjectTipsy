@@ -12,7 +12,6 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
 	UserDAO dao;
-
 	@Override
 	public List<UserVO> selectList() {
 		return dao.selectList();
@@ -22,4 +21,10 @@ public class UserServiceImpl implements UserService {
 	public UserVO selectOne(UserVO vo) {
 		return dao.selectOne(vo);
 	}
+	@Override
+	public int joinUser(UserVO vo) {
+		return dao.joinUser(vo);
+	}
+
+
 }
