@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/Join.scss';
-
+import JoinForm from "./JoinForm";
+import {Link} from "react-router-dom";
 function Join() {
     return (
         <>

@@ -28,8 +28,8 @@ public class UserRestController {
     }
 
     @PostMapping("/join")
-    public int joinUser(@RequestParam UserVO vo){
-        return 0;
+    public int joinUser(@RequestBody UserVO vo){
+        return service.joinUser(vo);
     }
 
     @PostMapping("/login")
@@ -42,15 +42,6 @@ public class UserRestController {
             if ( vo.getPassword().equals(userPw) ) {
                 request.getSession().setAttribute("loginID",vo.getId());
                 request.getSession().setAttribute("loginName",vo.getName());
-
-                // 로그 확인
-                System.out.println(vo.getId());
-                System.out.println(vo.getPassword());
-                System.out.println(vo.getEmail());
-                System.out.println(vo.getPoint());
-                System.out.println(vo.getPhone());
-
-
 
                 return ResponseEntity.ok("로그인성공");
             }else {
