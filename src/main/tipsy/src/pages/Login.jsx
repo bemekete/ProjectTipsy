@@ -165,9 +165,7 @@ const SNSLogin = () => {
                         />
                     </Link>
                 </div>
-            </main>
+            </div>
         </>
     );
-}
-
-export default Login;
+};
