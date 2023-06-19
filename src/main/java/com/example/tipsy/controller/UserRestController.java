@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -34,15 +36,16 @@ public class UserRestController {
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserVO vo, HttpServletRequest request, Model model){
+    public ResponseEntity<String> login(@RequestBody UserVO vo,  HttpSession session, Model model){
 
         String userPw = vo.getPassword();
         vo = service.selectOne(vo);
 
         if ( vo!=null) {
             if ( vo.getPassword().equals(userPw) ) {
-                request.getSession().setAttribute("loginID",vo.getId());
-                request.getSession().setAttribute("loginName",vo.getName());
+                
+                session.setAttribute("loginID",vo.getId());
+                session.setAttribute("loginName",vo.getName());
 
                 return ResponseEntity.ok("로그인성공");
             }else {
@@ -54,6 +57,14 @@ public class UserRestController {
             model.addAttribute("message", "아이디 틀림");
         } //if_외부
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인실패");
+    }
+
+    // 로그인 세션(서버에서 관리) 
+    // 체크해서 react state값 유지
+    @GetMapping("/check-login")
+    public ResponseEntity<?> checkLogin(HttpSession session) {
+        boolean isLoggedIn = session.getAttribute("loginID") != null;
+        return ResponseEntity.ok().body(Map.of("isLoggedIn", isLoggedIn));
     }
 
     // 로그아웃
