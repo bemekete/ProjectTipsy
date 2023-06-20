@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapperInterface.ProductMapper">
-    <select id="boardDetail" resultType="com.example.tipsy.vo.AsiVO">
-        select * from assist_customer where asi_seq = #{asi_seq};
+<mapper namespace="mapperInterface.AsiMapper">
+
+    <!-- 공지사항 게시물 목록 -->
+    <select id="noticeList" resultType="com.example.tipsy.vo.AsiVO">
+        SELECT * FROM assist_customer
+                 WHERE asi_code LIKE '0%'
+                 ORDER BY asi_seq DESC;
     </select>
+
+    <!-- faq 게시물 목록 -->
+    <select id="faqList" resultType="com.example.tipsy.vo.AsiVO">
+        SELECT * FROM assist_customer
+                 WHERE asi_code LIKE '1%'
+                 ORDER BY asi_seq DESC;
+    </select>
+
+    <!-- 게시물 상세 -->
+<!--    <select id="boardDetail" resultType="com.example.tipsy.vo.AsiVO">-->
+<!--        SELECT * FROM assist_customer WHERE asi_seq = #{asi_seq};-->
+<!--    </select>-->
+
+    <!-- 게시물 등록 -->
+    <insert id="insertboard">
+        INSERT INTO assist_customer(asi_code, asi_title, asi_contents, asi_date)
+        VALUES(#{asi_code}, #{asi_title}, #{asi_contents}, #{asi_date});
+    </insert>
+
+    <!-- 게시물 수정 -->
+    <update id="updateboard">
+        UPDATE assist_customer
+            SET asi_title=#{asi_title}, asi_contents=#{asi_contents}
+            WHERE asi_seq=#{asi_seq};
+    </update>
+
+    <!-- 게시물 삭제 -->
+    <delete id="deleteboard">
+        DELETE assist_customer WHERE asi_seq=#{asi_seq};
+    </delete>
+
 </mapper>
