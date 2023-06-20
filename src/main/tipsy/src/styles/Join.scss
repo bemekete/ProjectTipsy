@@ -66,11 +66,20 @@
         margin: 0 6%;
     }
 
-    .joinbox input {
+    .joinbox input,  {
         position: absolute;
         top: 50%;
         right: 0;
         transform: translate(-100%, 50%);
+    }
+    .joinbox input+p{
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        user-select: none;
+        transform: translate(-70%,50%);
+        font-size: 0.8rem;
+        color: rgba(0,0,0,0.4);
     }
 
     .agree_submit {

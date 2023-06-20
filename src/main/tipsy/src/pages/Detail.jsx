@@ -330,8 +330,8 @@ function Detail() {
                 <div className="popupBasketCon">
                     <p>선택하신 상품이 장바구니에 담겼습니다.<br />장바구니로 이동하시겠습니까?</p>
                     <div className="popupBasketBtn">
-                        <Link href="#" onClick={e => { e.preventDefault(); whereis(where) }}>쇼핑 계속하기</Link>
-                        <Link href="/shopbasket">장바구니 가기</Link>
+                        <Link to="#" onClick={e => { e.preventDefault(); whereis(where) }}>쇼핑 계속하기</Link>
+                        <Link to="/shopbasket">장바구니 가기</Link>
                     </div>
                 </div>
                 <span className="popupClose" onClick={() => { whereis(where) }}>X</span>

@@ -55,7 +55,7 @@ function Main({ handleLogin }) {
                     <Route path="/adminpage/:data" element={<Adminpage />} />
                     <Route path="/usermodify" element={<UserModify />} />
                 </Routes>
-            </div>k
+            </div>
         </>
     );
 }
