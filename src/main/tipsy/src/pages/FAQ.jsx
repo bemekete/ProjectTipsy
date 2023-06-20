@@ -1,10 +1,24 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import '../styles/FAQ.scss';
 import { Link } from 'react-router-dom';
 
 import { BoardTitle, BoardSearch, BoardScope } from './Boardtable';
+import axios from "axios";
 
 function FAQ() {
+    const [faqlist, setFaqlist] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get('/flist')
+            .then((response) => {
+                setFaqlist(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
     return (
         <div id="Board_main">
             <div id="board_maincontainer">
@@ -14,7 +28,7 @@ function FAQ() {
                 <div>
                     <FaqContainer />
                     <BoardSearch />
-                    <BoardScope page={page} items={items} />
+                    <BoardScope page={page} items={faqlist} />
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Mainpage.scss';
 import axios from 'axios';
+
 function Mainpage() {
     return (
         <>
@@ -29,7 +30,10 @@ export default Mainpage;
 //////////////////////////////////////////////////////////////////////////////////////////////////
 function Content() {
     const [product, setProduct] = useState([]);
+    const [visibleProductCount, setVisibleProductCount] = useState(6);
+    const [topSort, setTopSort] = useState('인기순');
 
+    // db에서 상품 리스트 받아 리액트 화면에 뿌려주기
     useEffect(() => {
         fetchData();
     }, []);
@@ -43,18 +47,13 @@ function Content() {
         }
     };
 
-    console.log(product.length);
-
-    const [visibleProductCount, setVisibleProductCount] = useState(6);
-    const [topSort, setTopSort] = useState('인기순');
-
-    //////////////////////// 상단에 상품 개수 나타내기 ////////////////////////
+    // 상단에 상품 개수 나타내기
     useEffect(() => {
         const listLeng = document.querySelector('.listLeng');
         listLeng.innerHTML = `<p>총 <b>${product.length}</b>개의 상품이 있습니다.</p>`;
     }, []);
 
-    //////////////////////// 더보기버튼 이벤트 ////////////////////////
+    //  더보기버튼 이벤트
     const handleBtnMoreClick = (e) => {
         e.preventDefault();
         if (visibleProductCount + 6 <= product.length) {
@@ -64,7 +63,7 @@ function Content() {
         }
     };
 
-    //////////////////////// 인기순, 등록순, 조회순 ////////////////////////
+    // 인기순, 등록순, 조회순
     const TopSortClick = (Sort) => {
         setTopSort(Sort);
     };
@@ -137,7 +136,7 @@ function Content() {
     );
 }
 
-//////////////////////////////////// 더보기버튼 ////////////////////////////////////
+// 더보기버튼
 // 더보기 버튼을 누르면 6개씩 항목이 늘어남.
 // 더 이상 늘어날 항목이 없다면 더보기 버튼이 없어짐.
 function BtnMore({ onClick }) {
@@ -155,14 +154,12 @@ function BtnMore({ onClick }) {
     );
 }
 
-/////////////////////////////////////////// 왼쪽서치바 ///////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////
+// 왼쪽서치바
 
 function MainpageSearch() {
     const [isCollapse, setIsCollapse] = useState(true);
 
-    ////////////////// 서치바 접는기능 ////////////////////
+    // 서치바 접는기능
     const handleImageClick = (e) => {
         const target = e.target.closest('img');
         const dd = target.parentNode.parentNode.children[1];
@@ -172,7 +169,7 @@ function MainpageSearch() {
         dd.classList.toggle('collapse_img');
     };
 
-    ////////////////// 서치바 항목 클릭 시 bgcolor변경 ////////////////////
+    // 서치바 항목 클릭 시 bgcolor변경
     const sortClick = (e) => {
         e.preventDefault();
         const target = e.target.closest('a');

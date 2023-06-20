@@ -6,11 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -19,6 +22,9 @@ import java.util.List;
 public class UserRestController {
     UserService service;
 
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    // 유저 목록 불러오기
     @GetMapping("/userlist")
     public List<UserVO> selectList(Model model) {
         model.addAttribute("banana", service.selectList());
@@ -26,21 +32,29 @@ public class UserRestController {
 
         return service.selectList();
     }
+
+    // 회원가입
     @PostMapping("/join")
     public int joinUser(@RequestBody UserVO vo){
+        String password = vo.getPassword();
+        String encryptedPassword = passwordEncoder.encode(password);
+        vo.setPassword(encryptedPassword);
+
         return service.joinUser(vo);
     }
 
+    // 로그인
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserVO vo, HttpServletRequest request, Model model){
+    public ResponseEntity<String> login(@RequestBody UserVO vo,  HttpSession session, Model model){
 
         String userPw = vo.getPassword();
         vo = service.selectOne(vo);
 
         if ( vo!=null) {
-            if ( vo.getPassword().equals(userPw) ) {
-                request.getSession().setAttribute("loginID",vo.getId());
-                request.getSession().setAttribute("loginName",vo.getName());
+            if ( passwordEncoder.matches(userPw, vo.getPassword()) ) {
+                
+                session.setAttribute("loginID",vo.getId());
+                session.setAttribute("loginName",vo.getName());
 
                 return ResponseEntity.ok("로그인성공");
             }else {
@@ -54,6 +68,15 @@ public class UserRestController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인실패");
     }
 
+    // 로그인 세션(서버에서 관리) 
+    // 체크해서 react state값 유지
+    @GetMapping("/check-login")
+    public ResponseEntity<?> checkLogin(HttpSession session) {
+        boolean isLoggedIn = session.getAttribute("loginID") != null;
+        return ResponseEntity.ok().body(Map.of("isLoggedIn", isLoggedIn));
+    }
+
+    // 로그아웃
     @GetMapping("/logout")
     public ResponseEntity<String> logout(HttpServletRequest request) {
         // 세션 초기화

@@ -14,11 +14,20 @@ public class AsiDAOImpl implements AsiDAO {
     AsiMapper mapper;
 
     @Override
-    public List<AsiVO> boardList() {
-        return mapper.boardList();
+    public List<AsiVO> noticeList() {
+        return mapper.noticeList();
     }
+
     @Override
-    public AsiVO boardDetail(AsiVO vo) {
-        return mapper.boardDetail(vo);
+    public List<AsiVO> faqList() {
+        return mapper.faqList();
     }
+
+//    @Override
+//    public AsiVO boardDetail(AsiVO vo) {
+//        return mapper.boardDetail(vo);
+//    }
+
+    @Override
+    public AsiVO insertBoard(AsiVO vo) { return mapper.insertBoard(vo); }
 }
