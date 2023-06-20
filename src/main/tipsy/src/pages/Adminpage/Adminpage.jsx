@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import '../../styles/Adminpage.scss';
 
-import ProductForm from './ProductFrom';
+import ProductForm from './ProductForm';
 import Listpage from './Listpage';
-import UserInfo from './UserInfo';
 import { UserModifyForm } from './UserModify';
+import { DocForm } from './DocForm';
 
 export default function Adminpage() {
     const { data } = useParams();
-    console.log(data);
+
     return (
         <>
             <div id="adminpage_container">
@@ -28,9 +28,14 @@ export default function Adminpage() {
                         <Listpage headers={pheaders} items={pitems} />
                     )}
                     {data == 'productinput' && (
-                        <ProductForm onSubmit={onSubmit} item="" />
+                        <ProductForm onSubmit={onSubmitProduct} item="" />
                     )}
-                    {/* {data == 'productstock' && <ProductInput />} */}
+                    {data == 'uploadnotice' && (
+                        <DocForm code={noticecode} />
+                    )}
+                    {data == 'uploadfaq' && (
+                        <DocForm code={faqcode} />
+                    )}
                 </div>
             </div>
         </>
@@ -68,12 +73,24 @@ export default function Adminpage() {
                         text: '상품등록',
                         value: 'productinput',
                     },
-                    {
-                        text: '재고관리',
-                        value: 'productstock',
-                    },
                 ],
             },
+            {
+                dt: {
+                    text: '페이지 관리',
+                    value: 'pagesetting'
+                },
+                dd: [
+                    {
+                        text: '공지사항 작성',
+                        value: 'uploadnotice',
+                    },
+                    {
+                        text: 'FAQ 작성',
+                        value: 'uploadfaq',
+                    },
+                ]
+            }
         ];
 
         return (
@@ -99,9 +116,35 @@ export default function Adminpage() {
     }
 }
 
-function onSubmit() {
+function onSubmitProduct() {
     // insert controller
 }
+
+const noticecode = [
+    {
+        code: 10,
+        value: '상품 관련',
+    },
+    {
+        code: 11,
+        value: '배송 관련',
+    },
+    {
+        code: 12,
+        value: '기타',
+    },
+]
+
+const faqcode = [
+    {
+        code: 20,
+        value: '상품 관련',
+    },
+    {
+        code: 21,
+        value: '배송 관련',
+    },
+]
 
 // 임시 데이터
 const userheaders = [

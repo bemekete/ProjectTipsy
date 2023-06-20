@@ -138,7 +138,8 @@
         white-space: nowrap
     }
 
-    .userinfoTable input {
+    .userinfoTable input,
+    .userinfoTable textarea {
         padding: 10px;
         min-width: 400px;
     }
@@ -161,4 +162,22 @@
         width: 100px;
         padding: 10px 0;
     }
+
+    .boardform input,
+    .boardform textarea {
+        min-width: 500px;
+    }
+
+    .boardform textarea {
+        font-size: initial;
+        height: 300px;
+    }
+
+    .asi_code input {
+        min-width: initial;
+        width: 30px;
+        vertical-align: middle;
+    }
+
+
 }

@@ -5,6 +5,9 @@ import com.example.tipsy.vo.AsiVO;
 import java.util.List;
 
 public interface AsiDAO {
-    List<AsiVO> boardList();
-    AsiVO boardDetail(AsiVO vo);
+    List<AsiVO> noticeList();
+    List<AsiVO> faqList();
+//    AsiVO boardDetail(AsiVO vo);
+
+    AsiVO insertBoard(AsiVO vo);
 }

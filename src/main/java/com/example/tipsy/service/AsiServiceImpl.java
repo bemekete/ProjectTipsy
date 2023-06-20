@@ -14,12 +14,16 @@ public class AsiServiceImpl implements AsiService {
     AsiDAO dao;
 
     @Override
-    public List<AsiVO> boardList() {
-        return dao.boardList();
-    }
+    public List<AsiVO> noticeList() { return dao.noticeList(); }
 
     @Override
-    public AsiVO boardDetail(AsiVO vo) {
-        return dao.boardDetail(vo);
-    }
+    public List<AsiVO> faqList() { return dao.faqList(); }
+
+//    @Override
+//    public AsiVO boardDetail(AsiVO vo) {
+//        return dao.boardDetail(vo);
+//    }
+
+    @Override
+    public AsiVO insertBoard(AsiVO vo) { return dao.insertBoard(vo); }
 }
