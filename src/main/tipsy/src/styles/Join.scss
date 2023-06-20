@@ -77,9 +77,10 @@
         position: absolute;
         right: 0;
         user-select: none;
-        transform: translate(-70%,50%);
+        transform: translate(-50%,40%);
         font-size: 0.8rem;
-        color: rgba(0,0,0,0.4);
+        font-weight: bold;
+        color: rgba(255,0,0,0.5);
     }
 
     .agree_submit {
@@ -87,7 +88,7 @@
         margin: 30px 0;
     }
 
-    .agree_submit .linkBtn {
+    .agree_submit button {
         font-size: 85%;
         color: white;
         padding: 10px 20px;

@@ -1,6 +1,5 @@
 import React, {useState,useEffect} from 'react';
 import '../styles/Join.scss';
-import JoinForm from "./JoinForm";
 import {Link, useNavigate} from "react-router-dom";
 function Join() {
     // 네이게이션 함수 사용 변수
@@ -22,6 +21,13 @@ function Join() {
         if (checked) {
             // 모두 선택할 경우
             setCheckItems(['agree_use', 'agree_personal', 'agree_age']);
+            // 유효성 검사 문구 제거
+            setErrorMessage({
+                agree_use: null,
+                agree_personal : null,
+                agree_age : null,
+            });
+
         } else {
             // 모두 해제할 경우
             setCheckItems([]);
@@ -48,7 +54,7 @@ function Join() {
     // 개별체크박스 상태 변화 시 전체 체크 박스 on/off
     useEffect(()=>{
         if(checkItems.length>=3){
-            setIsCheckedAll("checked");
+            setIsCheckedAll(true);
             console.log(isCheckedAll);
         }else{
             setIsCheckedAll(false);
@@ -56,7 +62,8 @@ function Join() {
     },[checkItems])
 
     // 유효성 검사 함수
-    const nextPage = ()=>{
+    const nextPage = (e)=>{
+        e.preventDefault();
         if(checkItems.length>=3){
             navigate("/joinform");
         }else{
@@ -439,8 +446,11 @@ function Join() {
 
                             </div>
                             <div className="agree_submit">
-                                <Link className="linkBtn" onClick={()=>navigate(-1)}>취소</Link>
-                                <Link className="linkBtn"  to="#" onClick={nextPage}>확인</Link>
+                                <button onClick={(e)=>{
+                                    e.preventDefault();
+                                    navigate(-1);
+                                }}>취소</button>
+                                <button onClick={nextPage}>확인</button>
                             </div>
                         </form>
                     </div>
