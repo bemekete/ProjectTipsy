@@ -103,12 +103,12 @@ function BodyTable({ items }) {
     return items.map((item, i) => (
         <tr key={'boarditem' + i}>
             <th scope="row">
-                <span>{item.scope}</span>
+                <span>{item.asi_code}</span>
             </th>
             <td className="contents">
                 <details>
                     <summary>
-                        <span>{item.title}</span>
+                        <span>{item.asi_title}</span>
                         <img
                             src={require('../assets/notice_img/down.svg')}
                             alt=""
@@ -116,7 +116,7 @@ function BodyTable({ items }) {
                     </summary>
                 </details>
                 <div className="innerCon">
-                    <span>{item.contents}</span>
+                    <span>{item.asi_contents}</span>
                 </div>
             </td>
         </tr>

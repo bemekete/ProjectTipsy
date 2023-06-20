@@ -11,7 +11,7 @@ import JoinForm from '../pages/JoinForm';
 import Customerpage from '../pages/Customerpage';
 import Notice from '../pages/Notice';
 import Searchpage from '../pages/Searchpage';
-import Simpleinquiry from '../pages/Simple_inquiry';
+import { Simpleinquiry } from '../pages/Simple_inquiry';
 import Orderend from '../pages/Orderend';
 import Eventboard from '../pages/Eventboard';
 import FindId from '../pages/Find_id';
