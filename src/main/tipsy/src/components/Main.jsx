@@ -43,7 +43,7 @@ function Main({ handleLogin }) {
                     <Route path="/notice" element={<Notice />} />
                     <Route path="/searchresult" element={<Searchpage />} />
                     <Route path="/simpleinquiry" element={<Simpleinquiry />} />
-                    <Route path="/orderend" element={<Orderend />} />
+                    <Route path="/orderend" element={<Orderend />} />   
                     <Route path="/eventboard" element={<Eventboard />} />
                     <Route path="/findid" element={<FindId />} />
                     <Route path="/findpassword" element={<FindPassword />} />
@@ -55,7 +55,7 @@ function Main({ handleLogin }) {
                     <Route path="/adminpage/:data" element={<Adminpage />} />
                     <Route path="/usermodify" element={<UserModify />} />
                 </Routes>
-            </div>k
+            </div>
         </>
     );
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,9 @@ import java.util.Map;
 public class UserRestController {
     UserService service;
 
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    // 유저 목록 불러오기
     @GetMapping("/userlist")
     public List<UserVO> selectList(Model model) {
         model.addAttribute("banana", service.selectList());
@@ -29,8 +33,13 @@ public class UserRestController {
         return service.selectList();
     }
 
+    // 회원가입
     @PostMapping("/join")
     public int joinUser(@RequestBody UserVO vo){
+        String password = vo.getPassword();
+        String encryptedPassword = passwordEncoder.encode(password);
+        vo.setPassword(encryptedPassword);
+
         return service.joinUser(vo);
     }
 
@@ -42,7 +51,7 @@ public class UserRestController {
         vo = service.selectOne(vo);
 
         if ( vo!=null) {
-            if ( vo.getPassword().equals(userPw) ) {
+            if ( passwordEncoder.matches(userPw, vo.getPassword()) ) {
                 
                 session.setAttribute("loginID",vo.getId());
                 session.setAttribute("loginName",vo.getName());

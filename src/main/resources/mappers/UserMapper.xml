@@ -3,7 +3,7 @@
 <mapper namespace="mapperInterface.UserMapper">
 
     <insert id="joinUser">
-        insert into user value(#{id}, #{name}, #{password}, #{password_q}, #{password_a}
+        insert into user values(#{id}, #{name}, #{password}, #{password_q}, #{password_a}
             ,#{phone}, #{postal}, #{address_1}, #{address_2}, #{email} )
     </insert>
 
