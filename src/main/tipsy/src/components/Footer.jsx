@@ -8,7 +8,7 @@ function Footer() {
             <div id="footer">
                 <div className="footer_cover">
                     <div>
-                        <Link to="/home" className="foot_logo">
+                        <Link to="/" className="foot_logo">
                             <img
                                 src={require('../assets/home_img/crop_logo_black2.png')}
                                 alt="이미지. 로고"

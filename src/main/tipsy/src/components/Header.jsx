@@ -6,7 +6,7 @@ function header({ isLoggedIn, handleLogout }) {
         <>
             <div className="headertop_cover">
                 <div className="headerTop">
-                    <a href="/home" className="mainLogo">
+                    <a href="/" className="mainLogo">
                         tipsy
                     </a>
                     <div className="serviceTab">
