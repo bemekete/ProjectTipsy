@@ -22,10 +22,10 @@ const fetchData = async (userData)=>{
         console.log(userData);
         const response = await axios.post("/user/join",userData);
         alert("회원가입에 성공하셨습니다.");
+        console.log(response.data);
         return response.data;
     }catch{
         alert("회원가입에 실패하셨습니다.");
-        console.log("error");
     }
 };
 

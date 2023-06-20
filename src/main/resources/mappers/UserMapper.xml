@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapperInterface.UserMapper">
 
-    <insert id="joinUser">
-        insert into user value(#{id}, #{name}, #{password}, #{password_q}, #{password_a}
+    <insert id="joinUser" parameterType="com.example.tipsy.vo.UserVO">
+        insert into user(id, name, password, password_q, password_a, phone, postal, address_1, address_2, email) value(#{id}, #{name}, #{password}, #{password_q}, #{password_a}
             ,#{phone}, #{postal}, #{address_1}, #{address_2}, #{email} )
     </insert>
 
