@@ -29,5 +29,7 @@ public class AsiDAOImpl implements AsiDAO {
 //    }
 
     @Override
-    public AsiVO insertBoard(AsiVO vo) { return mapper.insertBoard(vo); }
+    public AsiVO insertBoard(AsiVO vo) {
+        return mapper.insertBoard(vo);
+    }
 }

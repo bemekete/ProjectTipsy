@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +22,7 @@ import java.util.Map;
 public class UserRestController {
     UserService service;
 
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     // 유저 목록 불러오기
     @GetMapping("/userlist")
@@ -37,8 +37,9 @@ public class UserRestController {
     @PostMapping("/join")
     public int joinUser(@RequestBody UserVO vo){
         String password = vo.getPassword();
-        String encryptedPassword = passwordEncoder.encode(password);
-        vo.setPassword(encryptedPassword);
+        String encoder = passwordEncoder.encode(password);
+        log.info("*****변환된 비밀번호 : "+encoder);
+        vo.setPassword(encoder);
 
         return service.joinUser(vo);
     }
@@ -52,7 +53,7 @@ public class UserRestController {
 
         if ( vo!=null) {
             if ( passwordEncoder.matches(userPw, vo.getPassword()) ) {
-                
+
                 session.setAttribute("loginID",vo.getId());
                 session.setAttribute("loginName",vo.getName());
 
@@ -68,7 +69,7 @@ public class UserRestController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인실패");
     }
 
-    // 로그인 세션(서버에서 관리) 
+    // 로그인 세션(서버에서 관리)
     // 체크해서 react state값 유지
     @GetMapping("/check-login")
     public ResponseEntity<?> checkLogin(HttpSession session) {

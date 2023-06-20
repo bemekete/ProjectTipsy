@@ -1,9 +1,6 @@
 package mapperInterface;
 
 import com.example.tipsy.vo.AsiVO;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
