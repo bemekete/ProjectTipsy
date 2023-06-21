@@ -39,7 +39,11 @@ public class AsiRestController {
     @PostMapping("/insertboard")
     public ResponseEntity<?> insertboard(@RequestBody AsiVO vo) {
         if(service.insertBoard(vo) > 0) {
-            return ResponseEntity.ok().body("");
+            if(vo.getAsi_code() < 20){
+                return ResponseEntity.ok().body("1");
+            } else {
+                return ResponseEntity.ok().body("2");
+            }
 
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("");

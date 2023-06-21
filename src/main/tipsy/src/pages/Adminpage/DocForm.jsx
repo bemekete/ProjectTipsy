@@ -19,10 +19,9 @@ export function DocForm({ code }) {
                 .post("/insertboard", formdata)
                 .then(response => {
                     console.log(response.data);
-                    console.log(response.status);
 
-                    if(code[0].code == 10) window.location.href = '/notice';
-                    else window.location.href = '/faq';
+                    if(response.data == "1") window.location.href = '/notice'; // notice
+                    else window.location.href = '/faq'; // faq
                 })
                 .catch(error => {
                     console.log(error);

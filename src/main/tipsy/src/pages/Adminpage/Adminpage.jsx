@@ -138,11 +138,11 @@ const noticecode = [
 const faqcode = [
     {
         code: 20,
-        value: '상품 관련',
+        value: '홈페이지 관련',
     },
     {
         code: 21,
-        value: '배송 관련',
+        value: '제품 관련',
     },
 ]
 
