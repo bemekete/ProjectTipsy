@@ -23,6 +23,7 @@ import Alcstyletest from '../pages/Alcstyletest';
 import Map from '../pages/Map/Map';
 import Adminpage from '../pages/Adminpage/Adminpage';
 import UserModify from '../pages/Adminpage/UserModify';
+import MyInfo from '../pages/Mypage/Myinfo';
 
 function Main({ handleLogin }) {
     return (
@@ -54,6 +55,7 @@ function Main({ handleLogin }) {
                     <Route path="/map" element={<Map />} />
                     <Route path="/adminpage/:data" element={<Adminpage />} />
                     <Route path="/usermodify" element={<UserModify />} />
+                    <Route path="/myinfo" element={<MyInfo />} />
                 </Routes>
             </div>
         </>

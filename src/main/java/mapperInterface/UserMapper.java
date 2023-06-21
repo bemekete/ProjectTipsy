@@ -11,15 +11,11 @@ public interface UserMapper {
     @Select(value = "select * from user")
     List<UserVO> selectList();
 
-    // 개인정보
+    // 로그인, 개인정보
     UserVO getUserInfo(UserVO vo);
 
     // 회원가입
     int joinUser(UserVO vo);
-
-    // 로그인
-    @Select(value = "select * from user where id = #{id}")
-    UserVO selectOne(UserVO vo);
 
     // 아이디 찾기
     public List<String> findId(String email);

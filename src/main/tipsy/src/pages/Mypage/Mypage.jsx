@@ -35,7 +35,7 @@ export default function Mypage() {
                             </div>
                             <div>
                                 <Link to="#">배송지 목록</Link>
-                                <Link to="#">개인정보 수정</Link>
+                                <Link to="/myinfo">개인정보 수정</Link>
                             </div>
                         </div>
                         <div className="profile part2">

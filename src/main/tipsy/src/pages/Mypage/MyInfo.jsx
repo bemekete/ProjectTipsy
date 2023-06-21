@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../../styles/Adminpage.scss';
 
-export default function UserModify() {
+export default function MyInfo() {
     return (
         <div id="userinfo_container">
-            <p className="pageTitle">회원정보 수정</p>
+            <p className="pageTitle">개인정보 수정</p>
             <div id="contents">
-                <UserModifyForm />
+                <MyInfoForm />
             </div>
         </div>
     );
 }
 
-export function UserModifyForm() {
-    const [loginInfo, setLoginInfo] = useState(null);
-
+export function MyInfoForm() {
+    const [loginInfo, setLoginInfo] = useState(null); // db에서 받아온 정보를 담는 변수
+    
     useEffect(() => {
         fetchData();
     }, []);
@@ -33,6 +34,7 @@ export function UserModifyForm() {
     } else {
     }
 
+    // 받아온 핸드폰번호를 -기준으로 자르기
     const firstNum = loginInfo.phone ? loginInfo.phone.substring(0, 3) : '';
     const secondNum = loginInfo.phone ? loginInfo.phone.substring(4, 8) : '';
     const lastNum = loginInfo.phone ? loginInfo.phone.substring(9) : '';
