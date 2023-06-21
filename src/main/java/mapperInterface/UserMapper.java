@@ -13,4 +13,7 @@ public interface UserMapper {
 
     @Select(value = "select * from user where id = #{id}")
     UserVO selectOne(UserVO vo);
+
+    @Select("select id from user")
+    List<String> checkId();
 }

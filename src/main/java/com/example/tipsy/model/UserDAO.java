@@ -13,4 +13,6 @@ public interface UserDAO {
 
 	int joinUser(UserVO vo);
 
+	List<String> checkId();
+
 }

@@ -10,4 +10,6 @@ public interface UserService {
 	UserVO selectOne(UserVO vo);
 
 	int joinUser(UserVO vo);
+
+	List<String> checkId();
 }

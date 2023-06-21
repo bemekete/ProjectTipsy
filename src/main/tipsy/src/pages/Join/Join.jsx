@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import '../styles/Join.scss';
+import '../../styles/Join.scss';
 import {Link, useNavigate} from "react-router-dom";
 function Join() {
     // 네이게이션 함수 사용 변수

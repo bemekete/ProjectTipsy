@@ -37,10 +37,15 @@ public class UserRestController {
     @PostMapping("/join")
     public int joinUser(@RequestBody UserVO vo){
         String password = vo.getPassword();
-        String encryptedPassword = passwordEncoder.encode(password);
-        vo.setPassword(encryptedPassword);
+        String encoder = passwordEncoder.encode(password);
+        vo.setPassword(encoder);
 
         return service.joinUser(vo);
+    }
+    // 회원가입 - 아이디 중복 체크
+    @GetMapping("/checkid")
+    public List<String> checkId(){
+        return service.checkId();
     }
 
     // 로그인

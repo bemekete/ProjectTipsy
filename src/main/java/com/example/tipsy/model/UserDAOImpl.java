@@ -28,5 +28,8 @@ public class UserDAOImpl implements UserDAO {
 		return mapper.joinUser(vo);
 	}
 
-
+	@Override
+	public List<String> checkId() {
+		return mapper.checkId();
+	}
 }

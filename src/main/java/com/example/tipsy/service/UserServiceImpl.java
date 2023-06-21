@@ -26,5 +26,8 @@ public class UserServiceImpl implements UserService {
 		return dao.joinUser(vo);
 	}
 
-
+	@Override
+	public List<String> checkId() {
+		return dao.checkId();
+	}
 }
