@@ -5,4 +5,10 @@
         insert into user(id, name, password, password_q, password_a, phone, postal, address_1, address_2, email) values(#{id}, #{name}, #{password}, #{password_q}, #{password_a}
             ,#{phone}, #{postal}, #{address_1}, #{address_2}, #{email} )
     </insert>
+
+    <select id="findId" resultType="String">
+        SELECT	id
+        FROM	user
+        WHERE	email = #{email }
+    </select>
 </mapper>

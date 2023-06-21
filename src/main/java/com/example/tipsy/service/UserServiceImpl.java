@@ -21,10 +21,19 @@ public class UserServiceImpl implements UserService {
 	public UserVO selectOne(UserVO vo) {
 		return dao.selectOne(vo);
 	}
+
 	@Override
 	public int joinUser(UserVO vo) {
 		return dao.joinUser(vo);
 	}
 
+	@Override
+	public List<String> findId(String email) {
+		return dao.findId(email);
+	}
 
+	@Override
+	public void sendUsernames(String email, List<String> usernames) {
+		dao.sendUsernames(email, usernames);
+	}
 }

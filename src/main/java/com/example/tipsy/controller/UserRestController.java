@@ -91,4 +91,17 @@ public class UserRestController {
 
         return ResponseEntity.ok("로그아웃 성공");
     }
+
+    // 아이디찾기
+    @GetMapping("/findId")
+    public ResponseEntity<Object> sendEmail(@RequestParam("email") String email){
+        List<String> usernames =service.findId(email);
+        if(usernames.size() != 0) {
+            service.sendUsernames(email, usernames);
+            return new ResponseEntity<Object>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+    }
+
 }

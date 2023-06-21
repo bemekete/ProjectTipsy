@@ -4,7 +4,6 @@
     justify-content: center;
     align-items: center;
 
-
     main {
         text-align: center;
     }
@@ -20,13 +19,14 @@
         width: 150px;
         height: 150px;
         text-indent: -9999em;
-        background: url(../assets/find_img/login_logo2.png) no-repeat center/100%;
+        background: url(../assets/find_img/login_logo2.png) no-repeat
+            center/100%;
         margin-left: 15px;
         display: inline-block;
     }
 
     .find_form_wrap {
-        width: 1200px;
+        width: 800px;
     }
 
     .find_tab_btn {
@@ -55,6 +55,7 @@
         margin: 0 0 20px 0;
         text-align: left;
         font-weight: bold;
+        font-size: 20px;
     }
 
     .form_list {
@@ -66,24 +67,24 @@
         border-bottom: 1px solid #ccc;
     }
 
-    .form_list>li dl {
+    .form_list > li dl {
         display: table;
         width: 100%;
         table-layout: fixed;
     }
 
-    .form_list>li dl dt {
+    .form_list > li dl dt {
         display: table-cell;
-        padding: 25px 0 9px 42px;
+        padding: 37px 0 9px 42px;
         width: 110px;
-        font-size: 14px;
+        font-size: 16px;
         color: #333;
         vertical-align: top;
     }
 
-    .form_list>li dl dd {
+    .form_list > li dl dd {
         display: table-cell;
-        padding: 16px;
+        padding: 30px;
     }
 
     .input_line {
@@ -108,7 +109,7 @@
     }
 
     .input_type1 {
-        width: 235px;
+        width: 270px;
     }
 
     .button_type1 {
@@ -130,5 +131,7 @@
         line-height: 48px;
         color: #fff;
         background: #084875b7;
+        border-color: #fff;
+        cursor: pointer;
     }
 }

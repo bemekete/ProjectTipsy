@@ -13,4 +13,8 @@ public interface UserDAO {
 
 	int joinUser(UserVO vo);
 
+	public List<String> findId(String email);
+
+	public void sendUsernames(String email, List<String> usernames);
+
 }
