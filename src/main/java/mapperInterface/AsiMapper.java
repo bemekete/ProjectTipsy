@@ -9,5 +9,5 @@ public interface AsiMapper {
     List<AsiVO> faqList();
 //    AsiVO boardDetail(AsiVO vo);
 
-    AsiVO insertBoard(AsiVO vo);
+    int insertBoard(AsiVO vo);
 }

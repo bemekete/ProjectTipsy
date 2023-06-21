@@ -23,5 +23,5 @@ export default function Notice() {
 const page = {
     title: 'notice',
     korTitle: '공지사항',
-    scope: ['전체', '배송 관련', '상품 관련', '기타'],
+    scope: ['배송', '상품', '기타'],
 };

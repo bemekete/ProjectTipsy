@@ -25,5 +25,5 @@ public class AsiServiceImpl implements AsiService {
 //    }
 
     @Override
-    public AsiVO insertBoard(AsiVO vo) { return dao.insertBoard(vo); }
+    public int insertBoard(AsiVO vo) { return dao.insertBoard(vo); }
 }

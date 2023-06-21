@@ -1,23 +1,42 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import axios from "axios";
 
 export function DocForm({ code }) {
-    const [[asi_title, setAsi_title], [asi_contents, setAsi_contents], [asi_date, setAsi_date]] = useState();
-    setAsi_date(new Date());
+    const [formcode, setFormCode] = useState('');
+    const [title, setTitle] = useState('');
+    const [contents, setContents] = useState('');
+    const onSubmitForm = async(e) => {
+        try{
+            e.preventDefault();
 
-    const form = new useRef();
-    const formData = new FormData(form);
+            const formdata = {
+                asi_code: formcode,
+                asi_title: title,
+                asi_contents: contents,
+                asi_date: Dateformat(),
+            };
+            axios
+                .post("/insertboard", formdata)
+                .then(response => {
+                    console.log(response.data);
+                    console.log(response.status);
 
-        axios
-            .post('/insertboard', formData)
-            .then((response) => {
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+                    if(code[0].code == 10) window.location.href = '/notice';
+                    else window.location.href = '/faq';
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert("게시글 작성을 실패했습니다.");
+                })
+
+
+        } catch (error){
+            console.log(error);
+        }
+    }
 
     return (
-        <form action="/insertboard" className="forminfo" ref={form}>
+        <form onSubmit={onSubmitForm} className="forminfo">
             <table className="userinfoTable boardform">
                 <thead>
                 <tr>
@@ -30,6 +49,7 @@ export function DocForm({ code }) {
                                         type="radio"
                                         name="asi_code"
                                         value={item.code}
+                                        onChange={e=>setFormCode(e.target.value)}
                                     />{item.value}
                                 </>
                             ))
@@ -44,7 +64,7 @@ export function DocForm({ code }) {
                         <input
                             type="text"
                             name="asi_title"
-                            // value={asi_title}
+                            onChange={e=>setTitle(e.target.value)}
                         />
                     </td>
                 </tr>
@@ -54,23 +74,28 @@ export function DocForm({ code }) {
                     <td>
                         <textarea
                             name="asi_contents"
-                            // value={asi_contents}
+                            onChange={e=>setContents(e.target.value)}
                         />
                     </td>
                 </tr>
             </tbody>
             </table>
 
-            <input
-                type="hidden"
-                name="asi_date"
-                value={asi_date}
-            />
-
             <div className="modifyinfoBtn">
-                <button>등록</button>
+                <button type="submit">등록</button>
                 <button>취소</button>
             </div>
         </form>
     )
+}
+
+function Dateformat() {
+    const date = new Date();
+
+    function Digit(n) {
+        return n < 10 ? `0${n}` : `${n}`;
+    }
+
+    return '' + date.getFullYear() + '-' + Digit(date.getMonth()) + '-' + Digit(date.getDay()) + ' '
+        + Digit(date.getHours()) + ':' + Digit(date.getMinutes()) + ':' + Digit(date.getSeconds());
 }

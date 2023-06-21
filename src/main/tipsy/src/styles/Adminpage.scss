@@ -139,14 +139,35 @@
     }
 
     .userinfoTable input,
-    .userinfoTable textarea {
+    .userinfoTable textarea,
+    .phoneinput select {
         padding: 10px;
         min-width: 400px;
+    }
+
+    td span {
+        margin-left: 10px;
+    }
+
+    .phoneinput {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .phoneinput input,
+    .phoneinput select {
+        width: 100px;
+        min-width: initial;
     }
 
     .postalinput button {
         padding: 10px;
         margin-left: 10px;
+    }
+
+    .postalinput>input {
+        margin: 5px 0;
     }
 
     .modifyinfoBtn {

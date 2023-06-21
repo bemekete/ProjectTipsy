@@ -52,7 +52,7 @@ function BoardScope({ page, items }) {
             <ScopeBox page={page} />
 
             <div className="board_table_main">
-                <BoardTable items={items} />
+                <BoardTable page={page} items={items} />
                 <PageButton />
             </div>
         </div>
@@ -63,6 +63,10 @@ function ScopeBox({ page }) {
     return (
         <div className="board_scope">
             <ul>
+                <li className="board_scope_box">
+                    <Link to="#">전체</Link>
+                </li>
+
                 {page.scope.map((item) => (
                     <li className="board_scope_box">
                         <Link to="#">{item}</Link>
@@ -73,7 +77,7 @@ function ScopeBox({ page }) {
     );
 }
 
-function BoardTable({ items }) {
+function BoardTable({ page, items }) {
     return (
         <div className="board_table">
             <figure>
@@ -91,7 +95,7 @@ function BoardTable({ items }) {
                     </thead>
 
                     <tbody>
-                        <BodyTable items={items} />
+                        <BodyTable page={page} items={items} />
                     </tbody>
                 </table>
             </figure>
@@ -99,11 +103,13 @@ function BoardTable({ items }) {
     );
 }
 
-function BodyTable({ items }) {
+function BodyTable({ page, items }) {
     return items.map((item, i) => (
         <tr key={'boarditem' + i}>
             <th scope="row">
-                <span>{item.asi_code}</span>
+                <span>
+                    {page.scope[item.asi_code % 10]}
+                </span>
             </th>
             <td className="contents">
                 <details>
