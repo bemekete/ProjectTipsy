@@ -18,8 +18,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserVO selectOne(UserVO vo) {
-		return dao.selectOne(vo);
+	public UserVO getUserInfo(UserVO vo) {
+		return dao.getUserInfo(vo);
 	}
 
 	@Override

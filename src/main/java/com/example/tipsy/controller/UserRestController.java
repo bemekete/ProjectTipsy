@@ -33,6 +33,15 @@ public class UserRestController {
         return service.selectList();
     }
 
+    @GetMapping("/userinfo")
+    public UserVO getUserInfo(UserVO vo, HttpSession session){
+        if ( vo.getId()==null || vo.getId().length()<1 ) {
+            vo.setId((String)session.getAttribute("loginID")) ;
+            vo = service.getUserInfo(vo);
+        }
+        return vo;
+    }
+
     // 회원가입
     @PostMapping("/join")
     public int joinUser(@RequestBody UserVO vo){
@@ -49,7 +58,7 @@ public class UserRestController {
     public ResponseEntity<String> login(@RequestBody UserVO vo,  HttpSession session, Model model){
 
         String userPw = vo.getPassword();
-        vo = service.selectOne(vo);
+        vo = service.getUserInfo(vo);
 
         if ( vo!=null) {
             if ( passwordEncoder.matches(userPw, vo.getPassword()) ) {
@@ -67,6 +76,8 @@ public class UserRestController {
             model.addAttribute("message", "아이디 틀림");
         } //if_외부
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인실패");
+
+
     }
 
     // 로그인 세션(서버에서 관리)

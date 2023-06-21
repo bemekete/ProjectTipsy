@@ -11,6 +11,9 @@ public interface UserMapper {
     @Select(value = "select * from user")
     List<UserVO> selectList();
 
+    // 개인정보
+    UserVO getUserInfo(UserVO vo);
+
     // 회원가입
     int joinUser(UserVO vo);
 

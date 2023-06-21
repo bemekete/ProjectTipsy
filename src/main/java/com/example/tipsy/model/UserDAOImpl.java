@@ -23,11 +23,11 @@ public class UserDAOImpl implements UserDAO {
 		return mapper.selectList();
 	}
 
-	// 유저디테일
+	// 개인정보
 	@Override
-	public UserVO selectOne(UserVO vo){
-		return mapper.selectOne(vo);
-	};
+	public UserVO getUserInfo(UserVO vo) {
+		return mapper.getUserInfo(vo);
+	}
 
 	// 회원가입
 	@Override

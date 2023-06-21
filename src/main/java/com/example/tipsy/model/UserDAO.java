@@ -9,7 +9,7 @@ public interface UserDAO {
 
 	List<UserVO> selectList();
 
-	UserVO selectOne(UserVO vo);
+	UserVO getUserInfo(UserVO vo);
 
 	int joinUser(UserVO vo);
 

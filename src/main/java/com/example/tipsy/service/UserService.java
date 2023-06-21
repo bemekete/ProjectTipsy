@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserService {
 	List<UserVO> selectList();
 
-	UserVO selectOne(UserVO vo);
+	UserVO getUserInfo(UserVO vo);
 
 	int joinUser(UserVO vo);
 
