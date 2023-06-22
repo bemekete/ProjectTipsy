@@ -54,21 +54,34 @@ const JoinBox = () => {
         }));
     }, [phoneNum]);
 
-
+    // 유효성 검사 완성된 길이
+    const [sucLeng, setSucLeng] = useState();
+    const input = document.querySelectorAll("input");
     // 회원가입 완료 버튼
     const dataSubmit = async (e) => {
         e.preventDefault();
-        try {
-            console.log(userData);
-            const response = await axios.post("/user/join", userData);
-            alert("회원가입에 성공하셨습니다.");
-            navigate("/login");
-        } catch {
+
+        setSucLeng(Object.values(completeVal).filter(value => value != null).length);
+
+        if (sucLeng >= input.length-1) {
+
+            try {
+                console.log(userData);
+                const response = await axios.post("/user/join", userData);
+                alert("회원가입에 성공하셨습니다.");
+                navigate("/login");
+            } catch {
+                alert("회원가입에 실패하셨습니다. 다시 시도하세요.");
+            };
+        } else {
             alert("회원가입에 실패하셨습니다. 다시 시도하세요.");
-        };
+        }
     };
 
 
+    // 유효성 검사 완료 유무 확인 변수
+    const [completeVal, setCompleteVal] = useState({
+    });
     // 비밀번호 정규식값 저장 변수
     const [passReg, setPassReg] = useState();
 
@@ -133,6 +146,10 @@ const JoinBox = () => {
                 ...prev,
                 [id]: "올바른 입력입니다."
             }));
+            setCompleteVal((prev) => ({
+                ...prev,
+                [id]: "유효성 검사 완료",
+            }))
             // 입력 데이터 저장
             setUserData((data) => ({
                 ...data,
@@ -164,6 +181,9 @@ const JoinBox = () => {
                             ...prev,
                             userID: "사용 가능한 아이디입니다."
                         }));
+                        setCompleteVal((prev) => ({
+                            userID: "유효성 검사 완료"
+                        }))
                     }
                 })
                 .catch()
