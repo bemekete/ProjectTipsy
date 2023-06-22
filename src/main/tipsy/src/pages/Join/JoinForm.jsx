@@ -80,13 +80,6 @@ const JoinBox = () => {
         navigate("/login");
     };
 
-    // useEffect(()=>{
-    //     if( window.confirm("로그인 페이지로 이동하시겠습니까?")){
-    //         navigate("/login");
-    //     }else{
-    //         navigate("/");
-    //     }
-    // },[dataSubmit])
 
     // 유효성 검사 완료 유무 확인 변수
     const [completeVal, setCompletVal]= useState({});
@@ -98,21 +91,22 @@ const JoinBox = () => {
     //데이터 유효성 검사 함수
     const validation = (e)=>{
         const {id, value}=e.target;
+        console.log(typeof( value));
         switch (id) {
             case "userID" :
-                if (value === '') {
+                if (userData.id  === '') {
                     setValText((prev)=>({
                         ...prev,
                         [id] : "필수 입력정보입니다."
                     }));
-                } else if (/^(?=.*[a-z])(?=.*[0-9])[a-z0-9]{8,15}$/g.test(value)) {
+                } else if (/^(?=.*[a-z])(?=.*[0-9])[a-z0-9]{8,15}$/g.test(userData.id )) {
                     setValText((prev)=>({
                         ...prev,
                         [id] : "올바른 입력입니다."
                     }));
                     setCompletVal((prev)=>({
                         ...prev,
-                        [id]: null,
+                        [id]: "유효성 체크 완료",
                     }));
                 } else {
                     setValText((prev)=>({
@@ -134,7 +128,7 @@ const JoinBox = () => {
                     }));
                     setCompletVal((prev)=>({
                         ...prev,
-                        [id]: null,
+                        [id]: "유효성 체크 완료",
                     }));
                 } else {
                     setValText((prev)=>({
@@ -151,7 +145,7 @@ const JoinBox = () => {
                     }));
                     setCompletVal((prev)=>({
                         ...prev,
-                        [id]: null,
+                        [id]: "유효성 체크 완료",
                     }));
                 }else{
                     setValText((prev)=>({
@@ -166,12 +160,16 @@ const JoinBox = () => {
                     setValText((prev)=>({
                     ...prev,
                     [id] : "필수 입력 정보입니다.",
-                    }))
+                    }));
                 }else{
                     setValText((prev)=>({
                         ...prev,
                         [id] : null,
-                    }))
+                    }));
+                    setCompletVal((prev)=>({
+                        ...prev,
+                        [id]: "유효성 체크 완료",
+                    }));
                 }
                 break;
             case "ckpwa" :
@@ -179,16 +177,20 @@ const JoinBox = () => {
                     setValText((prev)=>({
                         ...prev,
                         [id] : "필수 입력 정보입니다.",
-                    }))
+                    }));
                 }else if(/^(?=.{3,20}$).*$/.test(value)){
                     setValText((prev)=>({
                         ...prev,
-                        [id] : "3자 이상 20자 이하로 입력해 주세요."
+                        [id] : null 
                     }))
+                    setCompletVal((prev)=>({
+                        ...prev,
+                        [id]: "유효성 체크 완료",
+                    }));
                 } else{
                     setValText((prev)=>({
                         ...prev,
-                        [id] : null,
+                        [id] : "3자 이상 20자 이하로 입력해 주세요.",
                     }))
                 }
                 break;
@@ -198,18 +200,49 @@ const JoinBox = () => {
                         ...prev,
                         [id] : null
                     }));
+                    setCompletVal((prev)=>({
+                        ...prev,
+                        [id]: "유효성 체크 완료",
+                    }));
                 }else{
                     setValText((prev)=>({
                         ...prev,
-                        [id] : "한글 2글자 이상 5글자 이하로 입력해주세요."
+                        [id] : "한글 2자 이상 5자 이하로 입력해주세요."
+                    }));
+                }
+                break;
+            case "address" : 
+                if(/^.{3,50}$/.test(value)){
+                    setValText((prev)=>({
+                        ...prev,
+                        [id] : null
+                    }));
+                    setCompletVal((prev)=>({
+                        ...prev,
+                        [id]: "유효성 체크 완료",
+                    }));
+                }else if(value===""){
+                    setValText((prev)=>({
+                        ...prev,
+                        [id] : "필수 입력 정보입니다."
+                    }));
+                }
+                else{
+                    setValText((prev)=>({
+                        ...prev,
+                        [id] : "3자 이상 50자 이하로 입력해주세요."
                     }));
                 }
                 break;
             case "firstNum" :
-                if(typeof value === "number"){
+                if(value.length>0 &&value!== "선택"){
                     setValText((prev)=>({
                         ...prev,
                         [id] : null
+                    }));
+                    setCompletVal((prev)=>({
+                        ...prev,
+                        [id]: "유효성 체크 완료",
                     }));
                 }else{
                     setValText((prev)=>({
@@ -219,14 +252,48 @@ const JoinBox = () => {
                 }
                 break;
             case "secondNum" :
+                if(/^\d{3,4}$/.test(value)){
+                    setValText((prev)=>({
+                        ...prev,
+                        [id] : null
+                    }));
+                    setCompletVal((prev)=>({
+                        ...prev,
+                        [id]: "유효성 체크 완료",
+                    }));
+                }else{
+                    setValText((prev)=>({
+                        ...prev,
+                        [id] : "올바르지 않은 휴대폰 번호입니다."
+                    }));
+                }
                 break;
             case "thirdNum" :
+                if(/^\d{4}$/.test(value)){
+                    setValText((prev)=>({
+                        ...prev,
+                        [id] : null
+                    }));
+                    setCompletVal((prev)=>({
+                        ...prev,
+                        [id]: "유효성 체크 완료",
+                    }));
+                }else{
+                    setValText((prev)=>({
+                        ...prev,
+                        [id] : "올바르지 않은 휴대폰 번호입니다."
+                    }));
+                }
                 break;
             case "email" :
                 if(/^[\w.-]+@[a-zA-Z_-]+?\.[a-zA-Z]{2,3}$/.test(value)) {
                     setValText((prev) => ({
                         ...prev,
                         [id]: null,
+                    }));
+                    setCompletVal((prev)=>({
+                        ...prev,
+                        [id]: "유효성 체크 완료",
                     }));
                 }else if(value === ''){
                     setValText((prev) =>({
@@ -245,22 +312,27 @@ const JoinBox = () => {
     }
 
     // ID 중복 체크
+    const [counts,setCounts] =useState(false);
     const checkid = async (e)=>{
         e.preventDefault();
         if(/^(?=.*[a-z])(?=.*[0-9])[a-z0-9]{8,15}$/g.test(userData.id)) {
-           await axios.get("/user/checkid")
-                .then((response) => {
-                    console.log(response.data);
+           await axios("/user/checkid")
+               .then((response) => {
                     if( response.data.includes(userData.id)){
                         setValText((prev)=>({
                             ...prev,
                             userID : "이미 사용중인 아이디입니다."
                         }));
                     }else{
+                        setCounts(true);
                         setValText((prev)=>({
                             ...prev,
                             userID : "사용 가능한 아이디입니다."
                         }));
+                        setCompletVal((prev)=>({
+                           ...prev,
+                           userID : "유효성 체크 완료",
+                        }))
                     }
                 })
                 .catch()
@@ -329,9 +401,11 @@ const JoinBox = () => {
                                         id="userID"
                                         // placeholder="영어, 숫자 조합으로 8자 이상 15자 이하로 입력하세요."
                                         onChange={handleChange}
-                                        onBlur={validation}
+                                        onBlur={counts?null:validation}
+                                        readOnly={counts}
+                                        style={counts?{border : "2px solid black" }: null}
                                     />
-                                    <button onClick={checkid} >중복확인</button>
+                                    <button onClick={checkid} disabled={counts} >중복확인</button>
                                     {valText.userID&&<div>{valText.userID}</div>}
                                 </td>
                             </tr>
@@ -508,6 +582,7 @@ const JoinBox = () => {
                                         onBlur={validation}
                                     />
                                     <span>상세주소</span>
+                                    {valText.address&&<div>{valText.address}</div>}
                                 </td>
                             </tr>
                             <tr>
@@ -519,6 +594,7 @@ const JoinBox = () => {
                                         id ="firstNum"
                                         name="firstNum"
                                         onChange={phoneFunc}
+                                        onBlur={validation}
                                     >
                                         <option value="선택">선택</option>
                                         <option value="010">010</option>
@@ -537,6 +613,7 @@ const JoinBox = () => {
                                         size="5px"
                                         id="secondNum"
                                         onChange={phoneFunc}
+                                        onBlur={validation}
                                     />
                                     -
                                     <input
@@ -547,8 +624,9 @@ const JoinBox = () => {
                                         size="5px"
                                         id="thirdNum"
                                         onChange={phoneFunc}
+                                        onBlur={validation}
                                     />
-
+                                    {valText.firstNum|| valText.secondNum|| valText.secondNum?<div>올바르지 않은 휴대폰 번호입니다.</div>:null}
                                 </td>
                             </tr>
                             <tr>
