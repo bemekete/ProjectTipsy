@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/JoinForm.scss';
 import axios from 'axios';
-import {Link, useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Popup from "./Popup";
 import PopupPost from "./PopupPost";
 
@@ -21,16 +21,7 @@ function JoinForm() {
 }
 
 // DB로 데이터 전달 (form의 회원 정보 db로 전송)
-const fetchData = async (userData)=>{
-    try {
-        console.log(userData);
-        const response = await axios.post("/user/join",userData);
-        alert("회원가입에 성공하셨습니다.");
-        return response.data;
-    }catch{
-        alert("회원가입에 실패하셨습니다. 필수 입력 정보를 모두 입력해주세요.");
-    }
-};
+
 
 
 const JoinBox = () => {
@@ -63,283 +54,131 @@ const JoinBox = () => {
         }));
     }, [phoneNum]);
 
-    // 입력 데이터 저장 함수
-    const handleChange = (e) => {
-        // DB로 전달될 데이터 저장
-        const { name: varName, value: varValue } = e.target;
-        setUserData((data) => ({
-            ...data,
-            [varName]: varValue,
-        }));
-    };
 
     // 회원가입 완료 버튼
-    const dataSubmit =  (e) => {
+    const dataSubmit = async (e) => {
         e.preventDefault();
-        fetchData(userData);
-        navigate("/login");
+        try {
+            console.log(userData);
+            const response = await axios.post("/user/join", userData);
+            alert("회원가입에 성공하셨습니다.");
+            navigate("/login");
+        } catch {
+            alert("회원가입에 실패하셨습니다. 다시 시도하세요.");
+        };
     };
 
 
     // 유효성 검사 완료 유무 확인 변수
-    const [completeVal, setCompletVal]= useState({});
+    const [completeVal, setCompletVal] = useState({});
+    // 비밀번호 정규식값 저장 변수
+    const [passReg, setPassReg] = useState();
+
+    // 비밀번호 정규식화
+    useEffect(() => {
+        setPassReg(new RegExp(userData.password))
+    }, [userData])
+
+    // 정규식 모음
+    useEffect(() => {
+        setRegul((prev) => ({
+            ...prev,
+            rePSW: passReg,
+        }))
+    }, [passReg])
+    const [regul, setRegul] = useState({
+        userID: /^(?=.*[a-z])(?=.*[0-9])[a-z0-9]{8,15}$/g,
+        userPSW: /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-z0-9!@#$%^&*]{8,15}$/g,
+        rePSW: passReg,
+        passRequest: /^(?!.*select).*$/,
+        ckpwa: /^(?=.{3,20}$).*$/,
+        userName: /^[가-힣]{2,5}$/,
+        address: /^.{3,50}$/,
+        firstNum: /^(?!선택$).+$/,
+        secondNum: /^\d{3,4}$/,
+        thirdNum: /^\d{4}$/,
+        email: /^[\w.-]+@[a-zA-Z_-]+?\.[a-zA-Z]{2,3}$/
+    });
+
+    // 정규식 조건 틀릴 시 문구 모음
+    const [regulFail, setRegulFail] = useState({
+        userID: "영어, 숫자 조합으로 8자 이상 15자리 이하로 입력하세요.",
+        userPSW: "영어, 숫자, 특수문자 조합으로 8자이상 15자 이하로 입력해주세요.",
+        rePSW: "비밀번호가 일치하지 않습니다.",
+        passRequest: "필수 입력 정보입니다.",
+        ckpwa: "3자 이상 20자 이하로 입력해 주세요.",
+        userName: "한글 2자 이상 5자 이하로 입력해주세요.",
+        address: "3자 이상 50자 이하로 입력해주세요.",
+        firstNum: "올바르지 않은 휴대폰 번호입니다.",
+        secondNum: "올바르지 않은 휴대폰 번호입니다.",
+        thirdNum: "올바르지 않은 휴대폰 번호입니다.",
+        email: "이메일 형식이 올바르지 않습니다."
+    })
+
     // 유효성 검사 문구 변수
-    const [valText, setValText]= useState({
-        address_1 : "필수 입력사항입니다.",
-        postal : "필수 입력사항입니다.",
+    const [valText, setValText] = useState({
+        address_1: "필수 입력사항입니다.",
+        postal: "필수 입력사항입니다.",
     });
     //데이터 유효성 검사 함수
-    const validation = (e)=>{
-        const {id, value}=e.target;
-        console.log(typeof( value));
-        switch (id) {
-            case "userID" :
-                if (userData.id  === '') {
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "필수 입력정보입니다."
-                    }));
-                } else if (/^(?=.*[a-z])(?=.*[0-9])[a-z0-9]{8,15}$/g.test(userData.id )) {
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "올바른 입력입니다."
-                    }));
-                    setCompletVal((prev)=>({
-                        ...prev,
-                        [id]: "유효성 체크 완료",
-                    }));
-                } else {
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "영어, 숫자 조합으로 8자 이상 15자리 이하로 입력하세요."
-                    }));
-                }
-                break;
-            case "userPSW" :
-                if (value === '') {
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "필수 입력 정보입니다."
-                    }));
-                } else if (/^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-z0-9!@#$%^&*]{8,15}$/g.test(value)) {
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "올바른 입력입니다."
-                    }));
-                    setCompletVal((prev)=>({
-                        ...prev,
-                        [id]: "유효성 체크 완료",
-                    }));
-                } else {
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "영어, 숫자, 특수문자 조합으로 8자이상 15자 이하로 입력해주세요."
-                    }));
-                }
-                break;
-            case "rePSW" :
-                if(userData.password === value){
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "비밀번호가 일치합니다."
-                    }));
-                    setCompletVal((prev)=>({
-                        ...prev,
-                        [id]: "유효성 체크 완료",
-                    }));
-                }else{
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "비밀번호가 일치하지 않습니다."
-                    }));
-                }
-                break;
-            case "passRequest" :
-                console.log(value);
-                if(value === ''){
-                    setValText((prev)=>({
-                    ...prev,
-                    [id] : "필수 입력 정보입니다.",
-                    }));
-                }else{
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : null,
-                    }));
-                    setCompletVal((prev)=>({
-                        ...prev,
-                        [id]: "유효성 체크 완료",
-                    }));
-                }
-                break;
-            case "ckpwa" :
-                if(value === ''){
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "필수 입력 정보입니다.",
-                    }));
-                }else if(/^(?=.{3,20}$).*$/.test(value)){
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : null 
-                    }))
-                    setCompletVal((prev)=>({
-                        ...prev,
-                        [id]: "유효성 체크 완료",
-                    }));
-                } else{
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "3자 이상 20자 이하로 입력해 주세요.",
-                    }))
-                }
-                break;
-            case "userName" :
-                if(/^[가-힣]{2,5}$/.test(value)){
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : null
-                    }));
-                    setCompletVal((prev)=>({
-                        ...prev,
-                        [id]: "유효성 체크 완료",
-                    }));
-                }else{
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "한글 2자 이상 5자 이하로 입력해주세요."
-                    }));
-                }
-                break;
-            case "address" : 
-                if(/^.{3,50}$/.test(value)){
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : null
-                    }));
-                    setCompletVal((prev)=>({
-                        ...prev,
-                        [id]: "유효성 체크 완료",
-                    }));
-                }else if(value===""){
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "필수 입력 정보입니다."
-                    }));
-                }
-                else{
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "3자 이상 50자 이하로 입력해주세요."
-                    }));
-                }
-                break;
-            case "firstNum" :
-                if(value.length>0 &&value!== "선택"){
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : null
-                    }));
-                    setCompletVal((prev)=>({
-                        ...prev,
-                        [id]: "유효성 체크 완료",
-                    }));
-                }else{
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "올바르지 않은 휴대폰 번호입니다."
-                    }));
-                }
-                break;
-            case "secondNum" :
-                if(/^\d{3,4}$/.test(value)){
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : null
-                    }));
-                    setCompletVal((prev)=>({
-                        ...prev,
-                        [id]: "유효성 체크 완료",
-                    }));
-                }else{
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "올바르지 않은 휴대폰 번호입니다."
-                    }));
-                }
-                break;
-            case "thirdNum" :
-                if(/^\d{4}$/.test(value)){
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : null
-                    }));
-                    setCompletVal((prev)=>({
-                        ...prev,
-                        [id]: "유효성 체크 완료",
-                    }));
-                }else{
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "올바르지 않은 휴대폰 번호입니다."
-                    }));
-                }
-                break;
-            case "email" :
-                if(/^[\w.-]+@[a-zA-Z_-]+?\.[a-zA-Z]{2,3}$/.test(value)) {
-                    setValText((prev) => ({
-                        ...prev,
-                        [id]: null,
-                    }));
-                    setCompletVal((prev)=>({
-                        ...prev,
-                        [id]: "유효성 체크 완료",
-                    }));
-                }else if(value === ''){
-                    setValText((prev) =>({
-                        ...prev,
-                        [id] : "필수 입력 정보입니다."
-                    }));
-                }
-                else{
-                    setValText((prev)=>({
-                        ...prev,
-                        [id] : "이메일 형식이 올바르지 않습니다.",
-                    }));
-                }
-                break;
+    const validation = (e) => {
+
+        console.log(valText.id);
+        const { id, name, value } = e.target;
+        if (value === "") {
+            setValText((prev) => ({
+                ...prev,
+                [id]: "필수 입력 정보입니다."
+            }));
+        } else if (regul[id].test(value)) {
+            setValText((prev) => ({
+                ...prev,
+                [id]: "올바른 입력입니다."
+            }));
+            setCompletVal((prev) => ({
+                ...prev,
+                [id]: "유효성 검사 완료",
+            }))
+            // 입력 데이터 저장
+            setUserData((data) => ({
+                ...data,
+                [name]: value,
+            }));
+        } else {
+            setValText((prev) => ({
+                ...prev,
+                [id]: regulFail[id],
+            }));
         }
     }
 
     // ID 중복 체크
-    const [counts,setCounts] =useState(false);
-    const checkid = async (e)=>{
+    const [counts, setCounts] = useState(false);
+    const checkid = async (e) => {
         e.preventDefault();
-        if(/^(?=.*[a-z])(?=.*[0-9])[a-z0-9]{8,15}$/g.test(userData.id)) {
-           await axios("/user/checkid")
-               .then((response) => {
-                    if( response.data.includes(userData.id)){
-                        setValText((prev)=>({
+        if (/^(?=.*[a-z])(?=.*[0-9])[a-z0-9]{8,15}$/g.test(userData.id)) {
+            await axios("/user/checkid")
+                .then((response) => {
+                    if (response.data.includes(userData.id)) {
+                        setValText((prev) => ({
                             ...prev,
-                            userID : "이미 사용중인 아이디입니다."
+                            userID: "이미 사용중인 아이디입니다."
                         }));
-                    }else{
+                    } else {
                         setCounts(true);
-                        setValText((prev)=>({
+                        setValText((prev) => ({
                             ...prev,
-                            userID : "사용 가능한 아이디입니다."
+                            userID: "사용 가능한 아이디입니다."
                         }));
-                        setCompletVal((prev)=>({
-                           ...prev,
-                           userID : "유효성 체크 완료",
-                        }))
+                        setCompletVal((prev) => ([
+                        ]))
                     }
                 })
                 .catch()
-        }else {
-            setValText((prev)=>({
+        } else {
+            setValText((prev) => ({
                 ...prev,
-                id : "영어, 숫자 조합으로 8자 이상 15자리 이하로 입력하세요."
+                id: "영어, 숫자 조합으로 8자 이상 15자리 이하로 입력하세요."
             }));
         }
     }
@@ -360,18 +199,18 @@ const JoinBox = () => {
 
     // 팝업에서 데이터를 전달받는 함수
     const handlePopupData = (data) => {
-        console.log("joinForm : "+data);
-         setPopupPostData(data);
+        console.log("joinForm : " + data);
+        setPopupPostData(data);
     };
 
     // DB에 전달할 객체에 주소 및 우편번호 저장
-    useEffect(()=>{
-        setUserData((prev)=>({
+    useEffect(() => {
+        setUserData((prev) => ({
             ...prev,
-            postal : popupPostData[1],
-            address_1 : popupPostData[0],
+            postal: popupPostData[1],
+            address_1: popupPostData[0],
         }))
-    },[popupPostData])
+    }, [popupPostData])
 
     return (
         <>
@@ -399,14 +238,12 @@ const JoinBox = () => {
                                         maxLength="16"
                                         name="id"
                                         id="userID"
-                                        // placeholder="영어, 숫자 조합으로 8자 이상 15자 이하로 입력하세요."
-                                        onChange={handleChange}
-                                        onBlur={counts?null:validation}
+                                        onBlur={counts ? null : validation}
                                         readOnly={counts}
-                                        style={counts?{border : "2px solid black" }: null}
+                                        style={counts ? { border: "2px solid black" } : null}
                                     />
                                     <button onClick={checkid} disabled={counts} >중복확인</button>
-                                    {valText.userID&&<div>{valText.userID}</div>}
+                                    {valText.userID && <div>{valText.userID}</div>}
                                 </td>
                             </tr>
                             <tr>
@@ -420,14 +257,12 @@ const JoinBox = () => {
                                         maxLength="16"
                                         name="password"
                                         id="userPSW"
-                                        // placeholder="영어, 숫자, 특수문자 조합으로 8자이상 15자 이하로 입력해주세요."
-                                        onChange={handleChange}
                                         onBlur={validation}
                                     />
                                     <span>
 
                                     </span>
-                                    {valText.userPSW&&<div>{valText.userPSW}</div>}
+                                    {valText.userPSW && <div>{valText.userPSW}</div>}
                                 </td>
                             </tr>
                             <tr>
@@ -442,7 +277,7 @@ const JoinBox = () => {
                                         id="rePSW"
                                         onBlur={validation}
                                     />
-                                    {valText.rePSW&&<div className="confirmPSW notice">{valText.rePSW}</div>}
+                                    {valText.rePSW && <div className="confirmPSW notice">{valText.rePSW}</div>}
                                 </td>
                             </tr>
                             <tr>
@@ -451,12 +286,11 @@ const JoinBox = () => {
                                 </th>
                                 <td>
                                     <select
-                                        id = "passRequest"
+                                        id="passRequest"
                                         name="password_q"
-                                        onChange={handleChange}
                                         onBlur={validation}
                                     >
-                                        <option value="">
+                                        <option value="select">
                                             선택하세요.
                                         </option>
                                         <option value="pswQ1">
@@ -509,7 +343,7 @@ const JoinBox = () => {
                                             내가 좋아하는 캐릭터는?
                                         </option>
                                     </select>
-                                    {valText.passRequest&&<div>{valText.passRequest}</div>}
+                                    {valText.passRequest === "올바른 입력입니다." ? null : <div>{valText.passRequest}</div>}
                                 </td>
                             </tr>
                             <tr>
@@ -522,10 +356,9 @@ const JoinBox = () => {
                                         name="password_a"
                                         size="70px"
                                         id="ckpwa"
-                                        onChange={handleChange}
                                         onBlur={validation}
                                     />
-                                    {valText.ckpwa&&<div>{valText.ckpwa}</div>}
+                                    {valText.ckpwa === "올바른 입력입니다." ? null : <div>{valText.ckpwa}</div>}
                                 </td>
                             </tr>
                             <tr>
@@ -539,10 +372,9 @@ const JoinBox = () => {
                                         maxLength="10"
                                         name="name"
                                         id="userName"
-                                        onChange={handleChange}
                                         onBlur={validation}
                                     />
-                                    {valText.userName&&<div>{valText.userName}</div>}
+                                    {valText.userName === "올바른 입력입니다." ? null : <div>{valText.userName}</div>}
                                 </td>
                             </tr>
                             <tr>
@@ -553,6 +385,7 @@ const JoinBox = () => {
                                         name="postal"
                                         size="10px"
                                         value={popupPostData[1]}
+                                        onChange={validation}
                                         readOnly
                                     />
                                     <button onClick={openPostCode}>우편번호</button>
@@ -569,6 +402,7 @@ const JoinBox = () => {
                                         name="address_1"
                                         size="50"
                                         value={popupPostData[0]}
+                                        onChange={validation}
                                         readOnly
                                     />
                                     <span>기본주소</span>
@@ -578,11 +412,11 @@ const JoinBox = () => {
                                         name="address_2"
                                         size="50"
                                         id="address"
-                                        onChange={handleChange}
                                         onBlur={validation}
                                     />
                                     <span>상세주소</span>
-                                    {valText.address&&<div>{valText.address}</div>}
+
+                                    {valText.address === "올바른 입력입니다." ? null : <div>{valText.address}</div>}
                                 </td>
                             </tr>
                             <tr>
@@ -591,7 +425,7 @@ const JoinBox = () => {
                                 </th>
                                 <td>
                                     <select
-                                        id ="firstNum"
+                                        id="firstNum"
                                         name="firstNum"
                                         onChange={phoneFunc}
                                         onBlur={validation}
@@ -626,7 +460,15 @@ const JoinBox = () => {
                                         onChange={phoneFunc}
                                         onBlur={validation}
                                     />
-                                    {valText.firstNum|| valText.secondNum|| valText.secondNum?<div>올바르지 않은 휴대폰 번호입니다.</div>:null}
+                                    {valText.firstNum === "필수 입력 정보입니다."
+                                        || valText.secondNum === "필수 입력 정보입니다."
+                                        || valText.secondNum === "필수 입력 정보입니다."
+                                        ? <div>올바르지 않은 휴대폰 번호입니다.</div>
+                                        : valText.firstNum === "올바르지 않은 휴대폰 번호입니다."
+                                            || valText.secondNum === "올바르지 않은 휴대폰 번호입니다."
+                                            || valText.secondNum === "올바르지 않은 휴대폰 번호입니다."
+                                            ? <div>올바르지 않은 휴대폰 번호입니다.</div>
+                                            : null}
                                 </td>
                             </tr>
                             <tr>
@@ -639,10 +481,9 @@ const JoinBox = () => {
                                         name="email"
                                         size="30px"
                                         id="email"
-                                        onChange={handleChange}
                                         onBlur={validation}
                                     />
-                                    {valText.email && <div>{valText.email}</div>}
+                                    {valText.email === "올바른 입력입니다." ? null : <div>{valText.email}</div>}
                                 </td>
                             </tr>
                         </tbody>
