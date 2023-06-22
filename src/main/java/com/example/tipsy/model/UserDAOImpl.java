@@ -35,6 +35,14 @@ public class UserDAOImpl implements UserDAO {
 		return mapper.joinUser(vo);
 	}
 
+	// 개인정보 수정
+
+
+	@Override
+	public int updateUser(UserVO vo) {
+		return mapper.updateUser(vo);
+	}
+
 	// 아이디찾기
 	@Override
 	public List<String> findId(String email) {

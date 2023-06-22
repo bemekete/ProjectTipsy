@@ -293,10 +293,6 @@ const JoinBox = () => {
                                         id="thirdNum"
                                         onChange={phoneFunc}
                                     />
-                                    {/* <!-- <a href="#">인증번호전송</a><br /> --> */}
-                                    {/* <!-- <input type="text" name="userPhoneVerification" minLength="6" maxLength="6"
-                                            size="24px" id="verificationCode" />
-                                        <a href="#">인증번호확인</a> --> */}
                                 </td>
                             </tr>
                             <tr>

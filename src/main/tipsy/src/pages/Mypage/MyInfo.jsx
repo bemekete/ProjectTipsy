@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../styles/Adminpage.scss';
+import { useNavigate } from 'react-router-dom';
 
 export default function MyInfo() {
     return (
@@ -12,10 +13,12 @@ export default function MyInfo() {
         </div>
     );
 }
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 export function MyInfoForm() {
     const [loginInfo, setLoginInfo] = useState(null); // db에서 받아온 정보를 담는 변수
-    
+    const navigate = useNavigate();
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -29,8 +32,13 @@ export function MyInfoForm() {
         }
     };
 
+    // 데이터를 받아올 때까지 로딩 표시
     if (loginInfo === null) {
-        return <div>Loading...</div>; // 데이터를 받아올 때까지 로딩 표시
+        return (
+            <div style={{ fontWeight: 'bold', fontSize: 30, height: 600 }}>
+                Loading...
+            </div>
+        );
     } else {
     }
 
@@ -39,8 +47,38 @@ export function MyInfoForm() {
     const secondNum = loginInfo.phone ? loginInfo.phone.substring(4, 8) : '';
     const lastNum = loginInfo.phone ? loginInfo.phone.substring(9) : '';
 
+    // 각 input의 value값 수정
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setLoginInfo((prevLoginInfo) => ({
+            ...prevLoginInfo,
+            [name]: value,
+            // phone: setPhone(),
+        }));
+    };
+
+    // 수정한 value값을 서버에 다시 저장(개인정보 수정)
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        console.log(loginInfo); // 변경된 loginInfo 값 출력
+        try {
+            const response = await axios.post('/user/update', loginInfo, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log(response.data); // 서버 응답 확인
+            alert('개인정보 수정 성공');
+            navigate('/mypage');
+            // 필요한 작업 수행
+        } catch (error) {
+            console.error(error);
+            alert('개인정보 수정 실패');
+        }
+    };
+
     return (
-        <form onSubmit="onSubmit" className="forminfo" method="post">
+        <form onSubmit={handleFormSubmit} className="forminfo" method="post">
             <table className="userinfoTable">
                 <tbody>
                     <tr>
@@ -53,7 +91,7 @@ export function MyInfoForm() {
                                 name="id"
                                 id="userID"
                                 value={loginInfo.id}
-                                // onChange={handleChange}
+                                onChange={handleChange}
                                 required
                             />
                             <span>영소문자 및 숫자, 4자 이상</span>
@@ -68,9 +106,7 @@ export function MyInfoForm() {
                                 maxLength="16"
                                 name="password"
                                 id="userPSW"
-                                value={loginInfo.password}
-                                // onChange={handleChange}
-                                required
+                                value="**********"
                             />
                             <span>
                                 영대소문자 및 특수문자(@$!%*#?&), 8자 이상
@@ -87,7 +123,7 @@ export function MyInfoForm() {
                                 name="name"
                                 id="userName"
                                 value={loginInfo.name}
-                                // onChange={handleChange}
+                                onChange={handleChange}
                             />
                         </td>
                     </tr>
@@ -99,7 +135,7 @@ export function MyInfoForm() {
                                 name="postal"
                                 size="10px"
                                 value={loginInfo.postal}
-                                // onChange={handleChange}
+                                onChange={handleChange}
                             />
                             <button onClick="/">우편번호</button>
                             <br />
@@ -108,7 +144,7 @@ export function MyInfoForm() {
                                 name="address_1"
                                 size="50"
                                 value={loginInfo.address_1}
-                                // onChange={handleChange}
+                                onChange={handleChange}
                             />
                             <span>기본주소</span>
                             <br />
@@ -118,7 +154,7 @@ export function MyInfoForm() {
                                 size="50"
                                 id="address"
                                 value={loginInfo.address_2}
-                                // onChange={handleChange}
+                                onChange={handleChange}
                             />
                             <span>상세주소</span>
                         </td>
@@ -128,29 +164,29 @@ export function MyInfoForm() {
                         <td className="phoneinput">
                             <input
                                 type="text"
-                                name="firstNum"
+                                name="phone"
                                 size="5px"
-                                id="secondNum"
+                                id="firstNum"
                                 value={firstNum}
-                                readOnly
+                                onChange={handleChange}
                             />
                             -
                             <input
                                 type="text"
-                                name="secondNum"
+                                name="phone"
                                 size="5px"
                                 id="secondNum"
                                 value={secondNum}
-                                readOnly
+                                onChange={handleChange}
                             />
                             -
                             <input
                                 type="text"
-                                name="lastNum"
+                                name="phone"
                                 size="5px"
                                 id="thirdNum"
                                 value={lastNum}
-                                readOnly
+                                onChange={handleChange}
                             />
                         </td>
                     </tr>
@@ -163,16 +199,14 @@ export function MyInfoForm() {
                                 size="30px"
                                 id="email"
                                 value={loginInfo.email}
-                                // onChange={handleChange}
+                                onChange={handleChange}
                             />
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div className="modifyinfoBtn">
-                <button type="submit" onClick="/">
-                    정보수정
-                </button>
+                <button type="submit">정보수정</button>
                 <button>취소</button>
             </div>
         </form>

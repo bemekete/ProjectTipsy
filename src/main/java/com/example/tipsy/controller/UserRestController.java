@@ -33,6 +33,7 @@ public class UserRestController {
         return service.selectList();
     }
 
+    // 개인정보
     @GetMapping("/userinfo")
     public UserVO getUserInfo(UserVO vo, HttpSession session){
         if ( vo.getId()==null || vo.getId().length()<1 ) {
@@ -52,6 +53,19 @@ public class UserRestController {
 
         return service.joinUser(vo);
     }
+    
+    // 개인정보 수정
+    @PostMapping("/update")
+    public ResponseEntity<String> updateUser(@RequestBody UserVO vo, HttpSession session) {
+        vo.setPassword(null);
+        if (service.updateUser(vo) > 0) {
+            session.setAttribute("loginName", vo.getName());
+            return ResponseEntity.ok("개인정보 수정 성공");
+        } else {
+            return ResponseEntity.badRequest().body("개인정보 수정 실패");
+        }
+    }
+    
 
     // 로그인
     @PostMapping("/login")
