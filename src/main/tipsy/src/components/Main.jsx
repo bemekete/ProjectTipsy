@@ -24,8 +24,9 @@ import Map from '../pages/Map/Map';
 import Adminpage from '../pages/Adminpage/Adminpage';
 import UserModify from '../pages/Adminpage/UserModify';
 import MyInfo from '../pages/Mypage/Myinfo';
+import ChangePw from '../pages/Find/ChangePw';
 
-function Main({ handleLogin }) {
+function Main({ handleLogin, setIsLoggedIn }) {
     return (
         <>
             <div>
@@ -56,6 +57,10 @@ function Main({ handleLogin }) {
                     <Route path="/adminpage/:data" element={<Adminpage />} />
                     <Route path="/usermodify" element={<UserModify />} />
                     <Route path="/myinfo" element={<MyInfo />} />
+                    <Route
+                        path="/changepw"
+                        element={<ChangePw setIsLoggedIn={setIsLoggedIn} />}
+                    />
                 </Routes>
             </div>
         </>

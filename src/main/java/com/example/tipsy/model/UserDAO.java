@@ -16,6 +16,9 @@ public interface UserDAO {
 	// 회원정보, 개인정보 수정
 	int updateUser(UserVO vo);
 
+	// 비밀번호 수정
+	int updatePw(UserVO vo);
+
 	// 회원가임
 	int joinUser(UserVO vo);
 

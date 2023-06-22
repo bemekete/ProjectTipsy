@@ -66,6 +66,25 @@ public class UserRestController {
         }
     }
     
+    // 비밀번호 수정
+    @PostMapping("/updatepw")
+    public ResponseEntity<String> updatePw(@RequestBody UserVO vo, HttpServletRequest request) {
+        String id = (String) request.getSession().getAttribute("loginID");
+        vo.setId(id);
+        vo.setPassword(passwordEncoder.encode(vo.getPassword()));
+
+        if (service.updateUser(vo) > 0) {
+            request.getSession().invalidate();
+
+            String loginID = (String) request.getSession().getAttribute("loginID");
+            String loginName = (String) request.getSession().getAttribute("loginName");
+            System.out.println("로그인 성공. 아이디: " + loginID + ", 이름: " + loginName);
+
+            return ResponseEntity.ok("비밀번호 수정 성공");
+        } else {
+            return ResponseEntity.badRequest().body("비밀번호 수정 실패");
+        }
+    }
 
     // 로그인
     @PostMapping("/login")

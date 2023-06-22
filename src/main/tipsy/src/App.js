@@ -51,7 +51,10 @@ function App() {
                         isLoggedIn={isLoggedIn}
                         handleLogout={handleLogout}
                     />
-                    <Main handleLogin={handleLogin} />
+                    <Main
+                        handleLogin={handleLogin}
+                        setIsLoggedIn={setIsLoggedIn}
+                    />
                     <Footer />
                 </BrowserRouter>
             </div>

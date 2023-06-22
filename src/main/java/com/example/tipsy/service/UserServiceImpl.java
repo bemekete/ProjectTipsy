@@ -37,6 +37,12 @@ public class UserServiceImpl implements UserService {
 		return dao.updateUser(vo);
 	}
 
+	// 비밀번호 수정
+	@Override
+	public int updatePw(UserVO vo) {
+		return dao.updatePw(vo);
+	}
+
 	// 아이디찾기
 	@Override
 	public List<String> findId(String email) {

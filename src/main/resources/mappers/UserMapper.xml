@@ -20,7 +20,19 @@
 
     <update id="updateUser">
         update user
-        set name = #{name}, phone = #{phone}, postal = #{postal}, address_1 = #{address_1}, address_2 = #{address_2}, email = #{email}
+        set
+        <if test="password != null">
+            password = #{password}
+        </if>
+        <if test="password == null">
+            name = #{name}, phone = #{phone}, postal = #{postal}, address_1 = #{address_1}, address_2 = #{address_2}, email = #{email}
+        </if>
+        where id = #{id}
+    </update>
+
+    <update id="updatePw">
+        update user
+        set password = #{password}
         where id = #{id}
     </update>
 </mapper>

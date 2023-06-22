@@ -1,99 +1,88 @@
 import React, { useState } from 'react';
-import '../../styles/Find.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../../styles/ChangePw.scss';
 
-function ChangePw() {
+function ChangePw({ setIsLoggedIn }) {
+    const navigate = useNavigate();
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+    };
+
+    const handleConfirmPasswordChange = (e) => {
+        setConfirmPassword(e.target.value);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (password !== confirmPassword) {
+            alert('비밀번호가 일치하지 않습니다.');
+            return;
+        }
+
+        try {
+            const response = await axios.post('/user/updatepw', { password });
+            console.log(response.data); // 서버 응답 확인
+            alert('비밀번호 수정 성공');
+            setIsLoggedIn(false);
+            navigate('/'); // 비밀번호 수정 후 이동할 경로 설정
+        } catch (error) {
+            console.error(error);
+            alert('비밀번호 수정 실패');
+        }
+    };
+
     return (
-        <div id="find_container">
-            <main>
-                <div class="find_wrap">
-                    <div class="find_logo_div">
-                        <Link to="/" class="find_logo">
-                            tipsy
-                        </Link>
-                    </div>
-                    <div class="find_form_wrap">
-                        <ChangeForm />
-                    </div>
+        <div className="changePwContainer">
+            <h1>비밀번호 변경</h1>
+            <form className="forminfo" onSubmit={handleSubmit}>
+                <table className="userinfoTable">
+                    <tbody>
+                        <tr>
+                            <th>새 비밀번호</th>
+                            <td>
+                                <input
+                                    type="password"
+                                    minLength="6"
+                                    maxLength="16"
+                                    name="password"
+                                    id="userPSW"
+                                    value={password}
+                                    onChange={handlePasswordChange}
+                                    required
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>비밀번호 확인</th>
+                            <td>
+                                <input
+                                    type="password"
+                                    minLength="6"
+                                    maxLength="16"
+                                    name="password"
+                                    id="userPSWCH"
+                                    value={confirmPassword}
+                                    onChange={handleConfirmPasswordChange}
+                                    required
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div className="modifyinfoBtn">
+                    <button type="submit">변경하기</button>
+                    <button type="button" onClick={() => navigate(-1)}>
+                        취소
+                    </button>
                 </div>
-            </main>
+            </form>
         </div>
     );
 }
+
 export default ChangePw;
-
-const ChangeForm = () => {
-    const [email, setEmail] = useState('');
-    const navigate = useNavigate();
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        // 서버로 이메일 값 전송
-        axios
-            .get('/user/findId', { params: { email: email } })
-            .then((response) => {
-                // 응답 처리
-                console.log(response);
-                alert(`'${email}'으로 아이디를 전송했습니다.`);
-                navigate('/findpassword');
-            })
-            .catch((error) => {
-                // 에러 처리
-                console.error(error);
-            });
-    };
-
-    return (
-        <form onSubmit={handleSubmit} id="find_form">
-            <div className="form_container">
-                <div className="form_tit">아이디 찾기</div>
-                <ul className="form_list">
-                    <li>
-                        <dl>
-                            <dt>새비밀번호</dt>
-                            <dd>
-                                <div className="input_line">
-                                    <input
-                                        className="input_type1"
-                                        type="text"
-                                        id="user_mobile"
-                                        name="password"
-                                        value={email}
-                                        onChange={handleEmailChange}
-                                        maxLength="50"
-                                        placeholder="새비밀번호"
-                                    />
-                                </div>
-                            </dd>
-                        </dl>
-                    </li>
-                    <li>
-                        <dl>
-                            <dt>비밀번호확인</dt>
-                            <dd>
-                                <div className="input_line">
-                                    <input
-                                        className="input_type1"
-                                        type="text"
-                                        id="user_mobile"
-                                        maxLength="50"
-                                        placeholder="비밀번호확인"
-                                    />
-                                </div>
-                            </dd>
-                        </dl>
-                    </li>
-                </ul>
-                <button className="btnList" type="submit">
-                    아이디 찾기
-                </button>
-            </div>
-        </form>
-    );
-};

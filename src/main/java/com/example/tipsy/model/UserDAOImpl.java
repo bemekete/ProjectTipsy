@@ -36,11 +36,17 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	// 개인정보 수정
-
-
 	@Override
 	public int updateUser(UserVO vo) {
 		return mapper.updateUser(vo);
+	}
+
+	// 비밀번호 수정
+
+
+	@Override
+	public int updatePw(UserVO vo) {
+		return mapper.updatePw(vo);
 	}
 
 	// 아이디찾기

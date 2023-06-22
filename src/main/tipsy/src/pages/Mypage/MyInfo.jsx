@@ -53,7 +53,6 @@ export function MyInfoForm() {
         setLoginInfo((prevLoginInfo) => ({
             ...prevLoginInfo,
             [name]: value,
-            // phone: setPhone(),
         }));
     };
 
@@ -94,7 +93,6 @@ export function MyInfoForm() {
                                 onChange={handleChange}
                                 required
                             />
-                            <span>영소문자 및 숫자, 4자 이상</span>
                         </td>
                     </tr>
                     <tr>
@@ -106,11 +104,18 @@ export function MyInfoForm() {
                                 maxLength="16"
                                 name="password"
                                 id="userPSW"
-                                value="**********"
+                                value="**************"
+                                readOnly
                             />
-                            <span>
-                                영대소문자 및 특수문자(@$!%*#?&), 8자 이상
-                            </span>
+                            <button
+                                type="button"
+                                className="btnstyle"
+                                onClick={() => {
+                                    navigate('/changepw');
+                                }}
+                            >
+                                비밀번호 변경
+                            </button>
                         </td>
                     </tr>
                     <tr>
@@ -137,7 +142,7 @@ export function MyInfoForm() {
                                 value={loginInfo.postal}
                                 onChange={handleChange}
                             />
-                            <button onClick="/">우편번호</button>
+                            <button>우편번호</button>
                             <br />
                             <input
                                 type="text"
@@ -207,7 +212,14 @@ export function MyInfoForm() {
             </table>
             <div className="modifyinfoBtn">
                 <button type="submit">정보수정</button>
-                <button>취소</button>
+                <button
+                    type="button"
+                    onClick={() => {
+                        navigate(-1);
+                    }}
+                >
+                    취소
+                </button>
             </div>
         </form>
     );

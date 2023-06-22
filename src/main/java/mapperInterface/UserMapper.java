@@ -22,4 +22,6 @@ public interface UserMapper {
 
     // 개인정보 수정
     int updateUser(UserVO vo);
+
+    int updatePw(UserVO vo);
 }

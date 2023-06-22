@@ -17,6 +17,9 @@ public interface UserService {
 
 	// 회원정보, 개인정보 수정
 	int updateUser(UserVO vo);
+
+	// 비밀번호 수정
+	int updatePw(UserVO vo);
 	
 	// 아이디찾기
 	public List<String> findId(String email);

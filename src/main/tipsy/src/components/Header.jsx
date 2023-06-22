@@ -14,7 +14,7 @@ function header({ isLoggedIn, handleLogout }) {
                             {isLoggedIn ? (
                                 <>
                                     <li>
-                                        <Link to="/" onClick={handleLogout}>
+                                        <Link onClick={handleLogout}>
                                             로그아웃
                                         </Link>
                                     </li>
