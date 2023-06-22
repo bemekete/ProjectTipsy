@@ -23,11 +23,17 @@ public class AsiDAOImpl implements AsiDAO {
         return mapper.faqList();
     }
 
-//    @Override
-//    public AsiVO boardDetail(AsiVO vo) {
-//        return mapper.boardDetail(vo);
-//    }
+    @Override
+    public AsiVO boardDetail(AsiVO vo) {
+        return mapper.boardDetail(vo);
+    }
 
     @Override
     public int insertBoard(AsiVO vo) { return mapper.insertBoard(vo); }
+
+    @Override
+    public int updateBoard(AsiVO vo) { return mapper.updateBoard(vo); }
+
+    @Override
+    public int deleteBoard(AsiVO vo) { return mapper.deleteBoard(vo); }
 }

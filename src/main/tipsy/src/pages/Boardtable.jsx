@@ -1,5 +1,6 @@
 import '../styles/Boardtable.scss';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
 function Boardtable({ page, items }) {
     return (
@@ -104,6 +105,29 @@ function BoardTable({ page, items }) {
 }
 
 function BodyTable({ page, items }) {
+
+    const deleteBoard = async (e, seq) => {
+        try {
+            e.preventDefault();
+
+            if (window.confirm("정말 삭제하시겠습니까?")) {
+                await axios.post('/deleteboard', {
+                    asi_seq: seq,
+
+                }).then(response=>{
+                    console.log(response.data);
+                    window.location.reload();
+
+                }).catch(error=>{
+                    console.log(error);
+                })
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return items.map((item, i) => (
         <tr key={'boarditem' + i}>
             <th scope="row">
@@ -122,7 +146,16 @@ function BodyTable({ page, items }) {
                     </summary>
                 </details>
                 <div className="innerCon">
-                    <span>{item.asi_contents}</span>
+                    <span>
+                        {item.asi_contents}
+
+                        {1 == 1 && (
+                            <div className='conModify'>
+                                <Link to={`/adminpage/updateboard?asi_seq=${item.asi_seq}`}>수정</Link>
+                                <Link to="/" onClick={e => deleteBoard(e, item.asi_seq)}>삭제</Link>
+                            </div>
+                        )}
+                    </span>
                 </div>
             </td>
         </tr>

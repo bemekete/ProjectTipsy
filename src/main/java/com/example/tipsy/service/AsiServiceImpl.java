@@ -19,11 +19,17 @@ public class AsiServiceImpl implements AsiService {
     @Override
     public List<AsiVO> faqList() { return dao.faqList(); }
 
-//    @Override
-//    public AsiVO boardDetail(AsiVO vo) {
-//        return dao.boardDetail(vo);
-//    }
+    @Override
+    public AsiVO boardDetail(AsiVO vo) {
+        return dao.boardDetail(vo);
+    }
 
     @Override
     public int insertBoard(AsiVO vo) { return dao.insertBoard(vo); }
+
+    @Override
+    public int updateBoard(AsiVO vo) { return dao.updateBoard(vo); }
+
+    @Override
+    public int deleteBoard(AsiVO vo) { return dao.deleteBoard(vo); }
 }

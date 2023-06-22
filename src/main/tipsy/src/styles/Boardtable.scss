@@ -137,6 +137,13 @@
         transition: 0.3s;
     }
 
+    .conModify {
+        display: flex;
+        gap: 10px; 
+        text-decoration: underline;
+        margin-top: 30px;
+    }
+
     .board_table details[open] img {
         transform: rotateX(180deg);
     }

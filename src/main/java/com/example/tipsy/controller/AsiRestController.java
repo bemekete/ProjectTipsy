@@ -30,19 +30,24 @@ public class AsiRestController {
         return ResponseEntity.ok(service.faqList());
     }
 
+    @GetMapping("/boarddetail")
+    public ResponseEntity<AsiVO> boarddetail(AsiVO vo) {
+        return ResponseEntity.ok(service.boardDetail(vo));
+    }
 //    @GetMapping("/boarddetail")
-//    public AsiVO boardDetail(AsiVO vo) {
-//        vo = service.boardDetail(vo);
-//        return vo;
+//    public ResponseEntity<AsiVO> boarddetail(Integer seq) {
+//        AsiVO vo = new AsiVO();
+//        vo.setAsi_seq(seq);
+//        return ResponseEntity.ok(service.boardDetail(vo));
 //    }
 
     @PostMapping("/insertboard")
     public ResponseEntity<?> insertboard(@RequestBody AsiVO vo) {
         if(service.insertBoard(vo) > 0) {
             if(vo.getAsi_code() < 20){
-                return ResponseEntity.ok().body("1");
+                return ResponseEntity.ok().body("1"); // notice
             } else {
-                return ResponseEntity.ok().body("2");
+                return ResponseEntity.ok().body("2"); // faq
             }
 
         } else {
@@ -50,4 +55,21 @@ public class AsiRestController {
         }
     }
 
+    @PostMapping("/updateboard")
+    public ResponseEntity<?> updateboard(@RequestBody AsiVO vo){
+        if(service.updateBoard(vo) > 0){
+            return ResponseEntity.ok().body("");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("");
+        }
+    }
+
+    @PostMapping("/deleteboard")
+    public ResponseEntity<?> deleteboard(@RequestBody AsiVO vo){
+        if(service.deleteBoard(vo) > 0){
+            return ResponseEntity.ok().body("");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("");
+        }
+    }
 }

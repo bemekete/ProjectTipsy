@@ -8,6 +8,7 @@ import ProductForm from './ProductForm';
 import Listpage from './Listpage';
 import { UserModifyForm } from './UserModify';
 import { DocForm } from './DocForm';
+import { DocModify } from "./DocModify";
 
 export default function Adminpage() {
     const { data } = useParams();
@@ -35,6 +36,9 @@ export default function Adminpage() {
                     )}
                     {data == 'uploadfaq' && (
                         <DocForm code={faqcode} />
+                    )}
+                    {data == 'updateboard' && (
+                        <DocModify />
                     )}
                 </div>
             </div>
