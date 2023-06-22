@@ -69,8 +69,6 @@ const JoinBox = () => {
     };
 
 
-    // 유효성 검사 완료 유무 확인 변수
-    const [completeVal, setCompletVal] = useState({});
     // 비밀번호 정규식값 저장 변수
     const [passReg, setPassReg] = useState();
 
@@ -135,10 +133,6 @@ const JoinBox = () => {
                 ...prev,
                 [id]: "올바른 입력입니다."
             }));
-            setCompletVal((prev) => ({
-                ...prev,
-                [id]: "유효성 검사 완료",
-            }))
             // 입력 데이터 저장
             setUserData((data) => ({
                 ...data,
@@ -170,8 +164,6 @@ const JoinBox = () => {
                             ...prev,
                             userID: "사용 가능한 아이디입니다."
                         }));
-                        setCompletVal((prev) => ([
-                        ]))
                     }
                 })
                 .catch()
