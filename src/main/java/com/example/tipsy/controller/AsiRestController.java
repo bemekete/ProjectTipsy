@@ -34,12 +34,6 @@ public class AsiRestController {
     public ResponseEntity<AsiVO> boarddetail(AsiVO vo) {
         return ResponseEntity.ok(service.boardDetail(vo));
     }
-//    @GetMapping("/boarddetail")
-//    public ResponseEntity<AsiVO> boarddetail(Integer seq) {
-//        AsiVO vo = new AsiVO();
-//        vo.setAsi_seq(seq);
-//        return ResponseEntity.ok(service.boardDetail(vo));
-//    }
 
     @PostMapping("/insertboard")
     public ResponseEntity<?> insertboard(@RequestBody AsiVO vo) {

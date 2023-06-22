@@ -9,23 +9,25 @@ export function DocModify() {
     const queryParams = new URLSearchParams(location.search);
     const asi_seq = queryParams.get('asi_seq'); // seq 쿼리스트링
 
-    const [detail, setDetail] = useState({}); // AsiVO 객체
-    const [title, setTitle] = useState(detail.asi_title); // form title
-    const [contents, setContents] = useState(detail.asi_contents); // form contents
+    const [title, setTitle] = useState(''); // form title
+    const [contents, setContents] = useState(''); // form contents
+
+    let flag = 0; // 0:notice - 1:faq
 
     // boarddetail - 객체 불러오기
     useEffect(() => {
         axios
-            .get(`/boarddetail?asi_seq=${asi_seq}`)
-            .then((response) => {
-                setDetail(response.data);
+                .get(`/boarddetail?asi_seq=${asi_seq}`)
+                .then((response) => {
+                    setTitle(response.data.asi_title);
+                    setContents(response.data.asi_contents);
 
-                setTitle(detail.asi_title);
-                setContents(detail.asi_contents);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+                    if(response.data.asi_code < 20) flag = 0;
+                    else flag = 1;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
     }, []);
 
 
@@ -35,15 +37,15 @@ export function DocModify() {
             e.preventDefault();
 
             const formdata = {
-                asi_code: detail.asi_code,
+                asi_seq: asi_seq,
                 asi_title: title,
                 asi_contents: contents,
-                asi_date: detail.asi_date,
             };
             axios
-                .put("/updateboard", formdata)
+                .post("/updateboard", formdata)
                 .then(response => {
-                    console.log(response.data);
+                    if(flag == 0) window.location.href = '/notice';
+                    else window.location.href = '/faq';
                 })
                 .catch(error => {
                     console.log(error);
