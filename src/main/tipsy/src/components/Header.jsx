@@ -6,7 +6,7 @@ function header({ isLoggedIn, handleLogout }) {
         <>
             <div className="headertop_cover">
                 <div className="headerTop">
-                    <Link tok="/" className="mainLogo">
+                    <Link to="/" className="mainLogo">
                         tipsy
                     </Link>
                     <div className="serviceTab">
