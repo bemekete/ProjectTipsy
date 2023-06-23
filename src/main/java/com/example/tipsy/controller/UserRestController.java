@@ -149,9 +149,6 @@ public class UserRestController {
     // 비밀번호 찾기
     @PostMapping("/findPw")
     public UserVO findPassword(@RequestBody UserVO vo, HttpSession session) {
-        vo.setId(vo.getId());
-        vo.setPhone(vo.getPhone());
-
         vo = service.findPw(vo);
         if (vo != null) {
             session.setAttribute("loginID",vo.getId());
