@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,12 +49,10 @@ public class UserRestController {
     public int joinUser(@RequestBody UserVO vo){
         String password = vo.getPassword();
         String encoder = passwordEncoder.encode(password);
-        log.info("*****변환된 비밀번호 : "+encoder);
         vo.setPassword(encoder);
 
         return service.joinUser(vo);
     }
-    
     // 개인정보 수정
     @PostMapping("/update")
     public ResponseEntity<String> updateUser(@RequestBody UserVO vo, HttpSession session) {
@@ -85,7 +84,6 @@ public class UserRestController {
             return ResponseEntity.badRequest().body("비밀번호 수정 실패");
         }
     }
-
     // 로그인
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserVO vo,  HttpSession session, Model model){
