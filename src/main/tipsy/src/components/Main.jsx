@@ -14,8 +14,8 @@ import Searchpage from '../pages/Searchpage';
 import { Simpleinquiry } from '../pages/Simple_inquiry';
 import Orderend from '../pages/Orderend';
 import Eventboard from '../pages/Eventboard';
-import FindId from '../pages/Find_id';
-import FindPassword from '../pages/Find_password';
+import FindId from '../pages/Find/Find_id';
+import FindPassword from '../pages//Find/Find_password';
 import FAQ from '../pages/FAQ';
 import CreateOrder from '../pages/CreateOrder';
 import Shopbasket from '../pages/Shopbasket/Shopbasket';
@@ -23,8 +23,10 @@ import Alcstyletest from '../pages/Alcstyletest';
 import Map from '../pages/Map/Map';
 import Adminpage from '../pages/Adminpage/Adminpage';
 import UserModify from '../pages/Adminpage/UserModify';
+import MyInfo from '../pages/Mypage/Myinfo';
+import ChangePw from '../pages/Find/ChangePw';
 
-function Main({ handleLogin }) {
+function Main({ handleLogin, setIsLoggedIn }) {
     return (
         <>
             <div>
@@ -43,7 +45,7 @@ function Main({ handleLogin }) {
                     <Route path="/notice" element={<Notice />} />
                     <Route path="/searchresult" element={<Searchpage />} />
                     <Route path="/simpleinquiry" element={<Simpleinquiry />} />
-                    <Route path="/orderend" element={<Orderend />} />   
+                    <Route path="/orderend" element={<Orderend />} />
                     <Route path="/eventboard" element={<Eventboard />} />
                     <Route path="/findid" element={<FindId />} />
                     <Route path="/findpassword" element={<FindPassword />} />
@@ -54,6 +56,11 @@ function Main({ handleLogin }) {
                     <Route path="/map" element={<Map />} />
                     <Route path="/adminpage/:data" element={<Adminpage />} />
                     <Route path="/usermodify" element={<UserModify />} />
+                    <Route path="/myinfo" element={<MyInfo />} />
+                    <Route
+                        path="/changepw"
+                        element={<ChangePw setIsLoggedIn={setIsLoggedIn} />}
+                    />
                 </Routes>
             </div>
         </>

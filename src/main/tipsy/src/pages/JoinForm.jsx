@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 export default JoinForm;
 
-
 function JoinForm() {
     return (
         <>
@@ -17,15 +16,15 @@ function JoinForm() {
         </>
     );
 }
-const fetchData = async (userData)=>{
+const fetchData = async (userData) => {
     try {
         console.log(userData);
-        const response = await axios.post("/user/join",userData);
-        alert("회원가입에 성공하셨습니다.");
-        console.log(response.data);
+        const response = await axios.post('/user/join', userData);
+        alert('회원가입에 성공하셨습니다.');
+
         return response.data;
-    }catch{
-        alert("회원가입에 실패하셨습니다.");
+    } catch {
+        alert('회원가입에 실패하셨습니다.');
     }
 };
 
@@ -54,13 +53,15 @@ const JoinBox = () => {
 
     const handleChange = (e) => {
         const { name: varName, value: varValue } = e.target;
+        console.log(varName);
+        console.log(varValue);
         setUserData((data) => ({
             ...data,
             [varName]: varValue,
         }));
     };
 
-    const dataSubmit =  (e) => {
+    const dataSubmit = (e) => {
         e.preventDefault();
         fetchData(userData);
     };
@@ -292,10 +293,6 @@ const JoinBox = () => {
                                         id="thirdNum"
                                         onChange={phoneFunc}
                                     />
-                                    {/* <!-- <a href="#">인증번호전송</a><br /> --> */}
-                                    {/* <!-- <input type="text" name="userPhoneVerification" minLength="6" maxLength="6"
-                                            size="24px" id="verificationCode" />
-                                        <a href="#">인증번호확인</a> --> */}
                                 </td>
                             </tr>
                             <tr>
