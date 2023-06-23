@@ -39,4 +39,80 @@
         DELETE FROM assist_customer WHERE asi_seq=#{asi_seq};
     </delete>
 
+
+    <!-- 페이징 -->
+    <select id="bcriList" resultType="com.example.tipsy.vo.AsiVO">
+        SELECT * FROM assist_customer
+        WHERE asi_seq > 0
+        ORDER BY asi_seq desc
+        LIMIT #{sno}, #{rowsPerPage}
+    </select>
+
+    <select id="criTotalCount" resultType="int">
+        SELECT count(*) from assist_customer
+        WHERE asi_seq > 0
+    </select>
+
+
+    <!-- ver2. -->
+    <!--
+    => sql Tag : 필요한 sql 구문을 만들어놓고 필요할때마다 사용가능
+    => include Tag : 호출 tag
+          적용 범위 ->  "and 나머지조건 )"
+          where ( seq>0 and 나머지조건 )
+
+    => 조건문 : searchType: title , keyword: Java
+           where title like '%'+#{keyword}+'%'
+           매번 문자열 + 연산 (Concate...함수 사용해야함) 하기는 아래의 예시와 같이 불편
+           그래서 이값을 변수로 처리 -> bind Tag
+           * 예시
+         and title Like  CONCAT('%',CONCAT(#{keyword},'%'))
+         and title Like  '%' || #{keyword} || '%' )
+    -->
+
+<!--    <sql id="search">-->
+<!--        &lt;!&ndash; 1) concat 처리 &ndash;&gt;-->
+<!--        <if test="keyword!=null">-->
+<!--            <bind name="keyVal" value="'%'+keyword+'%'"/>-->
+<!--        </if>-->
+
+<!--        &lt;!&ndash; 2) where 조건문 처리 &ndash;&gt;-->
+<!--        <choose>-->
+<!--            <when test="searchType=='tci'.toString()">-->
+<!--                and title Like #{keyVal}-->
+<!--                or content Like #{keyVal}-->
+<!--                or id Like #{keyVal} )-->
+<!--            </when>-->
+<!--            <when test="searchType=='tc'.toString()">-->
+<!--                and title Like #{keyVal}-->
+<!--                or content Like #{keyVal} )-->
+<!--            </when>-->
+<!--            <when test="searchType=='t'.toString()">-->
+<!--                and title Like #{keyVal} )-->
+<!--            </when>-->
+<!--            <when test="searchType=='c'.toString()">-->
+<!--                and content Like #{keyVal} )-->
+<!--            </when>-->
+<!--            <when test="searchType=='i'.toString()">-->
+<!--                and id Like #{keyVal} )-->
+<!--            </when>-->
+<!--            <when test="searchType=='r'.toString()">-->
+<!--                and regdate Like #{keyVal} )-->
+<!--            </when>-->
+<!--            <otherwise>)</otherwise>-->
+<!--        </choose>-->
+<!--    </sql>-->
+
+<!--    <select id="bsearchCriList" resultType="vo.BoardVO">-->
+<!--        select * from board-->
+<!--        where (seq > 0 <include refid="search"></include>-->
+<!--        order by root desc, step asc-->
+<!--        limit #{sno}, #{rowsPerPage}-->
+<!--    </select>-->
+
+<!--    <select id="searchCriTotalCount" resultType="int">-->
+<!--        select count(*) from board-->
+<!--        where (seq > 0 <include refid="search"></include>-->
+<!--    </select>-->
+
 </mapper>

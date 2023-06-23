@@ -1,23 +1,44 @@
 import React, {useEffect, useState} from 'react';
 import '../styles/FAQ.scss';
-import { Link } from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 
 import { BoardTitle, BoardSearch, BoardScope } from './Boardtable';
 import axios from "axios";
 
 function FAQ() {
     const [faqlist, setFaqlist] = useState([]);
+    const [pmk, setPmk] = useState({});
 
-    useEffect(() => {
-        axios
-            .get('/flist')
-            .then((response) => {
-                setFaqlist(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const currpage = queryParams.get('currpage');
+
+
+    axios
+        .get('/fcrilist',{
+            params: {
+                currPage: currpage,
+            }
+        })
+        .then((response) => {
+            setFaqlist()(response.data.list);
+            setPmk(response.data.pmk);
+
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+    // useEffect(() => {
+    //     axios
+    //         .get('/flist')
+    //         .then((response) => {
+    //             setFaqlist(response.data);
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+    // }, []);
 
     return (
         <div id="Board_main">
@@ -28,7 +49,7 @@ function FAQ() {
                 <div>
                     <FaqContainer />
                     <BoardSearch />
-                    <BoardScope page={page} items={faqlist} />
+                    <BoardScope page={page} items={faqlist} pmk={pmk} currpage={currpage} />
                 </div>
             </div>
         </div>

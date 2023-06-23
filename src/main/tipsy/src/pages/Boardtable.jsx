@@ -1,15 +1,16 @@
 import '../styles/Boardtable.scss';
-import { Link } from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import axios from "axios";
+import {useState} from "react";
 
-function Boardtable({ page, items }) {
+function Boardtable({ page, items, pmk, currpage }) {
     return (
         <>
             <div id="board_main">
                 <div id="board_maincontainer">
                     <BoardTitle page={page} />
                     <BoardSearch />
-                    <BoardScope page={page} items={items} />
+                    <BoardScope page={page} items={items} pmk={pmk} currpage={currpage} />
                 </div>
             </div>
         </>
@@ -47,14 +48,14 @@ function BoardSearch() {
     );
 }
 
-function BoardScope({ page, items }) {
+function BoardScope({ page, items, pmk, currpage }) {
     return (
         <div>
             <ScopeBox page={page} />
 
             <div className="board_table_main">
                 <BoardTable page={page} items={items} />
-                <PageButton />
+                <PageButton pmk={pmk} currpage={currpage} />
             </div>
         </div>
     );
@@ -84,8 +85,8 @@ function BoardTable({ page, items }) {
             <figure>
                 <table>
                     <colgroup>
-                        <col width="25%" />
-                        <col width="85%" />
+                        <col width="20%" />
+                        <col width="80%" />
                     </colgroup>
 
                     <thead>
@@ -162,15 +163,64 @@ function BodyTable({ page, items }) {
     ));
 }
 
-function PageButton() {
+function PageButton({pmk}) {
     return (
         <div className="board_page_button">
-            {/* <!-- <-1,2,3-> 버튼 --> */}
-            <b>
-                <Link to="#">1</Link>
-            </b>
+            <ul>
+                {PreBtn()}
+                {viewNumbers()}
+                {NxtBtn()}
+            </ul>
         </div>
     );
+
+    // 페이지 넘버 버튼
+    function viewNumbers() {
+        const page = [];
+        for(let i = pmk.spageNo; i < pmk.epageNo + 1; i++) {
+            page.push(i);
+        }
+
+        return (
+            <>
+                {page.map((n, i) => (
+                    <li key={n}>
+                        <Link to={`/notice?currpage=${n}`}>
+                            <span>{n}</span>
+                        </Link>
+                    </li>
+                ))}
+            </>
+        )
+    }
+
+    // 앞번호로 넘기는 버튼
+    function PreBtn() {
+        if(pmk.prev == true){
+            return(
+                <li>
+                    <Link to={`/notice?currpage=${pmk.spageNo - pmk.displayPageNo}`}>
+                        <span className="prebtn">
+                        </span>
+                    </Link>
+                </li>
+            )
+        }
+    }
+
+    // 뒷번호로 넘기는 버튼
+    function NxtBtn() {
+        if(pmk.next == true){
+            return(
+                <li>
+                    <Link to={`/notice?currpage=${pmk.spageNo + pmk.displayPageNo}`}>
+                        <span className="nxtbtn">
+                        </span>
+                    </Link>
+                </li>
+            )
+        }
+    }
 }
 
 export { BoardTitle, BoardSearch, BoardScope, Boardtable, PageButton };

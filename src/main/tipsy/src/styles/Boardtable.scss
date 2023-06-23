@@ -103,11 +103,13 @@
 
     .board_table td {
         text-align: start;
+        padding-left: 40px;
     }
 
     .board_table tbody th,
     .board_table td {
-        padding: 20px 0;
+        padding-top: 20px;
+        padding-bottom: 20px;
         cursor: default;
     }
 
@@ -163,18 +165,24 @@
         margin-bottom: 100px;
     }
 
-    .board_page_button a {
+    .board_page_button ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .board_page_button span {
         font-weight: bold;
         background-color: #efefef;
         border-radius: 50%;
         display: inline-block;
         width: 30px;
         height: 30px;
-        line-height: 30px;
+        line-height: 32px;
+        cursor: pointer;
     }
 
-    .board_page_button::before {
-        content: '';
+    .board_page_button .prebtn {
         display: inline-block;
         width: 20px;
         height: 20px;
@@ -183,8 +191,7 @@
         margin-right: 5px;
     }
 
-    .board_page_button::after {
-        content: '';
+    .board_page_button .nxtbtn {
         display: inline-block;
         width: 20px;
         height: 20px;
