@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import {Dateformat} from "../../components/Function";
 
 export function DocForm({ code }) {
     const [formcode, setFormCode] = useState('');
@@ -86,15 +87,4 @@ export function DocForm({ code }) {
             </div>
         </form>
     )
-}
-
-function Dateformat() {
-    const date = new Date();
-
-    function Digit(n) {
-        return n < 10 ? `0${n}` : `${n}`;
-    }
-
-    return '' + date.getFullYear() + '-' + Digit(date.getMonth()) + '-' + Digit(date.getDay()) + ' '
-        + Digit(date.getHours()) + ':' + Digit(date.getMinutes()) + ':' + Digit(date.getSeconds());
 }

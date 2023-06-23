@@ -1,16 +1,16 @@
 import '../styles/Boardtable.scss';
 import {Link, useLocation} from 'react-router-dom';
 import axios from "axios";
-import {useState} from "react";
+import {QueryAdd} from "../components/Function";
 
-function Boardtable({ page, items, pmk, currpage }) {
+function Boardtable({ page, items, pmk }) {
     return (
         <>
             <div id="board_main">
                 <div id="board_maincontainer">
                     <BoardTitle page={page} />
                     <BoardSearch />
-                    <BoardScope page={page} items={items} pmk={pmk} currpage={currpage} />
+                    <BoardScope page={page} items={items} pmk={pmk} />
                 </div>
             </div>
         </>
@@ -48,30 +48,32 @@ function BoardSearch() {
     );
 }
 
-function BoardScope({ page, items, pmk, currpage }) {
+function BoardScope({ page, items, pmk }) {
     return (
         <div>
             <ScopeBox page={page} />
 
             <div className="board_table_main">
                 <BoardTable page={page} items={items} />
-                <PageButton pmk={pmk} currpage={currpage} />
+                <PageButton pmk={pmk} />
             </div>
         </div>
     );
 }
 
 function ScopeBox({ page }) {
+    const location = new useLocation();
+
     return (
         <div className="board_scope">
             <ul>
                 <li className="board_scope_box">
-                    <Link to="#">전체</Link>
+                    <Link to={`${location.pathname}?asicode=${page.value}`}>전체</Link>
                 </li>
 
                 {page.scope.map((item) => (
                     <li className="board_scope_box">
-                        <Link to="#">{item}</Link>
+                        <Link to={`${location.pathname}?asicode=${item.value}`}>{item.key}</Link>
                     </li>
                 ))}
             </ul>
@@ -133,7 +135,7 @@ function BodyTable({ page, items }) {
         <tr key={'boarditem' + i}>
             <th scope="row">
                 <span>
-                    {page.scope[item.asi_code % 10]}
+                    {page.scope[item.asi_code % 10].key}
                 </span>
             </th>
             <td className="contents">
@@ -164,6 +166,8 @@ function BodyTable({ page, items }) {
 }
 
 function PageButton({pmk}) {
+    const location = new useLocation();
+
     return (
         <div className="board_page_button">
             <ul>
@@ -173,6 +177,23 @@ function PageButton({pmk}) {
             </ul>
         </div>
     );
+
+    function pathbuild(ppp){
+        let path = '';
+
+        if(location.search.includes('asicode')){
+            let que = location.search;
+            que = que.substring(que.indexOf('asicode'));
+            que = que.split('&')[0];
+
+            path = location.pathname + '?' + que + '&currpage=' + ppp;
+
+        } else { // asicode가 없으므로 search 불필요
+            path = location.pathname + '?currpage=' + ppp;
+        }
+
+        return path;
+    }
 
     // 페이지 넘버 버튼
     function viewNumbers() {
@@ -185,7 +206,7 @@ function PageButton({pmk}) {
             <>
                 {page.map((n, i) => (
                     <li key={n}>
-                        <Link to={`/notice?currpage=${n}`}>
+                        <Link to={`${pathbuild(n)}`}>
                             <span>{n}</span>
                         </Link>
                     </li>
@@ -199,7 +220,7 @@ function PageButton({pmk}) {
         if(pmk.prev == true){
             return(
                 <li>
-                    <Link to={`/notice?currpage=${pmk.spageNo - pmk.displayPageNo}`}>
+                    <Link to={`${pathbuild(pmk.spageNo - pmk.displayPageNo)}`}>
                         <span className="prebtn">
                         </span>
                     </Link>
@@ -213,7 +234,7 @@ function PageButton({pmk}) {
         if(pmk.next == true){
             return(
                 <li>
-                    <Link to={`/notice?currpage=${pmk.spageNo + pmk.displayPageNo}`}>
+                    <Link to={`${pathbuild(pmk.spageNo + pmk.displayPageNo)}`}>
                         <span className="nxtbtn">
                         </span>
                     </Link>

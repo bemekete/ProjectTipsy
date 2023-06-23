@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import '../styles/FAQ.scss';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 
 import { BoardTitle, BoardSearch, BoardScope } from './Boardtable';
 import axios from "axios";
@@ -11,34 +11,25 @@ function FAQ() {
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
+
+    const asicode = queryParams.get('asicode');
     const currpage = queryParams.get('currpage');
 
-
     axios
-        .get('/fcrilist',{
+        .get('/bcrilist',{
             params: {
+                asicode: asicode,
                 currPage: currpage,
             }
         })
         .then((response) => {
-            setFaqlist()(response.data.list);
+            setFaqlist(response.data.list);
             setPmk(response.data.pmk);
 
         })
         .catch((error) => {
             console.log(error);
         });
-
-    // useEffect(() => {
-    //     axios
-    //         .get('/flist')
-    //         .then((response) => {
-    //             setFaqlist(response.data);
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    // }, []);
 
     return (
         <div id="Board_main">
@@ -49,7 +40,7 @@ function FAQ() {
                 <div>
                     <FaqContainer />
                     <BoardSearch />
-                    <BoardScope page={page} items={faqlist} pmk={pmk} currpage={currpage} />
+                    <BoardScope page={page} items={faqlist} pmk={pmk} />
                 </div>
             </div>
         </div>
@@ -106,7 +97,16 @@ function FAQ() {
 const page = {
     title: 'faq',
     korTitle: 'FAQ',
-    scope: ['홈페이지', '제품'],
+    value: 2,
+    scope: [
+        {
+            key: '홈페이지',
+            value: 20,
+        },
+        {
+            key: '제품',
+            value: 21,
+        }]
 };
 
 const items = [

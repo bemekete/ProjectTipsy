@@ -3,18 +3,18 @@
 <mapper namespace="mapperInterface.AsiMapper">
 
     <!-- 공지사항 게시물 목록 -->
-    <select id="noticeList" resultType="com.example.tipsy.vo.AsiVO">
-        SELECT * FROM assist_customer
-                 WHERE asi_code LIKE '1%'
-                 ORDER BY asi_seq DESC
-    </select>
+<!--    <select id="noticeList" resultType="com.example.tipsy.vo.AsiVO">-->
+<!--        SELECT * FROM assist_customer-->
+<!--                 WHERE asi_code LIKE '1%'-->
+<!--                 ORDER BY asi_seq DESC-->
+<!--    </select>-->
 
     <!-- faq 게시물 목록 -->
-    <select id="faqList" resultType="com.example.tipsy.vo.AsiVO">
-        SELECT * FROM assist_customer
-                 WHERE asi_code LIKE '2%'
-                 ORDER BY asi_seq DESC
-    </select>
+<!--    <select id="faqList" resultType="com.example.tipsy.vo.AsiVO">-->
+<!--        SELECT * FROM assist_customer-->
+<!--                 WHERE asi_code LIKE '2%'-->
+<!--                 ORDER BY asi_seq DESC-->
+<!--    </select>-->
 
     <!-- 게시물 상세 -->
     <select id="boardDetail" resultType="com.example.tipsy.vo.AsiVO">
@@ -40,79 +40,49 @@
     </delete>
 
 
-    <!-- 페이징 -->
+    <!-- 검색조건 추가 -->
+    <sql id="codefilter">
+        <!-- 1) concat 처리 -->
+<!--        <if test="keyword!=null">-->
+<!--            <bind name="keyVal" value="keyword"/>-->
+<!--        </if>-->
+
+        <!-- 2) where 조건문 처리 -->
+        <choose>
+            <when test="asicode==1">
+                WHERE asi_code LIKE '1%'
+            </when>
+            <when test="asicode==2">
+                WHERE asi_code LIKE '2%'
+            </when>
+            <when test="asicode==10">
+                WHERE asi_code = 10
+            </when>
+            <when test="asicode==11">
+                WHERE asi_code = 11
+            </when>
+            <when test="asicode==12">
+                WHERE asi_code = 12
+            </when>
+            <when test="asicode==20">
+                WHERE asi_code = 20
+            </when>
+            <when test="asicode==21">
+                WHERE asi_code = 21
+            </when>
+            <otherwise> </otherwise>
+        </choose>
+    </sql>
+
     <select id="bcriList" resultType="com.example.tipsy.vo.AsiVO">
         SELECT * FROM assist_customer
-        WHERE asi_seq > 0
+        <include refid="codefilter"></include>
         ORDER BY asi_seq desc
         LIMIT #{sno}, #{rowsPerPage}
     </select>
 
     <select id="criTotalCount" resultType="int">
         SELECT count(*) from assist_customer
-        WHERE asi_seq > 0
+        <include refid="codefilter"></include>
     </select>
-
-
-    <!-- ver2. -->
-    <!--
-    => sql Tag : 필요한 sql 구문을 만들어놓고 필요할때마다 사용가능
-    => include Tag : 호출 tag
-          적용 범위 ->  "and 나머지조건 )"
-          where ( seq>0 and 나머지조건 )
-
-    => 조건문 : searchType: title , keyword: Java
-           where title like '%'+#{keyword}+'%'
-           매번 문자열 + 연산 (Concate...함수 사용해야함) 하기는 아래의 예시와 같이 불편
-           그래서 이값을 변수로 처리 -> bind Tag
-           * 예시
-         and title Like  CONCAT('%',CONCAT(#{keyword},'%'))
-         and title Like  '%' || #{keyword} || '%' )
-    -->
-
-<!--    <sql id="search">-->
-<!--        &lt;!&ndash; 1) concat 처리 &ndash;&gt;-->
-<!--        <if test="keyword!=null">-->
-<!--            <bind name="keyVal" value="'%'+keyword+'%'"/>-->
-<!--        </if>-->
-
-<!--        &lt;!&ndash; 2) where 조건문 처리 &ndash;&gt;-->
-<!--        <choose>-->
-<!--            <when test="searchType=='tci'.toString()">-->
-<!--                and title Like #{keyVal}-->
-<!--                or content Like #{keyVal}-->
-<!--                or id Like #{keyVal} )-->
-<!--            </when>-->
-<!--            <when test="searchType=='tc'.toString()">-->
-<!--                and title Like #{keyVal}-->
-<!--                or content Like #{keyVal} )-->
-<!--            </when>-->
-<!--            <when test="searchType=='t'.toString()">-->
-<!--                and title Like #{keyVal} )-->
-<!--            </when>-->
-<!--            <when test="searchType=='c'.toString()">-->
-<!--                and content Like #{keyVal} )-->
-<!--            </when>-->
-<!--            <when test="searchType=='i'.toString()">-->
-<!--                and id Like #{keyVal} )-->
-<!--            </when>-->
-<!--            <when test="searchType=='r'.toString()">-->
-<!--                and regdate Like #{keyVal} )-->
-<!--            </when>-->
-<!--            <otherwise>)</otherwise>-->
-<!--        </choose>-->
-<!--    </sql>-->
-
-<!--    <select id="bsearchCriList" resultType="vo.BoardVO">-->
-<!--        select * from board-->
-<!--        where (seq > 0 <include refid="search"></include>-->
-<!--        order by root desc, step asc-->
-<!--        limit #{sno}, #{rowsPerPage}-->
-<!--    </select>-->
-
-<!--    <select id="searchCriTotalCount" resultType="int">-->
-<!--        select count(*) from board-->
-<!--        where (seq > 0 <include refid="search"></include>-->
-<!--    </select>-->
-
 </mapper>

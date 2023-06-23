@@ -40,7 +40,7 @@ export default function Customerpage() {
                 <div className="customerMenu">
                     <ul>
                         <li className="menu1">
-                            <Link to="/notice">
+                            <Link to="/notice?asicode=1">
                                 <span className="menuicon alert"></span>
                                 <span>공지사항</span>
                             </Link>
@@ -64,7 +64,7 @@ export default function Customerpage() {
                             </Link>
                         </li>
                         <li className="menu5">
-                            <Link to="/faq">
+                            <Link to="/faq?asicode=2">
                                 <span className="menuicon FAQ"></span>
                                 <span>FAQ</span>
                             </Link>
