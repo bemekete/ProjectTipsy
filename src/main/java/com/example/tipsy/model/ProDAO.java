@@ -10,4 +10,6 @@ public interface ProDAO {
 
 	ProVO detailPro(ProVO vo);
 
+	// 큰카테고리선택(술 종류)
+	List<ProVO> categoryList(String category);
 }

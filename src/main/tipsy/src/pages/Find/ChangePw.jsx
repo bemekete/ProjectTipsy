@@ -15,6 +15,12 @@ function ChangePw({ setIsLoggedIn }) {
     });
 
     const validation = (e) => {
+        if (e.target.id === 'userPSW') {
+            setPassword(e.target.value);
+        } else {
+            setConfirmPassword(e.target.value);
+        }
+        
         console.log(valText.id);
         const { id, value } = e.target;
         if (
@@ -78,8 +84,8 @@ function ChangePw({ setIsLoggedIn }) {
                                     name="password"
                                     id="userPSW"
                                     value={password}
-                                    onChange={handlePasswordChange}
-                                    onBlur={validation}
+                                    onChange={validation}
+                                    // onBlur={validation}
                                     required
                                 />
                             </td>
@@ -99,8 +105,8 @@ function ChangePw({ setIsLoggedIn }) {
                                     name="password"
                                     id="userPSWCH"
                                     value={confirmPassword}
-                                    onChange={handleConfirmPasswordChange}
-                                    onBlur={validation}
+                                    onChange={validation}
+                                    // onBlur={validation}
                                     required
                                 />
                             </td>

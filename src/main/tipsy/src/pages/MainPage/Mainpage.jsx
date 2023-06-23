@@ -4,34 +4,7 @@ import '../../styles/Mainpage.scss';
 import axios from 'axios';
 
 function Mainpage() {
-    return (
-        <>
-            <div className="location_wrap">
-                <div className="location_con">
-                    <Link to="/home">홈</Link> &gt; 전체상품
-                </div>
-            </div>
-            <div id="mainpage_container">
-                <div id="mainpage_search">
-                    <MainpageSearch />
-                </div>
-                <div id="contents">
-                    <Content />
-                </div>
-            </div>
-        </>
-    );
-}
-
-export default Mainpage;
-
-/////////////////////////////////////////// 상품목록들 ///////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////
-function Content() {
     const [product, setProduct] = useState([]);
-    const [visibleProductCount, setVisibleProductCount] = useState(6);
-    const [topSort, setTopSort] = useState('인기순');
 
     // db에서 상품 리스트 받아 리액트 화면에 뿌려주기
     useEffect(() => {
@@ -46,12 +19,36 @@ function Content() {
             console.error(error);
         }
     };
+    return (
+        <>
+            <div className="location_wrap">
+                <div className="location_con">
+                    <Link to="/home">홈</Link> &gt; 전체상품
+                </div>
+            </div>
+            <div id="mainpage_container">
+                <div id="mainpage_search">
+                    <MainpageSearch
+                        setProduct={setProduct}
+                        fetchData={fetchData}
+                    />
+                </div>
+                <div id="contents">
+                    <Content product={product} />
+                </div>
+            </div>
+        </>
+    );
+}
 
-    // 상단에 상품 개수 나타내기
-    useEffect(() => {
-        const listLeng = document.querySelector('.listLeng');
-        listLeng.innerHTML = `<p>총 <b>${product.length}</b>개의 상품이 있습니다.</p>`;
-    });
+export default Mainpage;
+
+/////////////////////////////////////////// 상품목록들 ///////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
+function Content({ product }) {
+    const [visibleProductCount, setVisibleProductCount] = useState(6);
+    const [topSort, setTopSort] = useState('인기순');
 
     //  더보기버튼 이벤트
     const handleBtnMoreClick = (e) => {
@@ -73,7 +70,9 @@ function Content() {
             <p className="pageTit">전체상품</p>
             <div className="listStyle1" id="prod_schview">
                 <div className="listInfo1">
-                    <p className="listLeng"></p>
+                    <p className="listLeng">
+                        총 <b>{product.length}</b>개의 상품이 있습니다.
+                    </p>
                     <ul className="listSort">
                         <li>
                             <Link
@@ -116,7 +115,10 @@ function Content() {
                             <Link to="/detail">
                                 <div className="img">
                                     <img
-                                        src={product.p_img}
+                                        src={
+                                            process.env.PUBLIC_URL +
+                                            product.p_img
+                                        }
                                         alt="상품 이미지"
                                     />
                                 </div>
@@ -156,8 +158,9 @@ function BtnMore({ onClick }) {
 
 // 왼쪽서치바
 
-function MainpageSearch() {
+function MainpageSearch({ setProduct, fetchData }) {
     const [isCollapse, setIsCollapse] = useState(true);
+    const [categoryId, setCategoryId] = useState();
 
     // 서치바 접는기능
     const handleImageClick = (e) => {
@@ -176,15 +179,61 @@ function MainpageSearch() {
         target.classList.toggle('btnClick');
     };
 
+    // const category = (e) => {};
+
+    // db에서 상품 리스트 받아 리액트 화면에 뿌려주기
+    // useEffect(() => {
+    //     fetchData();
+    // }, [categoryId]);
+
+    const categoryData = async (e) => {
+        e.preventDefault();
+        setCategoryId(e.target.id);
+        console.log(categoryId);
+
+        try {
+            const response = await axios.get('/product/categorypro', {
+                params: {
+                    p_category: e.target.id,
+                },
+            });
+            setProduct(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <>
             <div className="search_tit pageTit">카테고리</div>
             <div className="search_list cate_list">
                 <div className="cate_list_item">
-                    <Link to="/alcohol">주류</Link>
+                    <Link onClick={fetchData}>전체</Link>
                 </div>
                 <div className="cate_list_item">
-                    <Link to="/snack">안주</Link>
+                    <Link id="1" onClick={categoryData}>
+                        와인
+                    </Link>
+                </div>
+                <div className="cate_list_item">
+                    <Link id="2" onClick={categoryData}>
+                        소주
+                    </Link>
+                </div>
+                <div className="cate_list_item">
+                    <Link id="3" onClick={categoryData}>
+                        막걸리,탁주
+                    </Link>
+                </div>
+                <div className="cate_list_item">
+                    <Link id="4" onClick={categoryData}>
+                        약주,청주
+                    </Link>
+                </div>
+                <div className="cate_list_item">
+                    <Link id="5" onClick={fetchData}>
+                        과실주
+                    </Link>
                 </div>
             </div>
             <div className="searchSorter">

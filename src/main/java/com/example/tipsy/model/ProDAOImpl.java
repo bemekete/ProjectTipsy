@@ -22,4 +22,10 @@ public class ProDAOImpl implements ProDAO {
 	public ProVO detailPro(ProVO vo) {
 		return mapper.detailPro(vo);
 	}
+
+	// 큰카테고리선택(술 종류)
+	@Override
+	public List<ProVO> categoryList(String category) {
+		return mapper.categoryList(category);
+	}
 }

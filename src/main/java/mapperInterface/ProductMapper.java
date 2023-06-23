@@ -11,4 +11,6 @@ public interface ProductMapper {
 
     @Select("select * from product where p_seq = #{p_seq}")
     ProVO detailPro(ProVO vo);
+
+    List<ProVO> categoryList(String category);
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class ProRestController {
 	//	상품 목록
 	@GetMapping("/selectpro")
 	public List<ProVO> selectPro() {
+		System.out.println(service.productList());
 		return service.productList();
 	}
 
@@ -28,6 +30,13 @@ public class ProRestController {
 	public ProVO detailPro(ProVO vo){
 		vo = service.detailPro(vo);
 		return vo;
+	}
+
+	// 큰카테고리(술종류)
+	@GetMapping("/categorypro")
+	public List<ProVO> productCategory(@RequestParam("p_category") String category) {
+		System.out.println(service.categoryList(category));
+		return service.categoryList(category);
 	}
 
 }

@@ -22,4 +22,10 @@ public class ProServiceImpl implements ProService {
 	public ProVO detailPro(ProVO vo) {
 		return dao.detailPro(vo);
 	}
+
+	// 큰카테고리선택(술 종류)
+	@Override
+	public List<ProVO> categoryList(String category) {
+		return dao.categoryList(category);
+	}
 }
