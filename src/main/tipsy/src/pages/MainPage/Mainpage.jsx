@@ -5,6 +5,7 @@ import axios from 'axios';
 
 function Mainpage() {
     const [product, setProduct] = useState([]);
+    const [title, setTitle] = useState();
 
     // db에서 상품 리스트 받아 리액트 화면에 뿌려주기
     useEffect(() => {
@@ -15,6 +16,7 @@ function Mainpage() {
         try {
             const response = await axios.get('/product/selectpro');
             setProduct(response.data);
+            setTitle('전체상품');
         } catch (error) {
             console.error(error);
         }
@@ -30,11 +32,12 @@ function Mainpage() {
                 <div id="mainpage_search">
                     <MainpageSearch
                         setProduct={setProduct}
+                        setTitle={setTitle}
                         fetchData={fetchData}
                     />
                 </div>
                 <div id="contents">
-                    <Content product={product} />
+                    <Content product={product} title={title} />
                 </div>
             </div>
         </>
@@ -46,7 +49,7 @@ export default Mainpage;
 /////////////////////////////////////////// 상품목록들 ///////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
-function Content({ product }) {
+function Content({ title, product }) {
     const [visibleProductCount, setVisibleProductCount] = useState(6);
     const [topSort, setTopSort] = useState('인기순');
 
@@ -67,7 +70,7 @@ function Content({ product }) {
 
     return (
         <>
-            <p className="pageTit">전체상품</p>
+            <p className="pageTit">{title}</p>
             <div className="listStyle1" id="prod_schview">
                 <div className="listInfo1">
                     <p className="listLeng">
@@ -158,9 +161,8 @@ function BtnMore({ onClick }) {
 
 // 왼쪽서치바
 
-function MainpageSearch({ setProduct, fetchData }) {
+function MainpageSearch({ setProduct, setTitle, fetchData }) {
     const [isCollapse, setIsCollapse] = useState(true);
-    const [categoryId, setCategoryId] = useState();
 
     // 서치바 접는기능
     const handleImageClick = (e) => {
@@ -179,17 +181,8 @@ function MainpageSearch({ setProduct, fetchData }) {
         target.classList.toggle('btnClick');
     };
 
-    // const category = (e) => {};
-
-    // db에서 상품 리스트 받아 리액트 화면에 뿌려주기
-    // useEffect(() => {
-    //     fetchData();
-    // }, [categoryId]);
-
     const categoryData = async (e) => {
         e.preventDefault();
-        setCategoryId(e.target.id);
-        console.log(categoryId);
 
         try {
             const response = await axios.get('/product/categorypro', {
@@ -198,6 +191,7 @@ function MainpageSearch({ setProduct, fetchData }) {
                 },
             });
             setProduct(response.data);
+            setTitle(e.target.name);
         } catch (error) {
             console.error(error);
         }
@@ -208,30 +202,32 @@ function MainpageSearch({ setProduct, fetchData }) {
             <div className="search_tit pageTit">카테고리</div>
             <div className="search_list cate_list">
                 <div className="cate_list_item">
-                    <Link onClick={fetchData}>전체</Link>
+                    <Link value="전체상품" onClick={fetchData}>
+                        전체
+                    </Link>
                 </div>
                 <div className="cate_list_item">
-                    <Link id="1" onClick={categoryData}>
+                    <Link id="1" name="와인" onClick={categoryData}>
                         와인
                     </Link>
                 </div>
                 <div className="cate_list_item">
-                    <Link id="2" onClick={categoryData}>
+                    <Link id="2" name="소주" onClick={categoryData}>
                         소주
                     </Link>
                 </div>
                 <div className="cate_list_item">
-                    <Link id="3" onClick={categoryData}>
+                    <Link id="3" name="막걸리,탁주" onClick={categoryData}>
                         막걸리,탁주
                     </Link>
                 </div>
                 <div className="cate_list_item">
-                    <Link id="4" onClick={categoryData}>
+                    <Link id="4" name="약주,청주" onClick={categoryData}>
                         약주,청주
                     </Link>
                 </div>
                 <div className="cate_list_item">
-                    <Link id="5" onClick={fetchData}>
+                    <Link id="5" name="과실주" onClick={categoryData}>
                         과실주
                     </Link>
                 </div>
