@@ -60,4 +60,8 @@ public class UserServiceImpl implements UserService {
 	public void sendUsernames(String email, List<String> usernames) {
 		dao.sendUsernames(email, usernames);
 	}
+	@Override
+	public List<String> checkId() {
+		return dao.checkId();
+	}
 }

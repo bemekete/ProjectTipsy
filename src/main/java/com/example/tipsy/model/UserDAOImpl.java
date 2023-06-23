@@ -85,4 +85,8 @@ public class UserDAOImpl implements UserDAO {
 		}).start();
 	}
 
+	@Override
+	public List<String> checkId() {
+		return mapper.checkId();
+	}
 }

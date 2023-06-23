@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import '../styles/Join.scss';
-import { useNavigate } from 'react-router-dom';
+import React, {useState,useEffect} from 'react';
+import '../../styles/Join.scss';
+import {Link, useNavigate} from "react-router-dom";
 function Join() {
     // 네이게이션 함수 사용 변수
     const navigate = useNavigate();
@@ -9,10 +9,10 @@ function Join() {
     // 각 체크박스 선택 여부 상태 변수
     const [checkItems, setCheckItems] = useState([]);
     // 에러 메시지 변수
-    const [errorMessage, setErrorMessage] = useState({
+    const [errorMessage ,setErrorMessage] = useState({
         agree_use: null,
-        agree_personal: null,
-        agree_age: null,
+        agree_personal : null,
+        agree_age : null,
     }); // 필수 체크박스 미입력 메시지
 
     // 전체 체크박스 선택/해제 처리 함수
@@ -21,6 +21,13 @@ function Join() {
         if (checked) {
             // 모두 선택할 경우
             setCheckItems(['agree_use', 'agree_personal', 'agree_age']);
+            // 유효성 검사 문구 제거
+            setErrorMessage({
+                agree_use: null,
+                agree_personal : null,
+                agree_age : null,
+            });
+
         } else {
             // 모두 해제할 경우
             setCheckItems([]);
@@ -32,43 +39,46 @@ function Join() {
         if (checkItems.includes(itemId)) {
             // 이미 선택된 항목일 경우 해제
             setCheckItems(checkItems.filter((item) => item !== itemId));
+
         } else {
             // 선택되지 않은 항목일 경우 선택
             setCheckItems([...checkItems, itemId]);
-            setErrorMessage((prevError) => ({
+            setErrorMessage((prevError)=>({
                 ...prevError,
-                [itemId]: null,
+                [itemId]: null
             }));
         }
+
     };
 
     // 개별체크박스 상태 변화 시 전체 체크 박스 on/off
-    useEffect(() => {
-        if (checkItems.length >= 3) {
+    useEffect(()=>{
+        if(checkItems.length>=3){
             setIsCheckedAll(true);
-        } else {
+            console.log(isCheckedAll);
+        }else{
             setIsCheckedAll(false);
         }
-    }, [checkItems]);
+    },[checkItems])
 
     // 유효성 검사 함수
-    const nextPage = (e) => {
+    const nextPage = (e)=>{
         e.preventDefault();
-
-        if (checkItems.length >= 3) {
-            navigate('/joinform');
-        } else {
+        if(checkItems.length>=3){
+            navigate("/joinform");
+        }else{
             Object.keys(errorMessage).forEach((key) => {
-                if (!checkItems.includes(key))
-                    setErrorMessage((preError) => ({
-                        ...preError,
-                        [key]: '필수 목록입니다.',
-                    }));
+                if(!checkItems.includes(key))
+                setErrorMessage((preError)=>({
+                    ...preError,
+                    [key] : '필수 목록입니다.',
+                }))
             });
         }
-    };
+    }
 
     return (
+
         <>
             <div id="join_container">
                 <p className="pageTitle">회원가입</p>
@@ -85,9 +95,7 @@ function Join() {
                                     name="register_agree"
                                     id="agree_all"
                                     value="agree_all"
-                                    onChange={(e) =>
-                                        handleAllCheck(e.target.checked)
-                                    }
+                                    onChange={(e) => handleAllCheck(e.target.checked)}
                                     checked={isCheckedAll}
                                 />
                             </div>
@@ -100,14 +108,10 @@ function Join() {
                                     name="register_agree"
                                     id="agree_use"
                                     value="agree_use"
-                                    onChange={() =>
-                                        handleItemCheck('agree_use')
-                                    }
+                                    onChange={() => handleItemCheck('agree_use')}
                                     checked={checkItems.includes('agree_use')}
                                 />
-                                {errorMessage.agree_use && (
-                                    <p>{errorMessage.agree_use}</p>
-                                )}
+                                {errorMessage.agree_use && <p>{errorMessage.agree_use}</p>}
                             </div>
                             <div className="termOfRegister">
                                 <p>
@@ -155,16 +159,10 @@ function Join() {
                                     name="register_agree"
                                     id="agree_personal"
                                     value="agree_personal"
-                                    onChange={() =>
-                                        handleItemCheck('agree_personal')
-                                    }
-                                    checked={checkItems.includes(
-                                        'agree_personal'
-                                    )}
+                                    onChange={() => handleItemCheck('agree_personal')}
+                                    checked={checkItems.includes('agree_personal')}
                                 />
-                                {errorMessage.agree_personal && (
-                                    <p>{errorMessage.agree_personal}</p>
-                                )}
+                                {errorMessage.agree_personal && <p>{errorMessage.agree_personal}</p>}
                             </div>
                             <div className="termOfRegister">
                                 <p>
@@ -441,28 +439,18 @@ function Join() {
                                     name="register_agree"
                                     id="agree_age"
                                     value="agree_age"
-                                    onChange={() =>
-                                        handleItemCheck('agree_age')
-                                    }
+                                    onChange={() => handleItemCheck('agree_age')}
                                     checked={checkItems.includes('agree_age')}
                                 />
-                                {errorMessage.agree_age && (
-                                    <p>{errorMessage.agree_age}</p>
-                                )}
+                                {errorMessage.agree_age && <p>{errorMessage.agree_age}</p>}
+
                             </div>
                             <div className="agree_submit">
-                                <button
-                                    className="linkBtn"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        navigate(-1);
-                                    }}
-                                >
-                                    취소
-                                </button>
-                                <button className="linkBtn" onClick={nextPage}>
-                                    확인
-                                </button>
+                                <button onClick={(e)=>{
+                                    e.preventDefault();
+                                    navigate(-1);
+                                }}>취소</button>
+                                <button onClick={nextPage}>확인</button>
                             </div>
                         </form>
                     </div>

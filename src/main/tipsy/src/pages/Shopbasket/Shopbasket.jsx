@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { Component } from 'react';
+import React from 'react';
 import '../../styles/Shopbasket.scss';
 import ProductData from "./ProductData";
 
@@ -7,7 +7,6 @@ export default function Shopbasket() {
 
 
     return (
-        <React.StrictMode>
             <div id="basket_container">
                 <div id="contents">
                     <div className="location">
@@ -224,6 +223,5 @@ export default function Shopbasket() {
                     </div>
                 </div>
             </div>
-        </React.StrictMode>
     )
 }

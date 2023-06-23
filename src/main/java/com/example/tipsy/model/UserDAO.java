@@ -22,6 +22,8 @@ public interface UserDAO {
 	// 회원가임
 	int joinUser(UserVO vo);
 
+	List<String> checkId();
+
 	// 아이디찾기
 	public List<String> findId(String email);
 
