@@ -85,7 +85,7 @@ function FAQ() {
 const page = {
     title: 'faq',
     korTitle: 'FAQ',
-    scope: ['전체', '홈페이지 관련', '제품 관련'],
+    scope: ['홈페이지', '제품'],
 };
 
 const items = [

@@ -14,9 +14,12 @@ function header({ isLoggedIn, handleLogout }) {
                             {isLoggedIn ? (
                                 <>
                                     <li>
-                                        <Link to="/" onClick={handleLogout}>
+                                        <Link onClick={handleLogout}>
                                             로그아웃
                                         </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/mypage">마이페이지</Link>
                                     </li>
                                     <li>
                                         <Link to="/shopbasket">장바구니</Link>

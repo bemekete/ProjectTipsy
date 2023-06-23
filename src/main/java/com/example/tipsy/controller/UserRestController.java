@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,16 @@ public class UserRestController {
         return service.selectList();
     }
 
+    // 개인정보
+    @GetMapping("/userinfo")
+    public UserVO getUserInfo(UserVO vo, HttpSession session){
+        if ( vo.getId()==null || vo.getId().length()<1 ) {
+            vo.setId((String)session.getAttribute("loginID")) ;
+            vo = service.getUserInfo(vo);
+        }
+        return vo;
+    }
+
     // 회원가입
     @PostMapping("/join")
     public int joinUser(@RequestBody UserVO vo){
@@ -42,22 +53,47 @@ public class UserRestController {
 
         return service.joinUser(vo);
     }
-    // 회원가입 - 아이디 중복 체크
-    @GetMapping("/checkid")
-    public List<String> checkId(){
-        return service.checkId();
+    // 개인정보 수정
+    @PostMapping("/update")
+    public ResponseEntity<String> updateUser(@RequestBody UserVO vo, HttpSession session) {
+        vo.setPassword(null);
+        if (service.updateUser(vo) > 0) {
+            session.setAttribute("loginName", vo.getName());
+            return ResponseEntity.ok("개인정보 수정 성공");
+        } else {
+            return ResponseEntity.badRequest().body("개인정보 수정 실패");
+        }
     }
+    
+    // 비밀번호 수정
+    @PostMapping("/updatepw")
+    public ResponseEntity<String> updatePw(@RequestBody UserVO vo, HttpServletRequest request) {
+        String id = (String) request.getSession().getAttribute("loginID");
+        vo.setId(id);
+        vo.setPassword(passwordEncoder.encode(vo.getPassword()));
 
+        if (service.updateUser(vo) > 0) {
+            request.getSession().invalidate();
+
+            String loginID = (String) request.getSession().getAttribute("loginID");
+            String loginName = (String) request.getSession().getAttribute("loginName");
+            System.out.println("로그인 성공. 아이디: " + loginID + ", 이름: " + loginName);
+
+            return ResponseEntity.ok("비밀번호 수정 성공");
+        } else {
+            return ResponseEntity.badRequest().body("비밀번호 수정 실패");
+        }
+    }
     // 로그인
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserVO vo,  HttpSession session, Model model){
 
         String userPw = vo.getPassword();
-        vo = service.selectOne(vo);
+        vo = service.getUserInfo(vo);
 
         if ( vo!=null) {
             if ( passwordEncoder.matches(userPw, vo.getPassword()) ) {
-                
+
                 session.setAttribute("loginID",vo.getId());
                 session.setAttribute("loginName",vo.getName());
 
@@ -73,7 +109,7 @@ public class UserRestController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인실패");
     }
 
-    // 로그인 세션(서버에서 관리) 
+    // 로그인 세션(서버에서 관리)
     // 체크해서 react state값 유지
     @GetMapping("/check-login")
     public ResponseEntity<?> checkLogin(HttpSession session) {
@@ -94,5 +130,32 @@ public class UserRestController {
         System.out.println("로그인 성공. 아이디: " + loginID + ", 이름: " + loginName);
 
         return ResponseEntity.ok("로그아웃 성공");
+    }
+
+    // 아이디찾기
+    @GetMapping("/findId")
+    public ResponseEntity<Object> sendEmail(@RequestParam("email") String email){
+        List<String> usernames =service.findId(email);
+        if(usernames.size() != 0) {
+            service.sendUsernames(email, usernames);
+            return new ResponseEntity<Object>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+    }
+
+    // 비밀번호 찾기
+    @PostMapping("/findPw")
+    public UserVO findPassword(@RequestBody UserVO vo, HttpSession session) {
+        vo = service.findPw(vo);
+        if (vo != null) {
+            session.setAttribute("loginID",vo.getId());
+            System.out.println(vo);
+            System.out.println(session.getAttribute("loginID"));
+            return vo;
+        } else {
+            System.out.println(vo);
+            return null;
+        }
     }
 }
