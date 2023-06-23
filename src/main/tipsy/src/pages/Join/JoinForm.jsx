@@ -224,7 +224,7 @@ const JoinBox = () => {
     }, [popupPostData])
 
     return (
-        <>{isPopupOpen && <div style={{ width: "100vw", height: "100vh", backgroundColor: 'white',opacity:".7",zIndex: "2", position: "absolute" }}></div>}
+        <>{isPopupOpen && <div style={{ width: "100vw", height: "100vh", backgroundColor: 'white', opacity: ".7", zIndex: "2", position: "absolute" }}></div>}
             <form onSubmit={dataSubmit} className="joinbox" method="post">
                 <p>
                     <span>*</span> 필수 입력 사항
@@ -500,7 +500,12 @@ const JoinBox = () => {
                     </button>
                 </div>
             </form>
-            <div id="popupDom" style={{ zIndex: "9999" }}>
+            <div id="popupDom" style={{
+                zIndex: "9999", position: "fixed",
+                left: "50%",
+                top: "40%",
+                transform: "translate(-50%, -30%)"
+            }}>
                 {isPopupOpen && (
                     <Popup >
                         <PopupPost onPopupData={handlePopupData} onClose={closePostCode} />
