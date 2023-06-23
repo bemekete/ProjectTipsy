@@ -63,7 +63,7 @@ const JoinBox = () => {
 
         setSucLeng(Object.values(completeVal).filter(value => value != null).length);
 
-        if (sucLeng >= input.length-1) {
+        if (sucLeng >= input.length - 1) {
 
             try {
                 console.log(userData);
@@ -74,7 +74,7 @@ const JoinBox = () => {
                 alert("회원가입에 실패하셨습니다. 다시 시도하세요.");
             };
         } else {
-            alert("회원가입에 실패하셨습니다. 다시 시도하세요.");
+
         }
     };
 
@@ -211,7 +211,6 @@ const JoinBox = () => {
 
     // 팝업에서 데이터를 전달받는 함수
     const handlePopupData = (data) => {
-        console.log("joinForm : " + data);
         setPopupPostData(data);
     };
 
@@ -225,7 +224,7 @@ const JoinBox = () => {
     }, [popupPostData])
 
     return (
-        <>
+        <>{isPopupOpen && <div style={{ width: "100vw", height: "100vh", backgroundColor: 'white',opacity:".7",zIndex: "2", position: "absolute" }}></div>}
             <form onSubmit={dataSubmit} className="joinbox" method="post">
                 <p>
                     <span>*</span> 필수 입력 사항
@@ -401,13 +400,7 @@ const JoinBox = () => {
                                         readOnly
                                     />
                                     <button onClick={openPostCode}>우편번호</button>
-                                    <div id="popupDom">
-                                        {isPopupOpen && (
-                                            <Popup>
-                                                <PopupPost onPopupData={handlePopupData} onClose={closePostCode} />
-                                            </Popup>
-                                        )}
-                                    </div>
+
                                     <br />
                                     <input
                                         type="text"
@@ -507,6 +500,13 @@ const JoinBox = () => {
                     </button>
                 </div>
             </form>
+            <div id="popupDom" style={{ zIndex: "9999" }}>
+                {isPopupOpen && (
+                    <Popup >
+                        <PopupPost onPopupData={handlePopupData} onClose={closePostCode} />
+                    </Popup>
+                )}
+            </div>
         </>
     );
 };
