@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
-@RestCoㅏntroller
+@RestController
 @RequestMapping("/user")
 @AllArgsConstructor
 @Log4j2
