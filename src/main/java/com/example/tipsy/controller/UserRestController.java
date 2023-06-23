@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@RestCoㅏntroller
 @RequestMapping("/user")
 @AllArgsConstructor
 @Log4j2
@@ -53,6 +53,14 @@ public class UserRestController {
 
         return service.joinUser(vo);
     }
+
+
+    // 회원가입 - 아이디 중복 체크
+    @GetMapping("/checkid")
+    public List<String> checkId(){
+       return service.checkId();
+    }
+
     // 개인정보 수정
     @PostMapping("/update")
     public ResponseEntity<String> updateUser(@RequestBody UserVO vo, HttpSession session) {
