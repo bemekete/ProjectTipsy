@@ -2,6 +2,7 @@ import '../styles/Boardtable.scss';
 import {Link, useLocation} from 'react-router-dom';
 import axios from "axios";
 import {QueryAdd} from "../components/Function";
+import {useState} from "react";
 
 function Boardtable({ page, items, pmk }) {
     return (
@@ -26,15 +27,19 @@ function BoardTitle({ page }) {
 }
 
 function BoardSearch() {
+    const location = new useLocation();
+    const [input, setInput] = useState('');
+
     return (
         <div className="board_search">
-            <form action="#">
+            <form onSubmit={onSubmitSearch}>
                 <label>
                     <input
                         type="text"
                         name="Search_board"
                         id="Search_board"
                         placeholder="검색어를 입력하세요"
+                        onChange={e => setInput(e.target.value)}
                     />
                 </label>
                 <button type="submit">
@@ -46,6 +51,15 @@ function BoardSearch() {
             </form>
         </div>
     );
+
+    function onSubmitSearch(e) {
+        e.preventDefault();
+
+        let que = location.search;
+        que = que.substring(que.indexOf('asicode')).split('&')[0];
+
+        window.location.href = location.pathname + '?' + que + '&keyword=' + input;
+    }
 }
 
 function BoardScope({ page, items, pmk }) {
@@ -181,15 +195,16 @@ function PageButton({pmk}) {
     function pathbuild(ppp){
         let path = '';
 
-        if(location.search.includes('asicode')){
+        if(location.search.includes('keyword')){ // 검색 키워드 有
+            const que = location.search;
+            const asicode = que.substring(que.indexOf('asicode')).split('&')[0];
+            const keyword = que.substring(que.indexOf('keyword')).split('&')[0];
+            path = location.pathname + '?' + asicode + '&' + keyword + '&currpage=' + ppp;
+
+        } else { // 검색 키워드 無
             let que = location.search;
-            que = que.substring(que.indexOf('asicode'));
-            que = que.split('&')[0];
-
+            que = que.substring(que.indexOf('asicode')).split('&')[0];
             path = location.pathname + '?' + que + '&currpage=' + ppp;
-
-        } else { // asicode가 없으므로 search 불필요
-            path = location.pathname + '?currpage=' + ppp;
         }
 
         return path;

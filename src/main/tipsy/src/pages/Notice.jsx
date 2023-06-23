@@ -13,12 +13,14 @@ export default function Notice() {
 
     const asicode = queryParams.get('asicode');
     const currpage = queryParams.get('currpage');
+    const keyword = queryParams.get('keyword');
 
     axios
         .get('/bcrilist',{
             params: {
                 asicode: asicode,
                 currPage: currpage,
+                keyword: keyword,
             }
         })
         .then((response) => {

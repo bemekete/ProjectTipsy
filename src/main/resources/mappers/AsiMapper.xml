@@ -41,13 +41,8 @@
 
 
     <!-- 검색조건 추가 -->
+    <!-- 카테고리 -->
     <sql id="codefilter">
-        <!-- 1) concat 처리 -->
-<!--        <if test="keyword!=null">-->
-<!--            <bind name="keyVal" value="keyword"/>-->
-<!--        </if>-->
-
-        <!-- 2) where 조건문 처리 -->
         <choose>
             <when test="asicode==1">
                 WHERE asi_code LIKE '1%'
@@ -74,9 +69,21 @@
         </choose>
     </sql>
 
+    <!-- 검색 -->
+    <sql id="keywordsearch">
+        <if test="keyword!=null">
+            <bind name="keyVal" value="'%'+keyword+'%'"/>
+
+            AND ( asi_title LIKE #{keyVal}
+            OR asi_contents LIKE #{keyVal} )
+        </if>
+
+    </sql>
+
     <select id="bcriList" resultType="com.example.tipsy.vo.AsiVO">
         SELECT * FROM assist_customer
         <include refid="codefilter"></include>
+        <include refid="keywordsearch"></include>
         ORDER BY asi_seq desc
         LIMIT #{sno}, #{rowsPerPage}
     </select>
@@ -84,5 +91,6 @@
     <select id="criTotalCount" resultType="int">
         SELECT count(*) from assist_customer
         <include refid="codefilter"></include>
+        <include refid="keywordsearch"></include>
     </select>
 </mapper>
