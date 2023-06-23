@@ -23,7 +23,7 @@ import Alcstyletest from '../pages/Alcstyletest';
 import Map from '../pages/Map/Map';
 import Adminpage from '../pages/Adminpage/Adminpage';
 import UserModify from '../pages/Adminpage/UserModify';
-import MyInfo from '../pages/Mypage/Myinfo';
+import MyInfo from '../pages/Mypage/MyInfo';
 import ChangePw from '../pages/Find/ChangePw';
 
 function Main({ handleLogin, setIsLoggedIn }) {
