@@ -42,8 +42,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	// 비밀번호 수정
-
-
 	@Override
 	public int updatePw(UserVO vo) {
 		return mapper.updatePw(vo);
@@ -54,7 +52,13 @@ public class UserDAOImpl implements UserDAO {
 	public List<String> findId(String email) {
 		return mapper.findId(email);
 	}
-	
+
+	// 비밀번호 찾기
+	@Override
+	public UserVO findPw(UserVO vo) {
+		return mapper.findPw(vo);
+	}
+
 	@Override
 	public void sendUsernames(String email, List<String> id) {
 		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();

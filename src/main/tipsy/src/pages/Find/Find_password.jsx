@@ -31,29 +31,31 @@ export default function FindPassword() {
 }
 
 const FindForm = () => {
+    const navigate = useNavigate();
     const [id, setId] = useState('');
     const [phone, setPhone] = useState('');
-    const navigate = useNavigate();
 
     const handleIdChange = (e) => {
         setId(e.target.value);
     };
+
     const handlePhoneChange = (e) => {
         setPhone(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleFindPw = (e) => {
         e.preventDefault();
 
-        // 서버로 이메일 값 전송
         axios
-            .get('/user/findPw', {
-                params: { id: id, findPw: phone },
-            })
+            .post('/user/findPw', { id, phone })
             .then((response) => {
-                // 응답 처리
-                console.log(response);
-                navigate('/login');
+                // 서버로부터 응답을 받았을 때 처리
+                console.log(response.data);
+                if (response.data != null && response.data !== '') {
+                    navigate('/changepw');
+                } else {
+                    alert('일치하는 정보가 없습니다. 다시 확인해 주세요.');
+                }
             })
             .catch((error) => {
                 // 에러 처리
@@ -62,7 +64,7 @@ const FindForm = () => {
     };
     return (
         <>
-            <form onSubmit={handleSubmit} id="find_form">
+            <form onSubmit={handleFindPw} id="find_form">
                 <div className="form_container">
                     <div className="form_tit">비밀번호 찾기</div>
                     <ul className="form_list">
@@ -74,11 +76,11 @@ const FindForm = () => {
                                         <input
                                             className="input_type1"
                                             type="text"
-                                            id="user_email"
+                                            id="user_id"
                                             name="id"
                                             value={id}
                                             onChange={handleIdChange}
-                                            maxlength="50"
+                                            maxLength="50"
                                             placeholder="아이디 입력"
                                             required
                                         />
@@ -98,7 +100,7 @@ const FindForm = () => {
                                             name="phone"
                                             value={phone}
                                             onChange={handlePhoneChange}
-                                            maxlength="15"
+                                            maxLength="15"
                                             placeholder="ex) 010-0000-0000"
                                         />
                                     </div>

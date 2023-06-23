@@ -39,7 +39,6 @@ export function MyInfoForm() {
                 Loading...
             </div>
         );
-    } else {
     }
 
     // 받아온 핸드폰번호를 -기준으로 자르기

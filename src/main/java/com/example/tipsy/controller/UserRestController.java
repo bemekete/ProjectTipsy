@@ -109,8 +109,6 @@ public class UserRestController {
             model.addAttribute("message", "아이디 틀림");
         } //if_외부
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인실패");
-
-
     }
 
     // 로그인 세션(서버에서 관리)
@@ -148,4 +146,21 @@ public class UserRestController {
         return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
     }
 
+    // 비밀번호 찾기
+    @PostMapping("/findPw")
+    public UserVO findPassword(@RequestBody UserVO vo, HttpSession session) {
+        vo.setId(vo.getId());
+        vo.setPhone(vo.getPhone());
+
+        vo = service.findPw(vo);
+        if (vo != null) {
+            session.setAttribute("loginID",vo.getId());
+            System.out.println(vo);
+            System.out.println(session.getAttribute("loginID"));
+            return vo;
+        } else {
+            System.out.println(vo);
+            return null;
+        }
+    }
 }

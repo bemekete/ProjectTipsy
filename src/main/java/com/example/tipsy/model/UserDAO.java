@@ -25,6 +25,9 @@ public interface UserDAO {
 	// 아이디찾기
 	public List<String> findId(String email);
 
+	// 비밀번호 찾기
+	public UserVO findPw(UserVO vo);
+
 	// 찾은 아이디 메일로 보내기
 	public void sendUsernames(String email, List<String> usernames);
 }

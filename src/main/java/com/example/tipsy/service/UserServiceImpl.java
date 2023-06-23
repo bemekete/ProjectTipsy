@@ -49,6 +49,12 @@ public class UserServiceImpl implements UserService {
 		return dao.findId(email);
 	}
 
+	// 비밀번호 찾기
+	@Override
+	public UserVO findPw(UserVO vo) {
+		return dao.findPw(vo);
+	}
+
 	// 찾은 아이디 이메일로 보내기
 	@Override
 	public void sendUsernames(String email, List<String> usernames) {

@@ -20,8 +20,12 @@ public interface UserMapper {
     // 아이디 찾기
     public List<String> findId(String email);
 
+    // 비밀번호 찾기
+    public UserVO findPw(UserVO vo);
+
     // 개인정보 수정
     int updateUser(UserVO vo);
 
+    // 비밀번호 수정
     int updatePw(UserVO vo);
 }
