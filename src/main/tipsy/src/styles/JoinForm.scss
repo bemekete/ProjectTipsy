@@ -12,6 +12,8 @@ input:-webkit-autofill:active {
 
 /* ############################### container전체 ############################ */
 #joinform_container {
+    user-select: none;
+
     max-width: 1240px;
     display: flex;
     flex-direction: column;
