@@ -6,17 +6,20 @@ function header({ isLoggedIn, handleLogout }) {
         <>
             <div className="headertop_cover">
                 <div className="headerTop">
-                    <a href="/" className="mainLogo">
+                    <Link to="/" className="mainLogo">
                         tipsy
-                    </a>
+                    </Link>
                     <div className="serviceTab">
                         <ul className="serviceTabList">
                             {isLoggedIn ? (
                                 <>
                                     <li>
-                                        <Link to="/" onClick={handleLogout}>
+                                        <Link onClick={handleLogout}>
                                             로그아웃
                                         </Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/mypage">마이페이지</Link>
                                     </li>
                                     <li>
                                         <Link to="/shopbasket">장바구니</Link>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function UserModify() {
     return (
@@ -13,14 +13,36 @@ export default function UserModify() {
 }
 
 export function UserModifyForm() {
+    const [loginInfo, setLoginInfo] = useState(null);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('/user/userinfo');
+            setLoginInfo(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    if (loginInfo === null) {
+        return <div>Loading...</div>; // 데이터를 받아올 때까지 로딩 표시
+    } else {
+    }
+
+    const firstNum = loginInfo.phone ? loginInfo.phone.substring(0, 3) : '';
+    const secondNum = loginInfo.phone ? loginInfo.phone.substring(4, 8) : '';
+    const lastNum = loginInfo.phone ? loginInfo.phone.substring(9) : '';
+
     return (
         <form onSubmit="onSubmit" className="forminfo" method="post">
             <table className="userinfoTable">
                 <tbody>
                     <tr>
-                        <th>
-                            아이디
-                        </th>
+                        <th>아이디</th>
                         <td>
                             <input
                                 type="text"
@@ -28,6 +50,7 @@ export function UserModifyForm() {
                                 maxLength="16"
                                 name="id"
                                 id="userID"
+                                value={loginInfo.id}
                                 // onChange={handleChange}
                                 required
                             />
@@ -35,9 +58,7 @@ export function UserModifyForm() {
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            비밀번호
-                        </th>
+                        <th>비밀번호</th>
                         <td>
                             <input
                                 type="password"
@@ -45,19 +66,17 @@ export function UserModifyForm() {
                                 maxLength="16"
                                 name="password"
                                 id="userPSW"
+                                value={loginInfo.password}
                                 // onChange={handleChange}
                                 required
                             />
                             <span>
-                                영대소문자 및 특수문자(@$!%*#?&), 8자
-                                이상
+                                영대소문자 및 특수문자(@$!%*#?&), 8자 이상
                             </span>
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            이름
-                        </th>
+                        <th>이름</th>
                         <td>
                             <input
                                 type="text"
@@ -65,7 +84,8 @@ export function UserModifyForm() {
                                 maxLength="10"
                                 name="name"
                                 id="userName"
-                            // onChange={handleChange}
+                                value={loginInfo.name}
+                                // onChange={handleChange}
                             />
                         </td>
                     </tr>
@@ -76,7 +96,8 @@ export function UserModifyForm() {
                                 type="text"
                                 name="postal"
                                 size="10px"
-                            // onChange={handleChange}
+                                value={loginInfo.postal}
+                                // onChange={handleChange}
                             />
                             <button onClick="/">우편번호</button>
                             <br />
@@ -84,7 +105,8 @@ export function UserModifyForm() {
                                 type="text"
                                 name="address_1"
                                 size="50"
-                            // onChange={handleChange}
+                                value={loginInfo.address_1}
+                                // onChange={handleChange}
                             />
                             <span>기본주소</span>
                             <br />
@@ -93,65 +115,53 @@ export function UserModifyForm() {
                                 name="address_2"
                                 size="50"
                                 id="address"
-                            // onChange={handleChange}
+                                value={loginInfo.address_2}
+                                // onChange={handleChange}
                             />
-                            <span>상세주소 (선택입력)</span>
+                            <span>상세주소</span>
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            휴대전화
-                        </th>
+                        <th>휴대전화</th>
                         <td className="phoneinput">
-                            <select
+                            <input
+                                type="text"
                                 name="firstNum"
-                            // onChange={phoneFunc}
-                            >
-                                <option value="선택">선택</option>
-                                <option value="010">010</option>
-                                <option value="011">011</option>
-                                <option value="016">016</option>
-                                <option value="017">017</option>
-                                <option value="018">018</option>
-                                <option value="019">019</option>
-                            </select>
+                                size="5px"
+                                id="secondNum"
+                                value={firstNum}
+                                readOnly
+                            />
                             -
                             <input
                                 type="text"
                                 name="secondNum"
-                                minLength="3"
-                                maxLength="4"
                                 size="5px"
                                 id="secondNum"
-                            // onChange={phoneFunc}
+                                value={secondNum}
+                                readOnly
                             />
                             -
                             <input
                                 type="text"
                                 name="lastNum"
-                                minLength="4"
-                                maxLength="4"
                                 size="5px"
                                 id="thirdNum"
-                            // onChange={phoneFunc}
+                                value={lastNum}
+                                readOnly
                             />
-                            {/* <!-- <a href="#">인증번호전송</a><br /> --> */}
-                            {/* <!-- <input type="text" name="userPhoneVerification" minLength="6" maxLength="6"
-                            size="24px" id="verificationCode" />
-                        <a href="#">인증번호확인</a> --> */}
                         </td>
                     </tr>
                     <tr>
-                        <th>
-                            이메일
-                        </th>
+                        <th>이메일</th>
                         <td>
                             <input
                                 type="email"
                                 name="email"
                                 size="30px"
                                 id="email"
-                            // onChange={handleChange}
+                                value={loginInfo.email}
+                                // onChange={handleChange}
                             />
                         </td>
                     </tr>
