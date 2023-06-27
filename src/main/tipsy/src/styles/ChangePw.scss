@@ -10,6 +10,18 @@
     .userinfoTable {
         margin: 0 auto;
         width: 640px;
+
+        tbody tr {
+            position: relative;
+        }
+
+        .cheakTxt {
+            position: absolute;
+            color: red;
+            font-size: 13px;
+            left: 29%;
+            top: 75%;
+        }
     }
 
     .modifyinfoBtn {

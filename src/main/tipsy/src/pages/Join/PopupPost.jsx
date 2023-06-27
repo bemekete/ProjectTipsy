@@ -1,6 +1,5 @@
 import React from 'react';
 import DaumPostcode from "react-daum-postcode";
-import { useState } from "react";
 
 const PopupPost = (props) => {
     // 우편번호 검색 후 주소 클릭 시 실행될 함수, data callback 용
@@ -33,32 +32,27 @@ const PopupPost = (props) => {
         width: "400px",
         height: "600px",
         padding: "7px",
-        
+
         boxShadow: "0 0 0 1.5px rgba(0, 0, 0, 0.2)",
-        
+
         zIndex: "9999",
-        position: "fixed",
-        left: "50%",
-        top: "40%",
-        transform: "translate(-50%, -30%)"
     };
 
     const postCloseBtn = {
         width: "25px",
         lineHeight: "25px",
-        padding : 0,
+        padding: 0,
         zIndex: "9999",
-        textAlign : "center",
-        
-        fontSize : "1.5rem",
-        color : "rgba(0,0,0,0.6)",
+        textAlign: "center",
 
-        position: "fixed",
-        left: "75%",
-        top: "25%",
-        transform: "translate(-150%, -60%)",
+        fontSize: "1.5rem",
+        color: "rgba(0,0,0,0.6)",
 
-        border : "none",
+        position: "absolute",
+        left: "100%",
+        top: "0%",
+
+        border: "none",
         backgroundColor: 'white',
         cursor: "pointer",
     }

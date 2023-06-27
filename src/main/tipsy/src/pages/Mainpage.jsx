@@ -201,29 +201,29 @@ function MainpageSearch() {
                         <dd>
                             <ul className="sortList">
                                 <li>
-                                    <Link href="#" onClick={sortClick}>
+                                    <a name="price" value="1" konClick={sortClick}>
                                         0만원 ~ 1만원
-                                    </Link>
+                                    </a>
                                 </li>
                                 <li>
-                                    <Link href="#" onClick={sortClick}>
+                                    <a name="price" value="2" konClick={sortClick}>
                                         1만원 ~ 3만원
-                                    </Link>
+                                    </a>
                                 </li>
                                 <li>
-                                    <Link href="#" onClick={sortClick}>
+                                    <a name="price" value="3" konClick={sortClick}>
                                         3만원 ~ 5만원
-                                    </Link>
+                                    </a>
                                 </li>
                                 <li>
-                                    <Link href="#" onClick={sortClick}>
+                                    <a name="price" value="4" konClick={sortClick}>
                                         5만원 ~ 10만원
-                                    </Link>
+                                    </a>
                                 </li>
                                 <li>
-                                    <Link to="#" onClick={sortClick}>
+                                    <a name="price" value="5" konClick={sortClick}>
                                         10만원 이상
-                                    </Link>
+                                    </a>
                                 </li>
                             </ul>
                         </dd>
@@ -240,9 +240,9 @@ function MainpageSearch() {
                         <dd>
                             <ul className="sortList">
                                 <li>
-                                    <Link to="#" onClick={sortClick}>
+                                    <a onClick={sortClick}>
                                         약주
-                                    </Link>
+                                    </a>
                                 </li>
                                 <li>
                                     <Link to="#" onClick={sortClick}>

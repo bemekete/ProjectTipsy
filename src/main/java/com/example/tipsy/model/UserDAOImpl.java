@@ -66,14 +66,14 @@ public class UserDAOImpl implements UserDAO {
 		simpleMailMessage.setSubject("아이디 찾기");
 
 		StringBuffer sb = new StringBuffer();
-		sb.append("가입하신 아이디는");
+		sb.append("가입하신 아이디는 '");
 //		sb.append(System.lineSeparator());
 
 		for(int i=0;i<id.size()-1;i++) {
 			sb.append(id.get(i));
 			sb.append(System.lineSeparator());
 		}
-		sb.append(id.get(id.size()-1)).append(" 입니다");
+		sb.append(id.get(id.size()-1)).append("' 입니다");
 
 		simpleMailMessage.setText(sb.toString());
 

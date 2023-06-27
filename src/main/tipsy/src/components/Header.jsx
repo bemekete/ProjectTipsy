@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom/dist';
+import { Link } from 'react-router-dom';
 import '../styles/Header.scss';
 
 function header({ isLoggedIn, handleLogout }) {
@@ -14,7 +14,7 @@ function header({ isLoggedIn, handleLogout }) {
                             {isLoggedIn ? (
                                 <>
                                     <li>
-                                        <Link onClick={handleLogout}>
+                                        <Link to="/" onClick={handleLogout}>
                                             로그아웃
                                         </Link>
                                     </li>

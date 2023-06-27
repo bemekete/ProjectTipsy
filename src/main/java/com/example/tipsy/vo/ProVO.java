@@ -12,6 +12,7 @@ public class ProVO {
 	String p_name;
 	int p_price;
 	String p_category;
+	String p_category_detail;
 	String p_alc;
 	String p_sweet;
 	String p_sour;
