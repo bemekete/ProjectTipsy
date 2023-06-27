@@ -60,8 +60,16 @@ public class UserServiceImpl implements UserService {
 	public void sendUsernames(String email, List<String> usernames) {
 		dao.sendUsernames(email, usernames);
 	}
+	
+	// 아이디 중복 확인
 	@Override
 	public List<String> checkId() {
 		return dao.checkId();
+	}
+
+	// 회원탈퇴
+	@Override
+	public int deleteUser(UserVO vo) {
+		return dao.deleteUser(vo);
 	}
 }

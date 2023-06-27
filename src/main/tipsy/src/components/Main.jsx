@@ -56,7 +56,10 @@ function Main({ handleLogin, setIsLoggedIn }) {
                     <Route path="/map" element={<Map />} />
                     <Route path="/adminpage/:data" element={<Adminpage />} />
                     <Route path="/usermodify" element={<UserModify />} />
-                    <Route path="/myinfo" element={<MyInfo />} />
+                    <Route
+                        path="/myinfo"
+                        element={<MyInfo setIsLoggedIn={setIsLoggedIn} />}
+                    />
                     <Route
                         path="/changepw"
                         element={<ChangePw setIsLoggedIn={setIsLoggedIn} />}

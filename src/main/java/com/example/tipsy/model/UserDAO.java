@@ -32,4 +32,7 @@ public interface UserDAO {
 
 	// 찾은 아이디 메일로 보내기
 	public void sendUsernames(String email, List<String> usernames);
+
+	// 회원탈퇴
+	int deleteUser(UserVO vo);
 }

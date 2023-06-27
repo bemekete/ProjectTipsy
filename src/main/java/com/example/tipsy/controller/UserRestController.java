@@ -53,44 +53,12 @@ public class UserRestController {
         return service.joinUser(vo);
     }
 
-
     // 회원가입 - 아이디 중복 체크
     @GetMapping("/checkid")
     public List<String> checkId(){
        return service.checkId();
     }
 
-    // 개인정보 수정
-    @PostMapping("/update")
-    public ResponseEntity<String> updateUser(@RequestBody UserVO vo, HttpSession session) {
-        vo.setPassword(null);
-        if (service.updateUser(vo) > 0) {
-            session.setAttribute("loginName", vo.getName());
-            return ResponseEntity.ok("개인정보 수정 성공");
-        } else {
-            return ResponseEntity.badRequest().body("개인정보 수정 실패");
-        }
-    }
-    
-    // 비밀번호 수정
-    @PostMapping("/updatepw")
-    public ResponseEntity<String> updatePw(@RequestBody UserVO vo, HttpServletRequest request) {
-        String id = (String) request.getSession().getAttribute("loginID");
-        vo.setId(id);
-        vo.setPassword(passwordEncoder.encode(vo.getPassword()));
-
-        if (service.updateUser(vo) > 0) {
-            request.getSession().invalidate();
-
-            String loginID = (String) request.getSession().getAttribute("loginID");
-            String loginName = (String) request.getSession().getAttribute("loginName");
-            System.out.println("로그인 성공. 아이디: " + loginID + ", 이름: " + loginName);
-
-            return ResponseEntity.ok("비밀번호 수정 성공");
-        } else {
-            return ResponseEntity.badRequest().body("비밀번호 수정 실패");
-        }
-    }
     // 로그인
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserVO vo,  HttpSession session, Model model){
@@ -163,6 +131,51 @@ public class UserRestController {
         } else {
             System.out.println(vo);
             return null;
+        }
+    }
+
+    // 개인정보 수정
+    @PostMapping("/update")
+    public ResponseEntity<String> updateUser(@RequestBody UserVO vo, HttpSession session) {
+        vo.setPassword(null);
+        if (service.updateUser(vo) > 0) {
+            session.setAttribute("loginName", vo.getName());
+            return ResponseEntity.ok("개인정보 수정 성공");
+        } else {
+            return ResponseEntity.badRequest().body("개인정보 수정 실패");
+        }
+    }
+    
+    // 비밀번호 수정
+    @PostMapping("/updatepw")
+    public ResponseEntity<String> updatePw(@RequestBody UserVO vo, HttpServletRequest request) {
+        String id = (String) request.getSession().getAttribute("loginID");
+        vo.setId(id);
+        vo.setPassword(passwordEncoder.encode(vo.getPassword()));
+
+        if (service.updateUser(vo) > 0) {
+            request.getSession().invalidate();
+
+            String loginID = (String) request.getSession().getAttribute("loginID");
+            String loginName = (String) request.getSession().getAttribute("loginName");
+            System.out.println("로그인 성공. 아이디: " + loginID + ", 이름: " + loginName);
+
+            return ResponseEntity.ok("비밀번호 수정 성공");
+        } else {
+            return ResponseEntity.badRequest().body("비밀번호 수정 실패");
+        }
+    }
+
+    // 회원탈퇴
+    @GetMapping("/delete")
+    public ResponseEntity<String> deleteUser(UserVO vo, HttpServletRequest request) {
+        vo.setId((String) request.getSession().getAttribute("loginID"));
+        if (service.deleteUser(vo) > 0) {
+            System.out.println("delete!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            request.getSession().invalidate();
+            return ResponseEntity.ok("회원탈퇴 성공");
+        } else {
+            return ResponseEntity.badRequest().body("회원탈퇴 실패");
         }
     }
 }

@@ -33,4 +33,7 @@ public interface UserMapper {
 
     // 비밀번호 수정
     int updatePw(UserVO vo);
+
+    // 회원탈퇴
+    int deleteUser(UserVO vo);
 }

@@ -71,7 +71,7 @@ const JoinBox = () => {
                 alert('회원가입에 실패하셨습니다. 다시 시도하세요.');
             }
         } else {
-            alert('회원가입에 실패하셨습니다. 다시 시도하세요.');
+            // alert('회원가입에 실패하셨습니다. 다시 시도하세요.');
         }
     };
 
@@ -130,7 +130,6 @@ const JoinBox = () => {
     });
     //데이터 유효성 검사 함수
     const validation = (e) => {
-        console.log(valText.id);
         const { id, name, value } = e.target;
         if (value === '') {
             setValText((prev) => ({
@@ -219,7 +218,19 @@ const JoinBox = () => {
     }, [popupPostData]);
 
     return (
-        <>{isPopupOpen && <div style={{ width: "100vw", height: "100vh", backgroundColor: 'white', opacity: ".7", zIndex: "2", position: "absolute" }}></div>}
+        <>
+            {isPopupOpen && (
+                <div
+                    style={{
+                        width: '100vw',
+                        height: '100vh',
+                        backgroundColor: 'white',
+                        opacity: '.7',
+                        zIndex: '2',
+                        position: 'absolute',
+                    }}
+                ></div>
+            )}
             <form onSubmit={dataSubmit} className="joinbox" method="post">
                 <p>
                     <span>*</span> 필수 입력 사항
@@ -536,12 +547,16 @@ const JoinBox = () => {
                     </button>
                 </div>
             </form>
-            <div id="popupDom" style={{
-                zIndex: "9999", position: "fixed",
-                left: "50%",
-                top: "50%",
-                transform: "translate(-50%, -50%)"
-            }}>
+            <div
+                id="popupDom"
+                style={{
+                    zIndex: '9999',
+                    position: 'fixed',
+                    left: '50%',
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)',
+                }}
+            >
                 {isPopupOpen && (
                     <Popup>
                         <PopupPost

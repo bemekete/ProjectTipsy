@@ -77,7 +77,6 @@ public class UserDAOImpl implements UserDAO {
 
 		simpleMailMessage.setText(sb.toString());
 
-
 		new Thread(new Runnable() {
 			public void run() {
 				mailSender.send(simpleMailMessage);
@@ -85,8 +84,15 @@ public class UserDAOImpl implements UserDAO {
 		}).start();
 	}
 
+	// 아이디 중복확인
 	@Override
 	public List<String> checkId() {
 		return mapper.checkId();
+	}
+
+	// 회원탈퇴
+	@Override
+	public int deleteUser(UserVO vo) {
+		return mapper.deleteUser(vo);
 	}
 }

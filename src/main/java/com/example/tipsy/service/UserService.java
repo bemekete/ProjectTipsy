@@ -30,6 +30,9 @@ public interface UserService {
 	// 찾은 아이디 이메일로 보내기
 	public void sendUsernames(String email, List<String> usernames);
 
-
+	// 아이디 중복확인
 	List<String> checkId();
+
+	// 회원탈퇴
+	int deleteUser(UserVO vo);
 }
