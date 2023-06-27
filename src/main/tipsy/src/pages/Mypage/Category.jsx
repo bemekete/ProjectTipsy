@@ -127,7 +127,7 @@ function ListContents() {
         const [pmk, setPmk] = useState({});
 
         axios
-            .get('/mypage/qnalist',{
+            .get('/uscon/qnalist',{
                 params: {
                     id: 'ddd', // 세션 아이디 전송
                     rowsPerPage: 5,
@@ -142,7 +142,7 @@ function ListContents() {
                 console.log(error);
             });
 
-        if (qnalist != null) {
+        if (qnalist[0] != null) {
             return <QnaboxForm list={qnalist} pmk={pmk}/>
         } else {
             return (
@@ -164,7 +164,7 @@ function ListContents() {
         const [pmk, setPmk] = useState({});
 
         axios
-            .get('/reviewlist')
+            .get('/uscon/reviewlist')
             .then((response) => {
                 setReviewlist(response.data.list);
                 setPmk(response.data.pmk);
@@ -174,7 +174,7 @@ function ListContents() {
                 console.log(error);
             });
 
-        if (1) {
+        if (reviewlist[0] != null) {
             return <ReviewboxForm list={reviewlist} pmk={pmk} />
         } else {
             return (
@@ -192,8 +192,27 @@ function ListContents() {
 
     // 찜한 상품
     function Likecon() {
+        const [likecon, setLikecon] = useState([]);
+        const [pmk, setPmk] = useState({});
+
+        axios
+            .get('/uscon/likeconlist', {
+                params: {
+                    id: 'bbb',
+                    like: 1,
+                }
+            })
+            .then((response) => {
+                setLikecon(response.data.list);
+                setPmk(response.data.pmk);
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
         if (1) {
-            return <ContentsForm />;
+            return <ContentsForm list={likecon} pmk={pmk}/>;
         } else {
             return (
                 <>
@@ -210,8 +229,27 @@ function ListContents() {
 
     // 최근 본 상품
     function Currentcon() {
+        const [currcon, setCurrcon] = useState([]);
+        const [pmk, setPmk] = useState({});
+
+        axios
+            .get('/uscon/likeconlist', {
+                params: {
+                    id: 'ddd',
+                    like: 0,
+                }
+            })
+            .then((response) => {
+                setCurrcon(response.data.list);
+                setPmk(response.data.pmk);
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
         if (1) {
-            return <ContentsForm />;
+            return <ContentsForm list={currcon} pmk={pmk}/>;
         } else {
             return (
                 <>
