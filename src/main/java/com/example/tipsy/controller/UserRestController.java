@@ -61,7 +61,7 @@ public class UserRestController {
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserVO vo,  HttpSession session, Model model){
+    public UserVO login(@RequestBody UserVO vo,  HttpSession session){
 
         String userPw = vo.getPassword();
         vo = service.getUserInfo(vo);
@@ -72,16 +72,10 @@ public class UserRestController {
                 session.setAttribute("loginID",vo.getId());
                 session.setAttribute("loginName",vo.getName());
 
-                return ResponseEntity.ok("로그인성공");
-            }else {
-                // => password 오류
-                model.addAttribute("message", "비밀번호 틀림");
-            } //if_내부
-        } else {
-            // ** id 오류
-            model.addAttribute("message", "아이디 틀림");
-        } //if_외부
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인실패");
+                return vo;
+            }
+        }
+        return null;
     }
 
     // 로그인 세션(서버에서 관리)

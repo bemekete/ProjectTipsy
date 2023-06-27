@@ -41,9 +41,10 @@ export function DocForm({ code }) {
                     <tr>
                         <th>분류</th>
                         <td className="asi_code">
-                            {code.map((item) => (
+                            {code.map((item, index) => (
                                 <>
                                     <input
+                                        key={index}
                                         type="radio"
                                         name="asi_code"
                                         value={item.code}

@@ -26,7 +26,7 @@ import UserModify from '../pages/Adminpage/UserModify';
 import MyInfo from '../pages/Mypage/MyInfo';
 import ChangePw from '../pages/Find/ChangePw';
 
-function Main({ handleLogin, setIsLoggedIn }) {
+function Main({ setIsLoggedIn, handleLoginFormSubmit }) {
     return (
         <>
             <div>
@@ -36,7 +36,11 @@ function Main({ handleLogin, setIsLoggedIn }) {
                     <Route path="/detail" element={<Detail />} />
                     <Route
                         path="/login"
-                        element={<Login handleLogin={handleLogin} />}
+                        element={
+                            <Login
+                                handleLoginFormSubmit={handleLoginFormSubmit}
+                            />
+                        }
                     />
                     <Route path="/join" element={<Join />} />
                     <Route path="/joinform" element={<JoinForm />} />
