@@ -6,8 +6,8 @@ import axios from 'axios';
 import '../../styles/Adminpage.scss';
 
 import ProductForm from './ProductForm';
-import Listpage from './Listpage';
-import { UserModifyForm } from './UserModify';
+import UserPage from './UserPage';
+import ProductPage from './ProductPage';
 import { DocForm } from './DocForm';
 import { DocModify } from './DocModify';
 import { QnaboxForm } from '../Mypage/Tableform';
@@ -15,13 +15,15 @@ import { QnaboxForm } from '../Mypage/Tableform';
 export default function Adminpage() {
     const { data } = useParams();
     const [userData, setUserData] = useState([]);
+    const [title, setTitle] = useState(
+        localStorage.getItem('adminPageTitle') || '회원목록'
+    );
 
     useEffect(() => {
         const userList = () => {
             axios
                 .get('/user/userlist')
                 .then((response) => {
-                    console.log(response.data);
                     setUserData(response.data);
                 })
                 .catch((error) => {
@@ -32,24 +34,26 @@ export default function Adminpage() {
         userList();
     }, []);
 
+    useEffect(() => {
+        localStorage.setItem('adminPageTitle', title);
+    }, [title]);
+
     return (
         <>
             <div id="adminpage_container">
-                <Categorylist />
+                <Categorylist setTitle={setTitle} />
 
                 <div id="contents">
-                    <p>TITLE</p>
-                    {data === 'userboard' && (
-                        <Listpage
-                            headers={userheaders}
-                            useritems={useritems}
-                            userData={userData}
-                        />
-                    )}
+                    <p>{title}</p>
+                    {data === 'userboard' && <UserPage userData={userData} />}
                     {/* {data === 'usermodify' && <UserModifyForm />} */}
 
                     {data === 'productboard' && (
-                        <Listpage headers={pheaders} items={pitems} />
+                        <ProductPage
+                            useState={useState}
+                            useEffect={useEffect}
+                            axios={axios}
+                        />
                     )}
                     {data === 'productinput' && (
                         <ProductForm onSubmit={onSubmitProduct} item="" />
@@ -63,7 +67,7 @@ export default function Adminpage() {
         </>
     );
 
-    function Categorylist() {
+    function Categorylist({ setTitle }) {
         const list = [
             {
                 dt: {
@@ -130,7 +134,12 @@ export default function Adminpage() {
                         </dt>
                         {el.dd.map((dd, index) => (
                             <dd key={index}>
-                                <Link to={`/adminpage/${dd.value}`}>
+                                <Link
+                                    to={`/adminpage/${dd.value}`}
+                                    onClick={() => {
+                                        setTitle(dd.text);
+                                    }}
+                                >
                                     {dd.text}
                                 </Link>
                             </dd>
@@ -169,157 +178,6 @@ const faqcode = [
     {
         code: 21,
         value: '제품 관련',
-    },
-];
-
-// 임시 데이터
-const userheaders = [
-    {
-        text: '회원번호',
-        value: 'seq',
-    },
-    {
-        text: 'ID',
-        value: 'id',
-    },
-    {
-        text: '이름',
-        value: 'name',
-    },
-];
-
-const useritems = [
-    {
-        seq: 0,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 1,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 2,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 3,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 4,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 5,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 6,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 7,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 8,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 9,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-];
-
-const pheaders = [
-    {
-        text: '상품번호',
-        value: 'seq',
-    },
-    {
-        text: '카테고리',
-        value: 'category',
-    },
-    {
-        text: '상품명',
-        value: 'title',
-    },
-    {
-        text: '가격',
-        value: 'price',
-    },
-];
-
-const pitems = [
-    {
-        seq: 0,
-        category: '청주',
-        title: '동학',
-        price: '1444',
-    },
-    {
-        seq: 1,
-        category: '와인',
-        title: '세인트어쩌고',
-        price: '12334',
-    },
-    {
-        seq: 2,
-        category: '소주',
-        title: '참이슬',
-        price: '12',
-    },
-    {
-        seq: 3,
-        category: '청주',
-        title: '동학',
-        price: '1444',
-    },
-    {
-        seq: 4,
-        category: '와인',
-        title: '세인트어쩌고',
-        price: '12334',
-    },
-    {
-        seq: 5,
-        category: '소주',
-        title: '참이슬',
-        price: '12',
-    },
-    {
-        seq: 6,
-        category: '청주',
-        title: '동학',
-        price: '1444',
-    },
-    {
-        seq: 7,
-        category: '와인',
-        title: '세인트어쩌고',
-        price: '12334',
-    },
-    {
-        seq: 8,
-        category: '소주',
-        title: '참이슬',
-        price: '12',
-    },
-    {
-        seq: 9,
-        category: '청주',
-        title: '동학',
-        price: '1444',
     },
 ];
 

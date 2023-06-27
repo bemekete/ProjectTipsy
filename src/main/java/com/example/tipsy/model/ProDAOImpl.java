@@ -15,6 +15,19 @@ public class ProDAOImpl implements ProDAO {
 
 	ProductMapper mapper;
 
+	// 관리자페이지 상품
+	@Override
+	public List<ProVO> adminProduct(String category) {
+		return mapper.adminProduct(category);
+	}
+
+	// 관리자페이지 상품 등록
+	@Override
+	public int addProduct(ProVO vo) {
+		return mapper.addProduct(vo);
+	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 상품목록
 	@Override
 	public List<ProVO> productList(String category) {

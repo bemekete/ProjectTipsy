@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class CartVO {
-	int cart_seq;
-	String id;
-	int p_seq;
-	int cart_vol;
+	private int cart_seq;
+	private String id;
+	private int p_seq;
+	private int cart_vol;
 }

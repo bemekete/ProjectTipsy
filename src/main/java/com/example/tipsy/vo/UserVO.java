@@ -8,15 +8,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserVO {
-	String id;
-	String name;
-	String password;
-	String password_q;
-	String password_a;
-	String phone;
-	String postal;
-	String address_1;
-	String address_2;
-	String email;
-	int point;
+	private	String id;
+	private String name;
+	private String password;
+	private String password_q;
+	private String password_a;
+	private String phone;
+	private String postal;
+	private String address_1;
+	private String address_2;
+	private String email;
+	private int point;
 }

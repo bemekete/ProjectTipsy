@@ -1,7 +1,7 @@
 package com.example.tipsy.vo;
 
 public class LikeConVO {
-    int seq;
-    String id;
-    int p_seq;
+    private int seq;
+    private String id;
+    private int p_seq;
 }

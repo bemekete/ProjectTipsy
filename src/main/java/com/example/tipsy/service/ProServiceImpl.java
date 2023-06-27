@@ -3,6 +3,7 @@ package com.example.tipsy.service;
 import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.model.ProDAO;
 import com.example.tipsy.vo.ProVO;
+import com.example.tipsy.vo.UserVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,19 @@ public class ProServiceImpl implements ProService {
 
 	ProDAO dao;
 
+	// 관리자페이지 상품
+	@Override
+	public List<ProVO> adminProduct(String category) {
+		return dao.adminProduct(category);
+	}
+
+	// 관리자페이지 상품 등록
+	@Override
+	public int addProduct(ProVO vo) {
+		return dao.addProduct(vo);
+	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 상품목록
 	@Override
 	public List<ProVO> productList(String category) {

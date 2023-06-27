@@ -1,7 +1,7 @@
 import React from 'react';
 // import { PageButton } from '../Boardtable';
 
-export default function Listpage({ headers, useritems, userData }) {
+export default function Listpage({userData }) {
     return (
         <>
             <table className="ListTable">
