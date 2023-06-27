@@ -18,6 +18,7 @@ public interface ProductMapper {
     // 인기순, 등록순
     List<ProVO> topSort(String topSort);
 
+    // 장바구니
     int insertCart(CartDto dto);
 
 

@@ -28,7 +28,7 @@
         </if>
     </select>
 
-
+    <!-- 장바구니 -->
     <insert id="insertCart" parameterType="com.example.tipsy.dto.CartDto">
         insert into cart(id, p_seq, cart_vol) values (#{id},(select p_seq from product where p_name = #{p_name}),#{cart_vol})
     </insert>
