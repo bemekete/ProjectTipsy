@@ -7,6 +7,38 @@ function ChangePw({ setIsLoggedIn }) {
     const navigate = useNavigate();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [valText, setValText] = useState({});
+    const [regulFail, setRegulFail] = useState({
+        userPSW:
+            '영어, 숫자, 특수문자 조합으로 8자이상 15자 이하로 입력해주세요.',
+        userPSWCH: '비밀번호가 일치하지 않습니다.',
+    });
+
+    const validation = (e) => {
+        if (e.target.id === 'userPSW') {
+            setPassword(e.target.value);
+        } else {
+            setConfirmPassword(e.target.value);
+        }
+        
+        console.log(valText.id);
+        const { id, value } = e.target;
+        if (
+            /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-z0-9!@#$%^&*]{8,15}$/g.test(
+                value
+            )
+        ) {
+            setValText((prev) => ({
+                ...prev,
+                [id]: null,
+            }));
+        } else {
+            setValText((prev) => ({
+                ...prev,
+                [id]: regulFail[id],
+            }));
+        }
+    };
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
@@ -20,7 +52,7 @@ function ChangePw({ setIsLoggedIn }) {
         e.preventDefault();
 
         if (password !== confirmPassword) {
-            alert('비밀번호가 일치하지 않습니다.');
+            // rePSW: '비밀번호가 일치하지 않습니다.';
             return;
         }
 
@@ -52,10 +84,16 @@ function ChangePw({ setIsLoggedIn }) {
                                     name="password"
                                     id="userPSW"
                                     value={password}
-                                    onChange={handlePasswordChange}
+                                    onChange={validation}
+                                    // onBlur={validation}
                                     required
                                 />
                             </td>
+                            {valText.userPSW && (
+                                <div className="cheakTxt">
+                                    {valText.userPSW}
+                                </div>
+                            )}
                         </tr>
                         <tr>
                             <th>비밀번호 확인</th>
@@ -67,10 +105,16 @@ function ChangePw({ setIsLoggedIn }) {
                                     name="password"
                                     id="userPSWCH"
                                     value={confirmPassword}
-                                    onChange={handleConfirmPasswordChange}
+                                    onChange={validation}
+                                    // onBlur={validation}
                                     required
                                 />
                             </td>
+                            {valText.userPSWCH && (
+                                <div className="cheakTxt">
+                                    {valText.userPSWCH}
+                                </div>
+                            )}
                         </tr>
                     </tbody>
                 </table>

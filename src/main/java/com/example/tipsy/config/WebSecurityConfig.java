@@ -12,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
+    // 비밀번호 암호화
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
