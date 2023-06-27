@@ -13,20 +13,16 @@ public class ProServiceImpl implements ProService {
 
 	ProDAO dao;
 
+	// 상품목록
 	@Override
 	public List<ProVO> productList(String category) {
 		return dao.productList(category);
 	}
 
+	// 상품디테일
 	@Override
 	public ProVO detailPro(ProVO vo) {
 		return dao.detailPro(vo);
-	}
-
-	// 큰카테고리선택(술 종류)
-	@Override
-	public List<ProVO> categoryList(String category) {
-		return dao.categoryList(category);
 	}
 
 	// 조회순, 등록순

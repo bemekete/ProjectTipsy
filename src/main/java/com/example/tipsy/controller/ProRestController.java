@@ -32,13 +32,6 @@ public class ProRestController {
 		return vo;
 	}
 
-	// 큰카테고리(술종류)
-	@GetMapping("/categorypro")
-	public List<ProVO> productCategory(@RequestParam("p_category") String category) {
-		System.out.println(service.categoryList(category));
-		return service.categoryList(category);
-	}
-
 	@GetMapping("/topsort")
 	public List<ProVO> topSort(@RequestParam("topSort") String topSort){
 		String sort = "1";
