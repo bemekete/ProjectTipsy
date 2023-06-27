@@ -20,9 +20,9 @@ public class ProRestController {
 	ProService service;
 	//	상품 목록
 	@GetMapping("/selectpro")
-	public List<ProVO> selectPro() {
-		System.out.println(service.productList());
-		return service.productList();
+	public List<ProVO> selectPro(@RequestParam("p_category") String category) {
+		System.out.println(service.productList(category));
+		return service.productList(category);
 	}
 
 	//	상품 상세(디테일)
@@ -39,4 +39,14 @@ public class ProRestController {
 		return service.categoryList(category);
 	}
 
+	@GetMapping("/topsort")
+	public List<ProVO> topSort(@RequestParam("topSort") String topSort){
+		String sort = "1";
+		if ("조회순".equals(topSort)){
+			sort = "1";
+		} else if ("등록순".equals(topSort)) {
+			sort = "2";
+		}
+		return service.topSort(sort);
+	}
 }

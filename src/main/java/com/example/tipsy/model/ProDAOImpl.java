@@ -14,8 +14,8 @@ public class ProDAOImpl implements ProDAO {
 
 	ProductMapper mapper;
 	@Override
-	public List<ProVO> productList() {
-		return mapper.productList();
+	public List<ProVO> productList(String category) {
+		return mapper.productList(category);
 	}
 
 	@Override
@@ -27,5 +27,11 @@ public class ProDAOImpl implements ProDAO {
 	@Override
 	public List<ProVO> categoryList(String category) {
 		return mapper.categoryList(category);
+	}
+
+	// 조회순, 등록순
+	@Override
+	public List<ProVO> topSort(String topSort) {
+		return mapper.topSort(topSort);
 	}
 }

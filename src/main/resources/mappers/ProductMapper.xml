@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapperInterface.ProductMapper">
+    
+    <select id="productList" resultType="com.example.tipsy.vo.ProVO">
+      <if test="category == 0">
+         select *
+        from product
+        order by p_cnt desc
+      </if>
+        <if test="category != 0">
+            select *
+            from product
+            where p_category = #{p_category}
+            order by p_cnt desc
+        </if>
+    </select>
+
+    <!-- 큰카테고리(술 종류) -->
     <select id="categoryList" resultType="com.example.tipsy.vo.ProVO">
         select *
         from product
         where p_category = #{p_category}
+    </select>
+
+    <!-- 인기순, 등록순 -->
+    <select id="topSort" resultType="com.example.tipsy.vo.ProVO">
+        SELECT *
+        FROM product
+        <if test="sort == 1">
+            ORDER BY p_cnt DESC
+        </if>
+        <if test="sort == 2">
+            ORDER BY p_regdate
+        </if>
     </select>
 </mapper>

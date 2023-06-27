@@ -14,8 +14,8 @@ public class ProServiceImpl implements ProService {
 	ProDAO dao;
 
 	@Override
-	public List<ProVO> productList() {
-		return dao.productList();
+	public List<ProVO> productList(String category) {
+		return dao.productList(category);
 	}
 
 	@Override
@@ -27,5 +27,11 @@ public class ProServiceImpl implements ProService {
 	@Override
 	public List<ProVO> categoryList(String category) {
 		return dao.categoryList(category);
+	}
+
+	// 조회순, 등록순
+	@Override
+	public List<ProVO> topSort(String topSort) {
+		return dao.topSort(topSort);
 	}
 }
