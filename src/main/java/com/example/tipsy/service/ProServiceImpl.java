@@ -1,5 +1,6 @@
 package com.example.tipsy.service;
 
+import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.model.ProDAO;
 import com.example.tipsy.vo.ProVO;
 import lombok.AllArgsConstructor;
@@ -21,5 +22,10 @@ public class ProServiceImpl implements ProService {
 	@Override
 	public ProVO detailPro(ProVO vo) {
 		return dao.detailPro(vo);
+	}
+
+	@Override
+	public int insertCart(CartDto dto) {
+		return dao.insertCart(dto);
 	}
 }

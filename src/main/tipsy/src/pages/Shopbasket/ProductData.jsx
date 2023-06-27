@@ -15,9 +15,14 @@ export default function ProductData() {
     }, [])
 
     const fetchData = async()=>   {
-        const response = await axios.get("/cart/list");
-        setBasketList(response.data); // head 등 정보 제외 실제 데이터만 사용하기위해 .data 사용
-        console.log(response.data);
+        try {
+            const response = await axios.get("/product/selectpro");
+            setBasketList(response.data); // head 등 정보 제외 실제 데이터만 사용하기위해 .data 사용
+            console.log(response.data);
+            
+        } catch (error) {
+            console.log("error" + error);
+        }
     }
 
 
