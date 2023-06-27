@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import '../styles/Detail.scss';
 import { Link } from 'react-router-dom';
+import {StarScore} from "./Mypage/Tableform";
 
 function Detail() {
     const [pieces, setPieces] = useState(0); // 구매 정보 - 상품 개수
@@ -147,24 +148,6 @@ function Detail() {
                 ))}
             </>
         );
-    }
-
-    // Review - 별점 출력 함수
-    function StarScore(star) {
-        switch (star) {
-            case 1:
-                return ' ★ ☆ ☆ ☆ ☆ ';
-            case 2:
-                return ' ★ ★ ☆ ☆ ☆ ';
-            case 3:
-                return ' ★ ★ ★ ☆ ☆ ';
-            case 4:
-                return ' ★ ★ ★ ★ ☆ ';
-            case 5:
-                return ' ★ ★ ★ ★ ★ ';
-            default:
-                return ' ☆ ☆ ☆ ☆ ☆ ';
-        }
     }
 
     // SideBar HTML

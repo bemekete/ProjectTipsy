@@ -97,41 +97,51 @@ function ReviewboxForm({list, pmk}) {
                     <col width="20%" />
                     <col width="80%" />
                 </colgroup>
+                <tbody>
                 {
                     list.map((item, i)=>(
-                        <tr key={`list${i}`}>
-                            <td>
-                                {/*<img src={require(item.p_img)} />*/}
-                                <img src={require('../../assets/mainpage_img/cheongju1.jpg')} />
-                            </td>
-                            <td>
-                                <div className="reviewScore">{StarScore(item.re_score)}</div>
-                                <div>{item.re_content}</div>
-                            </td>
-                        </tr>
+                        <>
+                            <tr className={`review${i}`}>
+                                <td>
+                                    {/*<img src={require(item.p_img)} />*/}
+                                    <img src={require('../../assets/mainpage_img/cheongju1.jpg')} />
+                                </td>
+                                <td>
+                                    <div className="review_star"></div>
+                                    <div>{item.re_content}</div>
+                                </td>
+                            </tr>
+
+                             <style jsx>{`
+                                .review${i} .review_star::after {
+                                    content: '${StarScore(item.re_score)}';
+                                }
+                            `}</style>
+                        </>
                     ))
                 }
+                </tbody>
             </table>
 
             <PageButton pmk={pmk} />
         </div>
     )
+}
 
-    function StarScore(star) {
-        switch (star) {
-            case 1:
-                return ' ★ ☆ ☆ ☆ ☆ ';
-            case 2:
-                return ' ★ ★ ☆ ☆ ☆ ';
-            case 3:
-                return ' ★ ★ ★ ☆ ☆ ';
-            case 4:
-                return ' ★ ★ ★ ★ ☆ ';
-            case 5:
-                return ' ★ ★ ★ ★ ★ ';
-            default:
-                return ' ☆ ☆ ☆ ☆ ☆ ';
-        }
+function StarScore(star) {
+    switch (star) {
+        case 1:
+            return ' ★ ☆ ☆ ☆ ☆ ';
+        case 2:
+            return ' ★ ★ ☆ ☆ ☆ ';
+        case 3:
+            return ' ★ ★ ★ ☆ ☆ ';
+        case 4:
+            return ' ★ ★ ★ ★ ☆ ';
+        case 5:
+            return ' ★ ★ ★ ★ ★ ';
+        default:
+            return ' ☆ ☆ ☆ ☆ ☆ ';
     }
 }
 
@@ -167,4 +177,4 @@ function ContentsForm() {
 //     )
 // }
 
-export { ShipmentForm, QnaboxForm, ReviewboxForm, ContentsForm };
+export { ShipmentForm, QnaboxForm, ReviewboxForm, ContentsForm, StarScore };

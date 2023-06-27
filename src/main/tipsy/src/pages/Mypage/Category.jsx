@@ -1,6 +1,19 @@
 import { useParams, Link } from 'react-router-dom';
+import { ContentsForm, PostboxForm, QnaboxForm, ReviewboxForm, ShipmentForm } from './Tableform';
+import { PageButton } from '../Boardtable';
+import {useState} from "react";
+import axios from "axios";
 
 export default function Category() {
+    return (
+        <div className="category" id="category">
+            <CategoryList />
+            <ListContents />
+        </div>
+    );
+}
+
+function CategoryList() {
     function onClickCategory(e) {
         const category = document.querySelectorAll('.categoryList li');
 
@@ -11,63 +24,69 @@ export default function Category() {
     }
 
     return (
-        <div className="category" id="category">
-            <ul className="categoryList">
-                <li className="nowpage">
-                    <Link
-                        to="/mypage/shipment"
-                        onClick={(e) => {
-                            onClickCategory(e);
-                        }}
-                    >
-                        주문내역
-                    </Link>
-                </li>
-                <li>
-                    <Link
-                        to="/mypage/postbox"
-                        onClick={(e) => {
-                            onClickCategory(e);
-                        }}
-                    >
-                        게시글
-                    </Link>
-                </li>
-                <li>
-                    <Link
-                        to="/mypage/likecon"
-                        onClick={(e) => {
-                            onClickCategory(e);
-                        }}
-                    >
-                        관심 상품
-                    </Link>
-                </li>
-                <li>
-                    <Link
-                        to="/mypage/currentcon"
-                        onClick={(e) => {
-                            onClickCategory(e);
-                        }}
-                    >
-                        최근 본 상품
-                    </Link>
-                </li>
-                <li>
-                    <Link
-                        to="/mypage/alcstyle"
-                        onClick={(e) => {
-                            onClickCategory(e);
-                        }}
-                    >
-                        나의 음주 스타일
-                    </Link>
-                </li>
-            </ul>
-
-            <ListContents />
-        </div>
-    );
+        <ul className="categoryList">
+            <li className="nowpage">
+                <Link
+                    to="/mypage/shipment"
+                    onClick={(e) => {
+                        onClickCategory(e);
+                    }}
+                >
+                    주문 내역
+                </Link>
+            </li>
+            <li>
+                <Link
+                    to="/mypage/qnabox"
+                    onClick={(e) => {
+                        onClickCategory(e);
+                    }}
+                >
+                    문의 내역
+                </Link>
+            </li>
+            <li>
+                <Link
+                    to="/mypage/reviewbox"
+                    onClick={(e) => {
+                        onClickCategory(e);
+                    }}
+                >
+                    작성한 리뷰
+                </Link>
+            </li>
+            <li>
+                <Link
+                    to="/mypage/likecon"
+                    onClick={(e) => {
+                        onClickCategory(e);
+                    }}
+                >
+                    관심 상품
+                </Link>
+            </li>
+            <li>
+                <Link
+                    to="/mypage/currentcon"
+                    onClick={(e) => {
+                        onClickCategory(e);
+                    }}
+                >
+                    최근 본 상품
+                </Link>
+            </li>
+            <li>
+                <Link
+                    to="/mypage/alcstyle"
+                    onClick={(e) => {
+                        onClickCategory(e);
+                    }}
+                >
+                    나의 음주 스타일
+                </Link>
+            </li>
+        </ul>
+    )
 }
 
 function ListContents() {
@@ -76,7 +95,8 @@ function ListContents() {
     return (
         <div className="listContents">
             {data == 'shipment' && <Shipment />}
-            {data == 'postbox' && <Postbox />}
+            {data == 'qnabox' && <Qnabox />}
+            {data == 'reviewbox' && <Reviewbox />}
             {data == 'likecon' && <Likecon />}
             {data == 'currentcon' && <Currentcon />}
             {data == 'alcstyle' && <Alcstyle />}
@@ -86,7 +106,8 @@ function ListContents() {
     // 주문배송
     function Shipment() {
         if (1) {
-            // 주문내역 없는 경우
+            return <ShipmentForm />;
+        } else {
             return (
                 <>
                     <div className="icon">
@@ -97,16 +118,33 @@ function ListContents() {
                     <div>주문 내역이 없습니다.</div>
                 </>
             );
-        } else {
-            // 주문내역이 존재하는 경우 - 추후 수정
-            return null;
         }
     }
 
-    // 게시물
-    function Postbox() {
-        if (1) {
-            // 게시글 없는 경우
+    // 문의내역
+    function Qnabox() {
+        const [qnalist, setQnalist] = useState([]);
+        const [pmk, setPmk] = useState({});
+
+        axios
+            .get('/mypage/qnalist',{
+                params: {
+                    id: 'ddd', // 세션 아이디 전송
+                    rowsPerPage: 5,
+                }
+            })
+            .then((response) => {
+                setQnalist(response.data.list);
+                setPmk(response.data.pmk);
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        if (qnalist != null) {
+            return <QnaboxForm list={qnalist} pmk={pmk}/>
+        } else {
             return (
                 <>
                     <div className="icon">
@@ -117,16 +155,46 @@ function ListContents() {
                     <div>작성한 게시물이 없습니다.</div>
                 </>
             );
+        }
+    }
+
+    // 리뷰
+    function Reviewbox() {
+        const [reviewlist, setReviewlist] = useState([]);
+        const [pmk, setPmk] = useState({});
+
+        axios
+            .get('/reviewlist')
+            .then((response) => {
+                setReviewlist(response.data.list);
+                setPmk(response.data.pmk);
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        if (1) {
+            return <ReviewboxForm list={reviewlist} pmk={pmk} />
         } else {
-            // 게시글 존재하는 경우 - 추후 수정
-            return null;
+            return (
+                <>
+                    <div className="icon">
+                        <img
+                            src={require('../../assets/mypage_img/noun-browser-552736.png')}
+                        />
+                    </div>
+                    <div>작성한 게시물이 없습니다.</div>
+                </>
+            );
         }
     }
 
     // 찜한 상품
     function Likecon() {
         if (1) {
-            // 찜한 상품 없는 경우
+            return <ContentsForm />;
+        } else {
             return (
                 <>
                     <div className="icon">
@@ -137,16 +205,14 @@ function ListContents() {
                     <div>찜한 상품이 없습니다.</div>
                 </>
             );
-        } else {
-            // 찜한 상품 존재하는 경우 - 추후 수정
-            return null;
         }
     }
 
     // 최근 본 상품
     function Currentcon() {
         if (1) {
-            // 최근 본 상품이 없는 경우
+            return <ContentsForm />;
+        } else {
             return (
                 <>
                     <div className="icon">
@@ -157,18 +223,14 @@ function ListContents() {
                     <div>최근 본 상품이 없습니다.</div>
                 </>
             );
-        } else {
-            // 최근 본 상품이 존재하는 경우 - 추후 수정
-            return null;
         }
     }
 
     // 나의 음주스타일
     function Alcstyle() {
         if (1) {
-            // 테스트 실행하지 않은 경우
             return (
-                <>
+                <div className='nullbox'>
                     <div className="icon">
                         <img
                             src={require('../../assets/mypage_img/noun-style-4384241.png')}
@@ -177,10 +239,9 @@ function ListContents() {
                     <div>테스트 결과가 없습니다.</div>
                     <button>그거뭐냐</button>
                     <Link to="#">그거뭐냐</Link>
-                </>
+                </div>
             );
         } else {
-            // 테스트 결과 존재하는 경우 - 추후 수정
             return null;
         }
     }

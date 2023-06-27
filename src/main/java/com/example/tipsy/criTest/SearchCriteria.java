@@ -8,4 +8,7 @@ public class SearchCriteria extends Criteria {
     private String keyword;
 
     private int asicode;
+
+    private String id;
+    private boolean mis;
 }

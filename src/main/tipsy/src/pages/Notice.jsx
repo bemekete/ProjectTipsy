@@ -15,6 +15,7 @@ export default function Notice() {
     const currpage = queryParams.get('currpage');
     const keyword = queryParams.get('keyword');
 
+
     axios
         .get('/bcrilist',{
             params: {

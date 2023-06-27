@@ -58,7 +58,7 @@ export default function Customerpage() {
                             </Link>
                         </li>
                         <li className="menu4">
-                            <Link href="/mypage">
+                            <Link to="/mypage/shipment">
                                 <span className="menuicon myPage"></span>
                                 <span>마이페이지</span>
                             </Link>

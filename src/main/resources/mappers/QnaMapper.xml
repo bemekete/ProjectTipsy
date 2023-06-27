@@ -1,4 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapperInterface.QnaMapper">
+    <!-- 게시물 상세 -->
+    <select id="qnaDetail" resultType="com.example.tipsy.vo.QnaVO">
+        SELECT * FROM us_qna WHERE q_seq = #{q_seq}
+    </select>
+
+    <!-- 게시물 등록 -->
+    <insert id="insertQna">
+        INSERT INTO us_qna(id, q_category, q_title, q_content)
+        VALUES(#{id}, #{q_category}, #{q_title}, #{q_content})
+    </insert>
+
+    <!-- 게시물 수정 -->
+    <update id="updateQna">
+        UPDATE us_qna
+        SET q_title=#{q_title}, q_content=#{q_content}, q_comment=#{q_comment}
+        WHERE q_seq=#{q_seq};
+    </update>
+
+    <!-- 게시물 삭제 -->
+    <delete id="deleteQna">
+        DELETE FROM us_qna WHERE q_seq=#{q_seq};
+    </delete>
+
+
+
+    <sql id="filter">
+        <if test="id!=null">
+            <bind name="id" value="id"/>
+        </if>
+
+            <choose>
+                <!-- 미답변 항목 -->
+                <when test="mis==true">
+                    WHERE q_comment IS NULL
+                </when>
+                <!-- id별 항목 -->
+                <when test="id!=null">
+                    WHERE id = #{id}
+                </when>
+                <!-- 전체 항목 -->
+                <otherwise> </otherwise>
+            </choose>
+    </sql>
+
+    <select id="qnaList" resultType="com.example.tipsy.vo.QnaVO">
+        SELECT * FROM us_qna
+        <include refid="filter"></include>
+        ORDER BY q_seq desc
+        LIMIT #{sno}, #{rowsPerPage}
+    </select>
+
+    <select id="criTotalCount" resultType="int">
+        SELECT count(*) from us_qna
+        <include refid="filter"></include>
+    </select>
 </mapper>

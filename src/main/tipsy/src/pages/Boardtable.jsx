@@ -1,8 +1,7 @@
 import '../styles/Boardtable.scss';
-import {Link, useLocation} from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from "axios";
-import {QueryAdd} from "../components/Function";
-import {useState} from "react";
+import { useState } from "react";
 
 function Boardtable({ page, items, pmk }) {
     return (
@@ -129,13 +128,13 @@ function BodyTable({ page, items }) {
 
             if (window.confirm("정말 삭제하시겠습니까?")) {
                 await axios.post('/deleteboard', {
-                    asi_seq: seq,
+                    asi_seq: seq, // qna와 통합할 경우, 컬럼명도 받아와야 함
 
-                }).then(response=>{
+                }).then(response => {
                     console.log(response.data);
                     window.location.reload();
 
-                }).catch(error=>{
+                }).catch(error => {
                     console.log(error);
                 })
             }
@@ -166,6 +165,7 @@ function BodyTable({ page, items }) {
                     <span>
                         {item.asi_contents}
 
+                        {/* admin 기능 */}
                         {1 == 1 && (
                             <div className='conModify'>
                                 <Link to={`/adminpage/updateboard?asi_seq=${item.asi_seq}`}>수정</Link>
@@ -179,7 +179,7 @@ function BodyTable({ page, items }) {
     ));
 }
 
-function PageButton({pmk}) {
+function PageButton({ pmk }) {
     const location = new useLocation();
 
     return (
@@ -192,10 +192,10 @@ function PageButton({pmk}) {
         </div>
     );
 
-    function pathbuild(ppp){
+    function pathbuild(ppp) {
         let path = '';
 
-        if(location.search.includes('keyword')){ // 검색 키워드 有
+        if (location.search.includes('keyword')) { // 검색 키워드 有
             const que = location.search;
             const asicode = que.substring(que.indexOf('asicode')).split('&')[0];
             const keyword = que.substring(que.indexOf('keyword')).split('&')[0];
@@ -213,7 +213,7 @@ function PageButton({pmk}) {
     // 페이지 넘버 버튼
     function viewNumbers() {
         const page = [];
-        for(let i = pmk.spageNo; i < pmk.epageNo + 1; i++) {
+        for (let i = pmk.spageNo; i < pmk.epageNo + 1; i++) {
             page.push(i);
         }
 
@@ -232,8 +232,8 @@ function PageButton({pmk}) {
 
     // 앞번호로 넘기는 버튼
     function PreBtn() {
-        if(pmk.prev == true){
-            return(
+        if (pmk.prev == true) {
+            return (
                 <li>
                     <Link to={`${pathbuild(pmk.spageNo - pmk.displayPageNo)}`}>
                         <span className="prebtn">
@@ -246,8 +246,8 @@ function PageButton({pmk}) {
 
     // 뒷번호로 넘기는 버튼
     function NxtBtn() {
-        if(pmk.next == true){
-            return(
+        if (pmk.next == true) {
+            return (
                 <li>
                     <Link to={`${pathbuild(pmk.spageNo + pmk.displayPageNo)}`}>
                         <span className="nxtbtn">
