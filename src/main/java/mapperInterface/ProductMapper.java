@@ -1,5 +1,6 @@
 package mapperInterface;
 
+import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.vo.ProVO;
 import org.apache.ibatis.annotations.Select;
 
@@ -11,4 +12,8 @@ public interface ProductMapper {
 
     @Select("select * from product where p_seq = #{p_seq}")
     ProVO detailPro(ProVO vo);
+
+    int insertCart(CartDto dto);
+
+
 }

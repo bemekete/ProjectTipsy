@@ -503,8 +503,8 @@ const JoinBox = () => {
             <div id="popupDom" style={{
                 zIndex: "9999", position: "fixed",
                 left: "50%",
-                top: "40%",
-                transform: "translate(-50%, -30%)"
+                top: "50%",
+                transform: "translate(-50%, -50%)"
             }}>
                 {isPopupOpen && (
                     <Popup >

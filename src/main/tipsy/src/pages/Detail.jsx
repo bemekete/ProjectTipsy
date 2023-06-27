@@ -1,12 +1,37 @@
 import { React, useState } from 'react';
 import '../styles/Detail.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+
 
 function Detail() {
-    const [pieces, setPieces] = useState(0); // 구매 정보 - 상품 개수
+    const [pieces, setPieces] = useState(1); // 구매 정보 - 상품 개수
     const [viewOptionView, setViewOptionView] = useState(false);
     const [popupMessage, setPopupMessage] = useState(false);
     const [bottomPopupMessage, setBottomPopupMessage] = useState(false);
+    const navigate = new useNavigate();
+
+
+    // 장바구니 테이블 데이터 전송 함수
+    const addcart = () => {
+        try {
+            axios.post('/product/addcart', {
+                p_name: item.title,
+                cart_vol: pieces,
+            }).then(request => {
+                if (request >= 0) {
+                    navigate("/shopbasket");
+                }else{
+                    alert("로그인 후 이용해주세요.");
+                }
+            })
+
+        } catch (error) {
+            console.log("가져오기 에러입니다.")
+
+        }
+    }
 
     // 전체 HTML
     return (
@@ -196,9 +221,8 @@ function Detail() {
                             <BuyBtn where="r" />
 
                             <div
-                                className={`popupBasket ${
-                                    popupMessage ? '' : 'displayNone'
-                                }`}
+                                className={`popupBasket ${popupMessage ? '' : 'displayNone'
+                                    }`}
                             >
                                 <CartPopupMessage where="r" />
                             </div>
@@ -217,9 +241,8 @@ function Detail() {
                 </div>
 
                 <div
-                    className={`bottomPopupBasket ${
-                        bottomPopupMessage ? '' : 'displayNone'
-                    }`}
+                    className={`bottomPopupBasket ${bottomPopupMessage ? '' : 'displayNone'
+                        }`}
                 >
                     <CartPopupMessage where="b" />
                 </div>
@@ -260,7 +283,7 @@ function Detail() {
                         required
                         defaultValue="default"
                     >
-                        <option value="default">{item.title}</option>
+                        <option value={item.title}>{item.title}</option>
                         {/* <option value="soju">소주</option>
                                     <option value="beer">맥주</option>
                                     <option value="wine">와인</option> */}
@@ -375,7 +398,8 @@ function Detail() {
     }
 
     function formSubmit() {
-        console.log('상품 title, price 등 객체로 저장해서 전달');
+        addcart();
+
     }
 }
 
