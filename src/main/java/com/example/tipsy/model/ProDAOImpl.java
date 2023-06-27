@@ -1,6 +1,7 @@
 package com.example.tipsy.model;
 
 
+import com.example.tipsy.dto.BasketProDto;
 import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.vo.ProVO;
 import lombok.AllArgsConstructor;
@@ -36,5 +37,11 @@ public class ProDAOImpl implements ProDAO {
 	@Override
 	public List<ProVO> topSort(String topSort) {
 		return mapper.topSort(topSort);
+	}
+
+	// 장바구니 담긴 상품 호출
+	@Override
+	public List<BasketProDto> basketProduct(String id) {
+		return mapper.basketProduct(id);
 	}
 }
