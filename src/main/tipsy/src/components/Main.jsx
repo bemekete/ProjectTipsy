@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Home from '../pages/HomePage/Home';
-import Mainpage from '../pages/Mainpage';
+import Mainpage from '../pages/MainPage/Mainpage';
 import Detail from '../pages/Detail';
 import Login from '../pages/Login';
 import Join from '../pages/Join/Join';
@@ -40,7 +40,7 @@ function Main({ handleLogin, setIsLoggedIn }) {
                     />
                     <Route path="/join" element={<Join />} />
                     <Route path="/joinform" element={<JoinForm />} />
-                    <Route path="/mypage" element={<Mypage />} />
+                    <Route path="/mypage/:data" element={<Mypage />} />
                     <Route path="/customerpage" element={<Customerpage />} />
                     <Route path="/notice" element={<Notice />} />
                     <Route path="/searchresult" element={<Searchpage />} />

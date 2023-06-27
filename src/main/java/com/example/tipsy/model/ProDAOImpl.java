@@ -13,20 +13,28 @@ import java.util.List;
 @AllArgsConstructor
 public class ProDAOImpl implements ProDAO {
 
-    ProductMapper mapper;
+	ProductMapper mapper;
 
-    @Override
-    public List<ProVO> productList() {
-        return mapper.productList();
-    }
+	// 상품목록
+	@Override
+	public List<ProVO> productList(String category) {
+		return mapper.productList(category);
+	}
 
-    @Override
-    public ProVO detailPro(ProVO vo) {
-        return mapper.detailPro(vo);
-    }
 
     @Override
     public int insertCart(CartDto dto) {
         return mapper.insertCart(dto);
     }
+	// 상품디테일
+	@Override
+	public ProVO detailPro(ProVO vo) {
+		return mapper.detailPro(vo);
+	}
+
+	// 조회순, 등록순
+	@Override
+	public List<ProVO> topSort(String topSort) {
+		return mapper.topSort(topSort);
+	}
 }
