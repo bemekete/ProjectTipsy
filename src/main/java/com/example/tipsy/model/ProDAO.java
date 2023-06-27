@@ -1,5 +1,6 @@
 package com.example.tipsy.model;
 
+import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.vo.ProVO;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public interface ProDAO {
 	
 	// 상품디테일
 	ProVO detailPro(ProVO vo);
+
+	int insertCart(CartDto dto);
 
 
 	// 인기순, 등록순

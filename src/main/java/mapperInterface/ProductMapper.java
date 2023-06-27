@@ -1,5 +1,6 @@
 package mapperInterface;
 
+import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.vo.ProVO;
 import org.apache.ibatis.annotations.Select;
 
@@ -16,4 +17,8 @@ public interface ProductMapper {
 
     // 인기순, 등록순
     List<ProVO> topSort(String topSort);
+
+    int insertCart(CartDto dto);
+
+
 }

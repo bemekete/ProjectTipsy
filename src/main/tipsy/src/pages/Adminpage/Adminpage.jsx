@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import React, {useRef, useState} from 'react';
+import {useLocation, useParams} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import '../../styles/Adminpage.scss';
@@ -8,6 +8,9 @@ import ProductForm from './ProductForm';
 import Listpage from './Listpage';
 import { UserModifyForm } from './UserModify';
 import { DocForm } from './DocForm';
+import { DocModify } from "./DocModify";
+import {QnaboxForm} from "../Mypage/Tableform";
+import axios from "axios";
 
 export default function Adminpage() {
     const { data } = useParams();
@@ -36,6 +39,10 @@ export default function Adminpage() {
                     {data == 'uploadfaq' && (
                         <DocForm code={faqcode} />
                     )}
+                    {data == 'updateboard' && (
+                        <DocModify />
+                    )}
+                    {data == 'qnaboard' && <QnaBoard />}
                 </div>
             </div>
         </>
@@ -89,6 +96,10 @@ export default function Adminpage() {
                         text: 'FAQ 작성',
                         value: 'uploadfaq',
                     },
+                    {
+                        text: 'QnA 목록',
+                        value: 'qnaboard',
+                    },
                 ]
             }
         ];
@@ -138,11 +149,11 @@ const noticecode = [
 const faqcode = [
     {
         code: 20,
-        value: '상품 관련',
+        value: '홈페이지 관련',
     },
     {
         code: 21,
-        value: '배송 관련',
+        value: '제품 관련',
     },
 ]
 
@@ -296,3 +307,37 @@ const pitems = [
         price: '1444',
     },
 ];
+
+function QnaBoard() {
+    const [qnalist, setQnalist] = useState([]);
+    const [pmk, setPmk] = useState({});
+    const [mis, setMis] = useState(false);
+
+
+    axios
+        .get('/mypage/qnalist',{
+            params: {
+                mis: mis,
+            }
+        })
+        .then((response) => {
+            setQnalist(response.data.list);
+            setPmk(response.data.pmk);
+
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+    return (
+        <>
+            <label>
+                <input type="checkbox" name="mis" value="mis" onChange={e=> {
+                    if (e.target.checked) setMis(true); else setMis(false);
+                }}/>
+                미답변 항목만 보기
+            </label>
+            <QnaboxForm list={qnalist} pmk={pmk}/>
+        </>
+    )
+}

@@ -1,5 +1,6 @@
 package com.example.tipsy.service;
 
+import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.vo.ProVO;
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface ProService {
 
 	// 인기순, 등록순
 	List<ProVO> topSort(String topSort);
+	int insertCart(CartDto dto);
+
 }

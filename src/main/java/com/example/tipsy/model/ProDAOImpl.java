@@ -1,6 +1,7 @@
 package com.example.tipsy.model;
 
 
+import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.vo.ProVO;
 import lombok.AllArgsConstructor;
 import mapperInterface.ProductMapper;
@@ -20,6 +21,11 @@ public class ProDAOImpl implements ProDAO {
 		return mapper.productList(category);
 	}
 
+
+    @Override
+    public int insertCart(CartDto dto) {
+        return mapper.insertCart(dto);
+    }
 	// 상품디테일
 	@Override
 	public ProVO detailPro(ProVO vo) {

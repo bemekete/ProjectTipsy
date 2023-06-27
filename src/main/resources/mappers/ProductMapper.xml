@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapperInterface.ProductMapper">
-
-    <!-- 상품목록 -->
+   <!-- 상품목록 -->
     <select id="productList" resultType="com.example.tipsy.vo.ProVO">
       <if test="category == 0">
          select *
@@ -28,4 +27,10 @@
             ORDER BY p_regdate
         </if>
     </select>
+
+
+    <insert id="insertCart" parameterType="com.example.tipsy.dto.CartDto">
+        insert into cart(id, p_seq, cart_vol) values (#{id},(select p_seq from product where p_name = #{p_name}),#{cart_vol})
+    </insert>
 </mapper>
+
