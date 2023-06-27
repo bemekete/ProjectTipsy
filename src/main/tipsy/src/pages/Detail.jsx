@@ -5,6 +5,8 @@ import axios from 'axios';
 
 
 
+import {StarScore} from "./Mypage/Tableform";
+
 function Detail() {
     const [pieces, setPieces] = useState(1); // 구매 정보 - 상품 개수
     const [viewOptionView, setViewOptionView] = useState(false);
@@ -172,24 +174,6 @@ function Detail() {
                 ))}
             </>
         );
-    }
-
-    // Review - 별점 출력 함수
-    function StarScore(star) {
-        switch (star) {
-            case 1:
-                return ' ★ ☆ ☆ ☆ ☆ ';
-            case 2:
-                return ' ★ ★ ☆ ☆ ☆ ';
-            case 3:
-                return ' ★ ★ ★ ☆ ☆ ';
-            case 4:
-                return ' ★ ★ ★ ★ ☆ ';
-            case 5:
-                return ' ★ ★ ★ ★ ★ ';
-            default:
-                return ' ☆ ☆ ☆ ☆ ☆ ';
-        }
     }
 
     // SideBar HTML

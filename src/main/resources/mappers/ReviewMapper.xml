@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapperInterface.ReviewMapper">
+    <!-- 게시물 상세 -->
+    <select id="reviewDetail" resultType="com.example.tipsy.vo.ReviewVO">
+        SELECT * FROM review WHERE re_seq = #{re_seq}
+    </select>
+
+    <!-- 게시물 등록 -->
+    <insert id="insertReview">
+        INSERT INTO review(p_seq, id, re_content, re_score)
+        VALUES(#{p_seq}, #{id}, #{re_content}, #{re_score})
+    </insert>
+
+    <!-- 게시물 삭제 -->
+    <delete id="deleteReview">
+        DELETE FROM review WHERE re_seq=#{re_seq};
+    </delete>
+
+
+
+<!--    <sql id="filter">-->
+<!--        <if test="id!=null">-->
+<!--            <bind name="id" value="id"/>-->
+<!--        </if>-->
+
+<!--        <choose>-->
+<!--            &lt;!&ndash; 미답변 항목 &ndash;&gt;-->
+<!--            <when test="mis==true">-->
+<!--                WHERE q_comment IS NULL-->
+<!--            </when>-->
+<!--            &lt;!&ndash; id별 항목 &ndash;&gt;-->
+<!--            <when test="id!=null">-->
+<!--                WHERE id = #{id}-->
+<!--            </when>-->
+<!--            &lt;!&ndash; 전체 항목 &ndash;&gt;-->
+<!--            <otherwise> </otherwise>-->
+<!--        </choose>-->
+<!--    </sql>-->
+
+    <select id="reviewList" resultType="com.example.tipsy.vo.ReviewVO">
+        SELECT re_seq, r.p_seq, id, re_regdate, re_content, re_score, p_name, p_price, p_img
+        FROM review r, product p
+        WHERE r.p_seq = p.p_seq
+<!--        <include refid="filter"></include>-->
+        ORDER BY re_seq desc
+        LIMIT #{sno}, #{rowsPerPage}
+    </select>
+
+    <select id="criTotalCount" resultType="int">
+        SELECT count(*) from review
+<!--        <include refid="filter"></include>-->
+    </select>
+</mapper>

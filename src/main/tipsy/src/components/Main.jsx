@@ -40,7 +40,7 @@ function Main({ handleLogin, setIsLoggedIn }) {
                     />
                     <Route path="/join" element={<Join />} />
                     <Route path="/joinform" element={<JoinForm />} />
-                    <Route path="/mypage" element={<Mypage />} />
+                    <Route path="/mypage/:data" element={<Mypage />} />
                     <Route path="/customerpage" element={<Customerpage />} />
                     <Route path="/notice" element={<Notice />} />
                     <Route path="/searchresult" element={<Searchpage />} />
