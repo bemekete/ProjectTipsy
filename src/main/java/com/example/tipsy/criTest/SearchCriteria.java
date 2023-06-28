@@ -13,4 +13,6 @@ public class SearchCriteria extends Criteria {
     private boolean mis;
 
     private int like;
+
+    private int category;
 }

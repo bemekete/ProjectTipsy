@@ -41,7 +41,7 @@
     <select id="reviewList" resultType="com.example.tipsy.vo.ReviewVO">
         SELECT re_seq, r.p_seq, id, re_regdate, re_content, re_score, p_name, p_price, p_img
         FROM review r, product p
-        WHERE r.p_seq = p.p_seq
+        WHERE id=#{id} AND r.p_seq = p.p_seq
 <!--        <include refid="filter"></include>-->
         ORDER BY re_seq desc
         LIMIT #{sno}, #{rowsPerPage}

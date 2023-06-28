@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.744ad0e7.css",
-    "main.js": "/static/js/main.84cfba45.js",
+    "main.css": "/static/css/main.40040f19.css",
+    "main.js": "/static/js/main.791d6c5d.js",
     "static/js/787.0ff01fae.chunk.js": "/static/js/787.0ff01fae.chunk.js",
     "static/media/gift-main.png": "/static/media/gift-main.a0021fa24fc586e2e32a.png",
     "static/media/gift-small.png": "/static/media/gift-small.90345733bc45f07ba753.png",
@@ -33,6 +33,8 @@
     "static/media/mak-text.png": "/static/media/mak-text.d7b801f6c93d00614745.png",
     "static/media/kakaotalk.png": "/static/media/kakaotalk.d52078e11ebbe0748cd6.png",
     "static/media/noun-map-5511510.png": "/static/media/noun-map-5511510.d56352313f8d4547e30f.png",
+    "static/media/noun-produce-2823265.png": "/static/media/noun-produce-2823265.28d88fc9b876ec672dc8.png",
+    "static/media/noun-heart-10024.png": "/static/media/noun-heart-10024.52863d6b3efc92652236.png",
     "static/media/noun-people-2868663.png": "/static/media/noun-people-2868663.6070dc224a0b580d7086.png",
     "static/media/noun-faq-2690303.png": "/static/media/noun-faq-2690303.f703ab1f00d1d442aee2.png",
     "static/media/noun-style-4384241.png": "/static/media/noun-style-4384241.594d38c3d1b1fc28f8bb.png",
@@ -48,12 +50,12 @@
     "static/media/arrow-right.svg": "/static/media/arrow-right.570763fb06b0528a09d5.svg",
     "static/media/arrow-left.svg": "/static/media/arrow-left.c2f448c5164d01e45bc2.svg",
     "static/media/down.svg": "/static/media/down.c84a0bfbda313288feb7aed6b2c86394.svg",
-    "main.744ad0e7.css.map": "/static/css/main.744ad0e7.css.map",
-    "main.84cfba45.js.map": "/static/js/main.84cfba45.js.map",
+    "main.40040f19.css.map": "/static/css/main.40040f19.css.map",
+    "main.791d6c5d.js.map": "/static/js/main.791d6c5d.js.map",
     "787.0ff01fae.chunk.js.map": "/static/js/787.0ff01fae.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.744ad0e7.css",
-    "static/js/main.84cfba45.js"
+    "static/css/main.40040f19.css",
+    "static/js/main.791d6c5d.js"
   ]
 }

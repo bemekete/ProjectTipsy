@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageButton } from '../Boardtable';
 
-export default function Listpage({ headers, items }) {
+export default function Listpage({ headers, items, pmk }) {
     return (
         <>
             <table className="ListTable">
@@ -38,7 +38,7 @@ export default function Listpage({ headers, items }) {
                 </tbody>
             </table>
 
-            <PageButton />
+            {/*<PageButton />*/}
         </>
     );
 

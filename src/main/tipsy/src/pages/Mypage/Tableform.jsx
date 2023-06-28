@@ -53,7 +53,8 @@ function QnaboxForm({list, pmk}) {
         <div className="mypageform">
             <table className="qnaboxtable">
                 <colgroup>
-                    <col width="20%" />
+                    <col width="10%" />
+                    <col width="10%" />
                     <col width="80%" />
                 </colgroup>
                 {
