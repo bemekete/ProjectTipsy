@@ -458,7 +458,6 @@ function Join() {
                                 )}
                             </div>
                             <div className="agree_submit">
-                                <button onClick={nextPage}>확인</button>
                                 <button
                                     onClick={(e) => {
                                         e.preventDefault();
@@ -467,6 +466,7 @@ function Join() {
                                 >
                                     취소
                                 </button>
+                                <button onClick={nextPage}>확인</button>
                             </div>
                         </form>
                     </div>

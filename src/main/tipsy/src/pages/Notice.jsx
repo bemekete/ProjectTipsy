@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import { Boardtable } from './Boardtable';
-import {useLocation} from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 export default function Notice() {
     const [noticelist, setNoticelist] = useState([]);
@@ -27,12 +27,11 @@ export default function Notice() {
                         asicode: asicode,
                         currPage: currpage,
                         keyword: keyword,
-                    }
+                    },
                 })
                 .then((response) => {
                     setNoticelist(response.data.list);
                     setPmk(response.data.pmk);
-
                 })
                 .catch((error) => {
                     console.log(error);
@@ -40,7 +39,7 @@ export default function Notice() {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
     return <Boardtable page={page} items={noticelist} pmk={pmk} />;
 }
@@ -61,5 +60,6 @@ const page = {
         {
             key: '기타',
             value: 12,
-        }],
+        },
+    ],
 };
