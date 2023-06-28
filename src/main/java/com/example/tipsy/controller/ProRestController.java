@@ -2,6 +2,7 @@ package com.example.tipsy.controller;
 
 import com.example.tipsy.criTest.PageMaker;
 import com.example.tipsy.criTest.SearchCriteria;
+import com.example.tipsy.dto.BasketProDto;
 import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.service.ProService;
 import com.example.tipsy.vo.ProVO;
@@ -21,13 +22,14 @@ import java.util.Map;
 @Log4j2
 public class ProRestController {
 
-	ProService service;
-	//	상품 목록
-	@GetMapping("/selectpro")
-	public List<ProVO> selectPro(@RequestParam("p_category") String category) {
-		System.out.println(service.productList(category));
-		return service.productList(category);
-	}
+    ProService service;
+
+    //	상품 목록
+    @GetMapping("/selectpro")
+    public List<ProVO> selectPro(@RequestParam("p_category") String category) {
+        System.out.println(service.productList(category));
+        return service.productList(category);
+    }
 
     //	상품 상세(디테일)
     @GetMapping("/detailpro")
@@ -36,12 +38,12 @@ public class ProRestController {
         return vo;
     }
 
-    // 장바구니 관련 호출
+    // 장바구니 담기 기능
     @PostMapping("/addcart")
     public int addCart(@RequestBody CartDto dto, HttpSession session) {
         String loginID = (String) session.getAttribute("loginID");
 
-        if (null != loginID && loginID.length()>0) {
+        if (null != loginID && loginID.length() > 0) {
             dto.setId(loginID);
             System.out.println(service.insertCart(dto));
             return service.insertCart(dto);
@@ -50,31 +52,27 @@ public class ProRestController {
         }
     }
 
-	@GetMapping("/topsort")
-	public List<ProVO> topSort(@RequestParam("topSort") String topSort){
-		String sort = "1";
-		if ("조회순".equals(topSort)){
-			sort = "1";
-		} else if ("등록순".equals(topSort)) {
-			sort = "2";
-		}
-		return service.topSort(sort);
-	}
+    // 장바구니에 담은 상품 호출
+    @GetMapping("/basketproduct")
+    public ResponseEntity<List<BasketProDto>> basketProduct(HttpSession session) {
+        String loginID = (String) session.getAttribute("loginID");
 
+        if (null != loginID && loginID.length() > 0) {
+            List<BasketProDto> result = service.basketProduct(loginID);
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 
-    @GetMapping("procrilist")
-    public ResponseEntity<?> procrilist(@ModelAttribute SearchCriteria cri, PageMaker pmk) {
-        cri.setSno();
-        service.procriList(cri); // 리스트화
-
-        pmk.setCri(cri); // pageMaker에 crilist 적용
-        pmk.setTotalRowsCount(service.criTotalCount(cri)); // 실제 DB row 개수 반영
-
-        // 매핑하여 출력
-        Map<String, Object> response = new HashMap<>();
-        response.put("pmk", pmk);
-        response.put("list", service.procriList(cri));
-
-        return ResponseEntity.ok(response);
+    @GetMapping("/topsort")
+    public List<ProVO> topSort(@RequestParam("topSort") String topSort) {
+        String sort = "1";
+        if ("조회순".equals(topSort)) {
+            sort = "1";
+        } else if ("등록순".equals(topSort)) {
+            sort = "2";
+        }
+        return service.topSort(sort);
     }
 }

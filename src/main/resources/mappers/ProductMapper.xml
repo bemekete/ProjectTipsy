@@ -30,8 +30,17 @@
 
 
     <insert id="insertCart" parameterType="com.example.tipsy.dto.CartDto">
-        insert into cart(id, p_seq, cart_vol) values (#{id},(select p_seq from product where p_name = #{p_name}),#{cart_vol})
+        insert into cart(id, p_seq, cart_vol)
+        values (#{id},(select p_seq from product where p_name = #{p_name}),#{cart_vol}) as data
+        on duplicate key update cart.cart_vol = cart.cart_vol+ data.cart_vol;
     </insert>
+
+    <select id="basketProduct" parameterType="String" resultType="com.example.tipsy.dto.BasketProDto">
+        select temp.point ,temp.id ,temp.cart_vol ,product.p_img, product.p_price,product.p_name
+        from (select user.id,user.point,cart.cart_vol, cart.p_seq
+                from cart join user on cart.id = user.id) as temp
+        join product on temp.p_seq = product.p_seq where id = #{id};
+    </select>
 
 
 
