@@ -1,11 +1,10 @@
 package com.example.tipsy.service;
 
-import com.example.tipsy.dto.BasketProDto;
 import com.example.tipsy.criTest.SearchCriteria;
+import com.example.tipsy.dto.BasketProDto;
 import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.model.ProDAO;
 import com.example.tipsy.vo.ProVO;
-import com.example.tipsy.vo.UserVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -53,9 +52,7 @@ public class ProServiceImpl implements ProService {
 		return dao.insertCart(dto);
 	}
 
-
 	// 검색 및 페이징
-
 	@Override
 	public List<ProVO> procriList(SearchCriteria cri) {
 		return dao.procriList(cri);
@@ -66,10 +63,6 @@ public class ProServiceImpl implements ProService {
 		return dao.criTotalCount(cri);
 	}
     // 장바구니 담기
-    @Override
-    public int insertCart(CartDto dto) {
-        return dao.insertCart(dto);
-    }
 
     // 장바구니 담긴 상품 호출
     @Override
