@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import '../styles/Header.scss';
+import {useEffect} from "react";
+import axios from "axios";
 
 function header({ isLoggedIn, handleLogout }) {
     return (
@@ -19,7 +21,9 @@ function header({ isLoggedIn, handleLogout }) {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/mypage">마이페이지</Link>
+                                        <Link to="/mypage/:data">
+                                            마이페이지
+                                        </Link>
                                     </li>
                                     <li>
                                         <Link to="/shopbasket">장바구니</Link>

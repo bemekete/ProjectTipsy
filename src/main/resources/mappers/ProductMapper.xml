@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapperInterface.ProductMapper">
+
+    <!-- 관리자페이지 상품등록 -->
+    <insert id="addProduct">
+        insert into product(p_name, p_price, p_category, p_category_detail, p_alc, p_sweet, p_sour,p_regdate, p_img, p_info_img, p_stock)
+        values(#{p_name},#{p_price},#{p_category},#{p_category_detail},#{p_alc},#{p_sweet},#{p_sour},now(),#{p_img},#{p_info_img},#{p_stock})
+    </insert>
+    <!--  /////////////////////////////////////////////////////////////////////////////////  -->
    <!-- 상품목록 -->
     <select id="productList" resultType="com.example.tipsy.vo.ProVO">
-      <if test="category == 0">
-         select *
-        from product
-        order by p_cnt desc
-      </if>
+          <if test="category == 0">
+            select *
+            from product
+            order by p_cnt desc
+          </if>
         <if test="category != 0">
             select *
             from product
@@ -28,7 +35,7 @@
         </if>
     </select>
 
-
+    <!-- 장바구니 -->
     <insert id="insertCart" parameterType="com.example.tipsy.dto.CartDto">
         insert into cart(id, p_seq, cart_vol)
         values (#{id},(select p_seq from product where p_name = #{p_name}),#{cart_vol}) as data
@@ -40,6 +47,47 @@
         from (select user.id,user.point,cart.cart_vol, cart.p_seq
                 from cart join user on cart.id = user.id) as temp
         join product on temp.p_seq = product.p_seq where id = #{id};
+    </select>
+
+
+
+    <!-- 검색 및 페이징-->
+    <!-- 검색 키워드 -->
+    <sql id="keywordsearch">
+        <if test="keyword!=null">
+            <bind name="keyVal" value="'%'+keyword+'%'"/>
+            AND p_name LIKE #{keyVal}
+        </if>
+    </sql>
+
+    <select id="procriList" resultType="com.example.tipsy.vo.ProVO">
+        <if test="category == 0">
+            SELECT *
+            FROM product
+            WHERE p_seq > 0 <include refid="keywordsearch"></include>
+            ORDER BY p_cnt DESC
+            LIMIT #{sno}, #{rowsPerPage}
+        </if>
+
+        <if test="category != 0">
+            SELECT *
+            FROM product
+            WHERE p_category = #{category} <include refid="keywordsearch"></include>
+            ORDER BY p_cnt DESC
+            LIMIT #{sno}, #{rowsPerPage}
+        </if>
+    </select>
+
+    <select id="criTotalCount" resultType="int">
+        <if test="category == 0">
+            SELECT count(*) FROM product
+            WHERE p_seq > 0 <include refid="keywordsearch"></include>
+        </if>
+
+        <if test="category != 0">
+            SELECT count(*) FROM product
+            WHERE p_category = #{category} <include refid="keywordsearch"></include>
+        </if>
     </select>
 </mapper>
 

@@ -1,6 +1,5 @@
 package com.example.tipsy.controller;
 
-import com.example.tipsy.criTest.Criteria;
 import com.example.tipsy.criTest.PageMaker;
 import com.example.tipsy.criTest.SearchCriteria;
 import com.example.tipsy.service.AsiService;
@@ -9,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -17,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/asi")
 @AllArgsConstructor
 @Log4j2
 public class AsiRestController {
@@ -76,9 +75,6 @@ public class AsiRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("");
         }
     }
-
-
-
 
     // Paging Controller 페이징
     // Board_Cri_Paging

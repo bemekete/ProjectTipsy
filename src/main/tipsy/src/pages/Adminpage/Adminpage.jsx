@@ -1,54 +1,73 @@
-import React, {useRef, useState} from 'react';
-import {useLocation, useParams} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import '../../styles/Adminpage.scss';
 
 import ProductForm from './ProductForm';
-import Listpage from './Listpage';
-import { UserModifyForm } from './UserModify';
+import UserPage from './UserPage';
+import ProductPage from './ProductPage';
 import { DocForm } from './DocForm';
-import { DocModify } from "./DocModify";
-import {QnaboxForm} from "../Mypage/Tableform";
-import axios from "axios";
+import { DocModify } from './DocModify';
+import { QnaboxForm } from '../Mypage/Tableform';
 
 export default function Adminpage() {
     const { data } = useParams();
+    const [userData, setUserData] = useState([]);
+    const [title, setTitle] = useState(
+        localStorage.getItem('adminPageTitle') || '회원목록'
+    );
+
+    useEffect(() => {
+        const userList = () => {
+            axios
+                .get('/user/userlist')
+                .then((response) => {
+                    setUserData(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        };
+
+        userList();
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('adminPageTitle', title);
+    }, [title]);
 
     return (
         <>
             <div id="adminpage_container">
-                <Categorylist />
+                <Categorylist setTitle={setTitle} />
 
                 <div id="contents">
-                    <p>TITLE</p>
-                    {data == 'userboard' && (
-                        <Listpage headers={userheaders} items={useritems} />
-                    )}
-                    {data == 'usermodify' && <UserModifyForm />}
+                    <p>{title}</p>
+                    {data === 'userboard' && <UserPage userData={userData} />}
+                    {/* {data === 'usermodify' && <UserModifyForm />} */}
 
-                    {data == 'productboard' && (
-                        <Listpage headers={pheaders} items={pitems} />
+                    {data === 'productboard' && (
+                        <ProductPage
+                            useState={useState}
+                            useEffect={useEffect}
+                            axios={axios}
+                        />
                     )}
-                    {data == 'productinput' && (
+                    {data === 'ProductForm' && (
                         <ProductForm onSubmit={onSubmitProduct} item="" />
                     )}
-                    {data == 'uploadnotice' && (
-                        <DocForm code={noticecode} />
-                    )}
-                    {data == 'uploadfaq' && (
-                        <DocForm code={faqcode} />
-                    )}
-                    {data == 'updateboard' && (
-                        <DocModify />
-                    )}
-                    {data == 'qnaboard' && <QnaBoard />}
+                    {data === 'uploadnotice' && <DocForm code={noticecode} />}
+                    {data === 'uploadfaq' && <DocForm code={faqcode} />}
+                    {data === 'updateboard' && <DocModify />}
+                    {data === 'qnaboard' && <QnaBoard />}
                 </div>
             </div>
         </>
     );
 
-    function Categorylist() {
+    function Categorylist({ setTitle }) {
         const list = [
             {
                 dt: {
@@ -60,10 +79,10 @@ export default function Adminpage() {
                         text: '회원목록',
                         value: 'userboard',
                     },
-                    {
-                        text: '회원정보 수정',
-                        value: 'usermodify',
-                    },
+                    // {
+                    //     text: '회원정보 수정',
+                    //     value: 'usermodify',
+                    // },
                 ],
             },
             {
@@ -78,14 +97,14 @@ export default function Adminpage() {
                     },
                     {
                         text: '상품등록',
-                        value: 'productinput',
+                        value: 'ProductForm',
                     },
                 ],
             },
             {
                 dt: {
                     text: '페이지 관리',
-                    value: 'pagesetting'
+                    value: 'pagesetting',
                 },
                 dd: [
                     {
@@ -100,22 +119,27 @@ export default function Adminpage() {
                         text: 'QnA 목록',
                         value: 'qnaboard',
                     },
-                ]
-            }
+                ],
+            },
         ];
 
         return (
             <div id="adminpage_category">
-                {list.map((el) => (
-                    <dl>
+                {list.map((el, index) => (
+                    <dl key={index}>
                         <dt>
                             <Link to={`/adminpage/${el.dd[0].value}`}>
                                 {el.dt.text}
                             </Link>
                         </dt>
-                        {el.dd.map((dd) => (
-                            <dd>
-                                <Link to={`/adminpage/${dd.value}`}>
+                        {el.dd.map((dd, index) => (
+                            <dd key={index}>
+                                <Link
+                                    to={`/adminpage/${dd.value}`}
+                                    onClick={() => {
+                                        setTitle(dd.text);
+                                    }}
+                                >
                                     {dd.text}
                                 </Link>
                             </dd>
@@ -144,7 +168,7 @@ const noticecode = [
         code: 12,
         value: '기타',
     },
-]
+];
 
 const faqcode = [
     {
@@ -155,7 +179,7 @@ const faqcode = [
         code: 21,
         value: '제품 관련',
     },
-]
+];
 
 // 임시 데이터
 const userheaders = [
@@ -313,17 +337,15 @@ function QnaBoard() {
     const [pmk, setPmk] = useState({});
     const [mis, setMis] = useState(false);
 
-
     axios
-        .get('/mypage/qnalist',{
+        .get('/mypage/qnalist', {
             params: {
                 mis: mis,
-            }
+            },
         })
         .then((response) => {
             setQnalist(response.data.list);
             setPmk(response.data.pmk);
-
         })
         .catch((error) => {
             console.log(error);
@@ -332,12 +354,18 @@ function QnaBoard() {
     return (
         <>
             <label>
-                <input type="checkbox" name="mis" value="mis" onChange={e=> {
-                    if (e.target.checked) setMis(true); else setMis(false);
-                }}/>
+                <input
+                    type="checkbox"
+                    name="mis"
+                    value="mis"
+                    onChange={(e) => {
+                        if (e.target.checked) setMis(true);
+                        else setMis(false);
+                    }}
+                />
                 미답변 항목만 보기
             </label>
-            <QnaboxForm list={qnalist} pmk={pmk}/>
+            <QnaboxForm list={qnalist} pmk={pmk} />
         </>
-    )
+    );
 }

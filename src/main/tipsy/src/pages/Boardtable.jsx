@@ -1,7 +1,7 @@
 import '../styles/Boardtable.scss';
 import { Link, useLocation } from 'react-router-dom';
-import axios from "axios";
-import { useState } from "react";
+import axios from 'axios';
+import { useState } from 'react';
 
 function Boardtable({ page, items, pmk }) {
     return (
@@ -38,7 +38,7 @@ function BoardSearch() {
                         name="Search_board"
                         id="Search_board"
                         placeholder="검색어를 입력하세요"
-                        onChange={e => setInput(e.target.value)}
+                        onChange={(e) => setInput(e.target.value)}
                     />
                 </label>
                 <button type="submit">
@@ -57,7 +57,8 @@ function BoardSearch() {
         let que = location.search;
         que = que.substring(que.indexOf('asicode')).split('&')[0];
 
-        window.location.href = location.pathname + '?' + que + '&keyword=' + input;
+        window.location.href =
+            location.pathname + '?' + que + '&keyword=' + input;
     }
 }
 
@@ -81,12 +82,16 @@ function ScopeBox({ page }) {
         <div className="board_scope">
             <ul>
                 <li className="board_scope_box">
-                    <Link to={`${location.pathname}?asicode=${page.value}`}>전체</Link>
+                    <Link to={`${location.pathname}?asicode=${page.value}`}>
+                        전체
+                    </Link>
                 </li>
 
                 {page.scope.map((item) => (
                     <li className="board_scope_box">
-                        <Link to={`${location.pathname}?asicode=${item.value}`}>{item.key}</Link>
+                        <Link to={`${location.pathname}?asicode=${item.value}`}>
+                            {item.key}
+                        </Link>
                     </li>
                 ))}
             </ul>
@@ -121,35 +126,32 @@ function BoardTable({ page, items }) {
 }
 
 function BodyTable({ page, items }) {
-
     const deleteBoard = async (e, seq) => {
         try {
             e.preventDefault();
 
-            if (window.confirm("정말 삭제하시겠습니까?")) {
-                await axios.post('/deleteboard', {
-                    asi_seq: seq, // qna와 통합할 경우, 컬럼명도 받아와야 함
-
-                }).then(response => {
-                    console.log(response.data);
-                    window.location.reload();
-
-                }).catch(error => {
-                    console.log(error);
-                })
+            if (window.confirm('정말 삭제하시겠습니까?')) {
+                await axios
+                    .post('/deleteboard', {
+                        asi_seq: seq, // qna와 통합할 경우, 컬럼명도 받아와야 함
+                    })
+                    .then((response) => {
+                        console.log(response.data);
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
             }
-
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     return items.map((item, i) => (
         <tr key={'boarditem' + i}>
             <th scope="row">
-                <span>
-                    {page.scope[item.asi_code % 10].key}
-                </span>
+                <span>{page.scope[item.asi_code % 10].key}</span>
             </th>
             <td className="contents">
                 <details>
@@ -167,9 +169,20 @@ function BodyTable({ page, items }) {
 
                         {/* admin 기능 */}
                         {1 == 1 && (
-                            <div className='conModify'>
-                                <Link to={`/adminpage/updateboard?asi_seq=${item.asi_seq}`}>수정</Link>
-                                <Link to="/" onClick={e => deleteBoard(e, item.asi_seq)}>삭제</Link>
+                            <div className="conModify">
+                                <Link
+                                    to={`/adminpage/updateboard?asi_seq=${item.asi_seq}`}
+                                >
+                                    수정
+                                </Link>
+                                <Link
+                                    to="/"
+                                    onClick={(e) =>
+                                        deleteBoard(e, item.asi_seq)
+                                    }
+                                >
+                                    삭제
+                                </Link>
                             </div>
                         )}
                     </span>
@@ -195,13 +208,21 @@ function PageButton({ pmk }) {
     function pathbuild(ppp) {
         let path = '';
 
-        if (location.search.includes('keyword')) { // 검색 키워드 有
+        if (location.search.includes('keyword')) {
+            // 검색 키워드 有
             const que = location.search;
             const asicode = que.substring(que.indexOf('asicode')).split('&')[0];
             const keyword = que.substring(que.indexOf('keyword')).split('&')[0];
-            path = location.pathname + '?' + asicode + '&' + keyword + '&currpage=' + ppp;
-
-        } else { // 검색 키워드 無
+            path =
+                location.pathname +
+                '?' +
+                asicode +
+                '&' +
+                keyword +
+                '&currpage=' +
+                ppp;
+        } else {
+            // 검색 키워드 無
             let que = location.search;
             que = que.substring(que.indexOf('asicode')).split('&')[0];
             path = location.pathname + '?' + que + '&currpage=' + ppp;
@@ -227,34 +248,32 @@ function PageButton({ pmk }) {
                     </li>
                 ))}
             </>
-        )
+        );
     }
 
     // 앞번호로 넘기는 버튼
     function PreBtn() {
-        if (pmk.prev == true) {
+        if (pmk.prev === true) {
             return (
                 <li>
                     <Link to={`${pathbuild(pmk.spageNo - pmk.displayPageNo)}`}>
-                        <span className="prebtn">
-                        </span>
+                        <span className="prebtn"></span>
                     </Link>
                 </li>
-            )
+            );
         }
     }
 
     // 뒷번호로 넘기는 버튼
     function NxtBtn() {
-        if (pmk.next == true) {
+        if (pmk.next === true) {
             return (
                 <li>
                     <Link to={`${pathbuild(pmk.spageNo + pmk.displayPageNo)}`}>
-                        <span className="nxtbtn">
-                        </span>
+                        <span className="nxtbtn"></span>
                     </Link>
                 </li>
-            )
+            );
         }
     }
 }

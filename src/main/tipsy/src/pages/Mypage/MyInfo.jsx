@@ -3,19 +3,19 @@ import axios from 'axios';
 import '../../styles/Adminpage.scss';
 import { useNavigate } from 'react-router-dom';
 
-export default function MyInfo() {
+export default function MyInfo({ setIsLoggedIn }) {
     return (
         <div id="userinfo_container">
             <p className="pageTitle">개인정보 수정</p>
             <div id="contents">
-                <MyInfoForm />
+                <MyInfoForm setIsLoggedIn={setIsLoggedIn} />
             </div>
         </div>
     );
 }
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-export function MyInfoForm() {
+export function MyInfoForm({ setIsLoggedIn }) {
     const [loginInfo, setLoginInfo] = useState(null); // db에서 받아온 정보를 담는 변수
     const navigate = useNavigate();
 
@@ -72,6 +72,24 @@ export function MyInfoForm() {
         } catch (error) {
             console.error(error);
             alert('개인정보 수정 실패');
+        }
+    };
+
+    // 회원탈퇴
+    const withdrawal = () => {
+        if (window.confirm('정말로 탈퇴하시겠습니까?')) {
+            axios
+                .get('/user/delete')
+                .then(() => {
+                    alert('회원탈퇴완료');
+                    setIsLoggedIn(false);
+                    navigate('/');
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            alert('탈퇴취소');
         }
     };
 
@@ -211,6 +229,14 @@ export function MyInfoForm() {
             </table>
             <div className="modifyinfoBtn">
                 <button type="submit">정보수정</button>
+                <button
+                    type="button"
+                    onClick={() => {
+                        withdrawal();
+                    }}
+                >
+                    회원탈퇴
+                </button>
                 <button
                     type="button"
                     onClick={() => {

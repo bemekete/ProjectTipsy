@@ -16,22 +16,32 @@ function FAQ() {
     const currpage = queryParams.get('currpage');
     const keyword = queryParams.get('keyword');
 
-    axios
-        .get('/bcrilist',{
-            params: {
-                asicode: asicode,
-                currPage: currpage,
-                keyword: keyword,
-            }
-        })
-        .then((response) => {
-            setFaqlist(response.data.list);
-            setPmk(response.data.pmk);
+    useEffect(() => {
+        fetchData();
+    }, [asicode, currpage, keyword]);
 
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    const fetchData = async () => {
+        try {
+            axios
+                .get('/bcrilist', {
+                    params: {
+                        asicode: asicode,
+                        currPage: currpage,
+                        keyword: keyword,
+                    }
+                })
+                .then((response) => {
+                    setFaqlist(response.data.list);
+                    setPmk(response.data.pmk);
+
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } catch(e){
+            console.log(e);
+        }
+    }
 
     return (
         <div id="Board_main">

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 import { Boardtable } from './Boardtable';
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 export default function Notice() {
     const [noticelist, setNoticelist] = useState([]);
@@ -15,23 +15,32 @@ export default function Notice() {
     const currpage = queryParams.get('currpage');
     const keyword = queryParams.get('keyword');
 
+    useEffect(() => {
+        fetchData();
+    }, [asicode, currpage, keyword]);
 
-    axios
-        .get('/bcrilist',{
-            params: {
-                asicode: asicode,
-                currPage: currpage,
-                keyword: keyword,
-            }
-        })
-        .then((response) => {
-            setNoticelist(response.data.list);
-            setPmk(response.data.pmk);
+    const fetchData = async () => {
+        try {
+            axios
+                .get('/bcrilist', {
+                    params: {
+                        asicode: asicode,
+                        currPage: currpage,
+                        keyword: keyword,
+                    }
+                })
+                .then((response) => {
+                    setNoticelist(response.data.list);
+                    setPmk(response.data.pmk);
 
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     return <Boardtable page={page} items={noticelist} pmk={pmk} />;
 }

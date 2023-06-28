@@ -53,13 +53,15 @@ function QnaboxForm({list, pmk}) {
         <div className="mypageform">
             <table className="qnaboxtable">
                 <colgroup>
-                    <col width="20%" />
+                    <col width="10%" />
+                    <col width="10%" />
                     <col width="80%" />
                 </colgroup>
                 {
                         list.map((item, i) => (
                             <tr key={`list${i}`}>
                                 <td>{item.q_category}</td>
+                                <td>{AnswerMiss(item.q_comment)}</td>
                                 <td>
                                     <details>
                                         <summary>
@@ -87,6 +89,14 @@ function QnaboxForm({list, pmk}) {
              <PageButton pmk={pmk} />
         </div>
     )
+
+    function AnswerMiss(item) {
+        if(item == null){
+            return '미답변';
+        } else {
+            return '답변완료';
+        }
+    }
 }
 
 function ReviewboxForm({list, pmk}) {
@@ -145,21 +155,23 @@ function StarScore(star) {
     }
 }
 
-function ContentsForm() {
+function ContentsForm({list, pmk}) {
     return (
         <div className="mypageform">
             <table className="contentstable">
                 <tr>
-                    <td><img src={require('../../assets/mainpage_img/cheongju1.jpg')} /></td>
-                    <td><img src={require('../../assets/mainpage_img/cheongju1.jpg')} /></td>
-                    <td><img src={require('../../assets/mainpage_img/cheongju1.jpg')} /></td>
-                    <td><img src={require('../../assets/mainpage_img/cheongju1.jpg')} /></td>
-                    <td><img src={require('../../assets/mainpage_img/cheongju1.jpg')} /></td>
-                    <td><img src={require('../../assets/mainpage_img/cheongju1.jpg')} /></td>
-                    <td><img src={require('../../assets/mainpage_img/cheongju1.jpg')} /></td>
-                    <td><img src={require('../../assets/mainpage_img/cheongju1.jpg')} /></td>
+                    {
+                        list.map((item, i)=>(
+                            <td key={`list${i}`}>
+                                {item.p_name}
+                                {/*<img src={require('../../assets/mainpage_img/cheongju1.jpg')} />*/}
+                            </td>
+                        ))
+                    }
                 </tr>
             </table>
+
+            <PageButton pmk={pmk} />
         </div>
     )
 }

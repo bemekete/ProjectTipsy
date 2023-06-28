@@ -1,33 +1,13 @@
 import React, { useState } from 'react';
 import '../styles/Login.scss';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-function Login({ handleLogin }) {
-    const navigate = useNavigate();
-
-    const handleLoginFormSubmit = (inputId, inputPw) => {
-        // 서버에 로그인 요청을 보냅니다.
-        axios
-            .post('/user/login', { id: inputId, password: inputPw })
-            .then((response) => {
-                // 로그인 성공 시 처리할 작업을 수행합니다.
-                console.log('로그인 성공');
-                handleLogin();
-                navigate('/');
-            })
-            .catch((error) => {
-                // 로그인 실패 시 처리할 작업을 수행합니다.
-                alert('로그인실패 - 다시 ㄱㄱ');
-                console.error('로그인 실패');
-            });
-    };
-
+function Login({ handleLoginFormSubmit }) {
     return (
         <main id="login_main">
             <div id="login_wrap">
                 <div id="login_container">
-                    <LoginForm onSubmit={handleLoginFormSubmit} />
+                    <LoginForm handleLoginFormSubmit={handleLoginFormSubmit} />
                     <SNSLogin />
                 </div>
             </div>
@@ -37,7 +17,7 @@ function Login({ handleLogin }) {
 
 export default Login;
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = ({ handleLoginFormSubmit }) => {
     const [inputId, setInputId] = useState('');
     const [inputPw, setInputPw] = useState('');
 
@@ -51,7 +31,7 @@ const LoginForm = ({ onSubmit }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(inputId, inputPw);
+        handleLoginFormSubmit(inputId, inputPw);
     };
 
     return (

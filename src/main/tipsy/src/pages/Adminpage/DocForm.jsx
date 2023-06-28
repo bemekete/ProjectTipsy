@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
-import {Dateformat} from "../../components/Function";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Dateformat } from '../../components/Function';
 
 export function DocForm({ code }) {
     const [formcode, setFormCode] = useState('');
@@ -17,23 +17,22 @@ export function DocForm({ code }) {
                 asi_date: Dateformat(),
             };
             axios
-                .post("/insertboard", formdata)
-                .then(response => {
+                .post('/insertboard', formdata)
+                .then((response) => {
                     console.log(response.data);
 
-                    if (response.data == "1") window.location.href = '/notice'; // notice
+                    if (response.data === '1')
+                        window.location.href = '/notice'; // notice
                     else window.location.href = '/faq'; // faq
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.log(error);
-                    alert("게시글 작성을 실패했습니다.");
-                })
-
-
+                    alert('게시글 작성을 실패했습니다.');
+                });
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     return (
         <form onSubmit={onSubmitForm} className="forminfo">
@@ -42,18 +41,20 @@ export function DocForm({ code }) {
                     <tr>
                         <th>분류</th>
                         <td className="asi_code">
-                            {
-                                code.map((item) => (
-                                    <>
-                                        <input
-                                            type="radio"
-                                            name="asi_code"
-                                            value={item.code}
-                                            onChange={e => setFormCode(e.target.value)}
-                                        />{item.value}
-                                    </>
-                                ))
-                            }
+                            {code.map((item, index) => (
+                                <>
+                                    <input
+                                        key={index}
+                                        type="radio"
+                                        name="asi_code"
+                                        value={item.code}
+                                        onChange={(e) =>
+                                            setFormCode(e.target.value)
+                                        }
+                                    />
+                                    {item.value}
+                                </>
+                            ))}
                         </td>
                     </tr>
                 </thead>
@@ -64,7 +65,7 @@ export function DocForm({ code }) {
                             <input
                                 type="text"
                                 name="asi_title"
-                                onChange={e => setTitle(e.target.value)}
+                                onChange={(e) => setTitle(e.target.value)}
                             />
                         </td>
                     </tr>
@@ -74,7 +75,7 @@ export function DocForm({ code }) {
                         <td>
                             <textarea
                                 name="asi_contents"
-                                onChange={e => setContents(e.target.value)}
+                                onChange={(e) => setContents(e.target.value)}
                             />
                         </td>
                     </tr>
@@ -86,5 +87,5 @@ export function DocForm({ code }) {
                 <button>취소</button>
             </div>
         </form>
-    )
+    );
 }

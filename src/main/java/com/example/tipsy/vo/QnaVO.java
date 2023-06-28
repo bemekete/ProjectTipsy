@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class QnaVO {
-    int q_seq;
-    String id;
-    int q_category;
-    String q_title;
-    String q_content;
-    String q_comment;
-    String q_regdate;
+    private int q_seq;
+    private String id;
+    private int q_category;
+    private String q_title;
+    private String q_content;
+    private String q_comment;
+    private String q_regdate;
 }
