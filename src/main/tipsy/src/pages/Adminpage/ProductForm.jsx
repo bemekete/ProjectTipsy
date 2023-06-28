@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export default function ProductForm() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
+        // onChange되는 값 담을 변수
         p_name: '',
         p_price: '',
         p_category: '',
@@ -17,6 +18,7 @@ export default function ProductForm() {
         uploadfile2: null,
     });
 
+    // 이미지 제외 onchange
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((formData) => ({
@@ -25,6 +27,7 @@ export default function ProductForm() {
         }));
     };
 
+    // 이미지 onchange
     const handleFileChange = (e) => {
         const { name, files } = e.target;
         setFormData((formData) => ({
@@ -33,11 +36,15 @@ export default function ProductForm() {
         }));
     };
 
+    // 상품등록
     const addProduct = (e) => {
         e.preventDefault();
 
+        // FormData생성
         const formDataToSend = new FormData();
 
+        // Object.entries 함수를 사용하여 formData 객체의 키-값 쌍을 배열로 변환
+        //  forEach 메서드를 사용하여 각 쌍에 대해 append 함수를 호출
         Object.entries(formData).forEach(([key, value]) => {
             formDataToSend.append(key, value);
         });
@@ -205,7 +212,14 @@ export default function ProductForm() {
 
             <div className="modifyinfoBtn">
                 <button type="submit">상품등록</button>
-                <button>취소</button>
+                <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        navigate(-1);
+                    }}
+                >
+                    취소
+                </button>
             </div>
         </form>
     );
