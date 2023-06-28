@@ -4,14 +4,13 @@ import lombok.Data;
 
 @Data
 public class ReviewVO {
-    int re_seq;
-    int p_seq;
-    String id;
-    String re_regdate;
-    String re_content;
-    int re_score;
-
-    String p_name;
-    int p_price;
-    String p_img;
+    private int re_seq;
+    private int p_seq;
+    private String id;
+    private String re_regdate;
+    private String re_content;
+    private int re_score;
+    private String p_name;
+    private int p_price;
+    private String p_img;
 }

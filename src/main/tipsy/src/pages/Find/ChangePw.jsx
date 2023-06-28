@@ -15,12 +15,6 @@ function ChangePw({ setIsLoggedIn }) {
     });
 
     const validation = (e) => {
-        if (e.target.id === 'userPSW') {
-            setPassword(e.target.value);
-        } else {
-            setConfirmPassword(e.target.value);
-        }
-        
         console.log(valText.id);
         const { id, value } = e.target;
         if (
@@ -52,7 +46,6 @@ function ChangePw({ setIsLoggedIn }) {
         e.preventDefault();
 
         if (password !== confirmPassword) {
-            // rePSW: '비밀번호가 일치하지 않습니다.';
             return;
         }
 
@@ -84,8 +77,8 @@ function ChangePw({ setIsLoggedIn }) {
                                     name="password"
                                     id="userPSW"
                                     value={password}
-                                    onChange={validation}
-                                    // onBlur={validation}
+                                    onChange={handlePasswordChange}
+                                    onBlur={validation}
                                     required
                                 />
                             </td>
@@ -105,8 +98,8 @@ function ChangePw({ setIsLoggedIn }) {
                                     name="password"
                                     id="userPSWCH"
                                     value={confirmPassword}
-                                    onChange={validation}
-                                    // onBlur={validation}
+                                    onChange={handleConfirmPasswordChange}
+                                    onBlur={validation}
                                     required
                                 />
                             </td>

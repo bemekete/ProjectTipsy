@@ -21,7 +21,9 @@ function header({ isLoggedIn, handleLogout }) {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/mypage">마이페이지</Link>
+                                        <Link to="/mypage/:data">
+                                            마이페이지
+                                        </Link>
                                     </li>
                                     <li>
                                         <Link to="/shopbasket">장바구니</Link>

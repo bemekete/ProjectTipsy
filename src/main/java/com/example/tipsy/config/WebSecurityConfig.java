@@ -12,6 +12,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
+    // 이미지업로드
+//    @Bean
+//    public MultipartResolver multipartResolver() {
+//        return new StandardServletMultipartResolver();
+//    }
+
     // 비밀번호 암호화
     @Bean
     public PasswordEncoder passwordEncoder(){

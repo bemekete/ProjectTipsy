@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
 @Repository
 @AllArgsConstructor
 public class UserDAOImpl implements UserDAO {
@@ -63,20 +64,20 @@ public class UserDAOImpl implements UserDAO {
 	public void sendUsernames(String email, List<String> id) {
 		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 		simpleMailMessage.setTo(email);
-		simpleMailMessage.setSubject("아이디 찾기");
+		simpleMailMessage.setSubject("TIPSY 아이디 찾기 결과입니다.");
 
 		StringBuffer sb = new StringBuffer();
-		sb.append("가입하신 아이디는 '");
+		sb.append("회원님의 아이디는 \" ");
 //		sb.append(System.lineSeparator());
 
 		for(int i=0;i<id.size()-1;i++) {
 			sb.append(id.get(i));
 			sb.append(System.lineSeparator());
 		}
-		sb.append(id.get(id.size()-1)).append("' 입니다");
+		sb.append(id.get(id.size()-1)).append(" \" 입니다");
+		sb.append(System.lineSeparator());
 
 		simpleMailMessage.setText(sb.toString());
-
 
 		new Thread(new Runnable() {
 			public void run() {
@@ -85,8 +86,15 @@ public class UserDAOImpl implements UserDAO {
 		}).start();
 	}
 
+	// 아이디 중복확인
 	@Override
 	public List<String> checkId() {
 		return mapper.checkId();
+	}
+
+	// 회원탈퇴
+	@Override
+	public int deleteUser(UserVO vo) {
+		return mapper.deleteUser(vo);
 	}
 }

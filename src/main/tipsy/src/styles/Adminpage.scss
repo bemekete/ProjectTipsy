@@ -111,6 +111,10 @@
 
 // 정보 페이지 form
 .forminfo {
+    button {
+        cursor: pointer;
+    }
+
     width: 100%;
 
     .userinfoTable {

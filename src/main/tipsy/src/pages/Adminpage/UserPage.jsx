@@ -1,32 +1,26 @@
 import React from 'react';
-import { PageButton } from '../Boardtable';
+// import { PageButton } from '../Boardtable';
 
-export default function Listpage({ headers, items, pmk }) {
+export default function Listpage({userData }) {
     return (
         <>
             <table className="ListTable">
                 <thead>
                     <tr>
-                        <th></th>
                         <th>no.</th>
-                        {headers.map((header) => (
-                            <th>{header.text}</th>
-                        ))}
+                        <th>ID</th>
+                        <th>이름</th>
                         <th>상세정보</th>
                         <th>삭제</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    {items.map((el, i) => (
-                        <tr>
-                            <td className="listchbox">
-                                <input type="checkbox" />
-                            </td>
+                    {userData.map((user, i) => (
+                        <tr key={i}>
                             <td>{i + 1}</td>
-                            {headers.map((header) => (
-                                <td>{el[header.value]}</td>
-                            ))}
+                            <td>{user.id}</td>
+                            <td>{user.name}</td>
                             <td className="listdet">
                                 <button onClick={onClickDetail}>Detail</button>
                             </td>
@@ -37,8 +31,7 @@ export default function Listpage({ headers, items, pmk }) {
                     ))}
                 </tbody>
             </table>
-
-            {/*<PageButton />*/}
+            {/* <PageButton /> */}
         </>
     );
 

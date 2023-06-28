@@ -1,56 +1,73 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {useLocation, useParams} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import '../../styles/Adminpage.scss';
 
 import ProductForm from './ProductForm';
-import Listpage from './Listpage';
-import { UserModifyForm } from './UserModify';
+import UserPage from './UserPage';
+import ProductPage from './ProductPage';
 import { DocForm } from './DocForm';
-import { DocModify } from "./DocModify";
-import {QnaboxForm} from "../Mypage/Tableform";
-import axios from "axios";
+import { DocModify } from './DocModify';
+import { QnaboxForm } from '../Mypage/Tableform';
 
 export default function Adminpage() {
     const { data } = useParams();
+    const [userData, setUserData] = useState([]);
+    const [title, setTitle] = useState(
+        localStorage.getItem('adminPageTitle') || '회원목록'
+    );
+
+    useEffect(() => {
+        const userList = () => {
+            axios
+                .get('/user/userlist')
+                .then((response) => {
+                    setUserData(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        };
+
+        userList();
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('adminPageTitle', title);
+    }, [title]);
 
     return (
         <>
             <div id="adminpage_container">
-                <Categorylist />
+                <Categorylist setTitle={setTitle} />
 
                 <div id="contents">
-                    <p>TITLE</p>
-                    {data == 'userboard' && <UserBoard />}
+                    <p>{title}</p>
+                    {data === 'userboard' && <UserPage userData={userData} />}
+                    {/* {data === 'usermodify' && <UserModifyForm />} */}
 
-                    {data == 'usermodify' && <UserModifyForm />}
-
-                    {data == 'productboard' && <ProductBoard />}
-
-                    {data == 'productinput' && (
+                    {data === 'productboard' && (
+                        <ProductPage
+                            useState={useState}
+                            useEffect={useEffect}
+                            axios={axios}
+                        />
+                    )}
+                    {data === 'ProductForm' && (
                         <ProductForm onSubmit={onSubmitProduct} item="" />
                     )}
-
-                    {data == 'uploadnotice' && (
-                        <DocForm code={noticecode} />
-                    )}
-
-                    {data == 'uploadfaq' && (
-                        <DocForm code={faqcode} />
-                    )}
-
-                    {data == 'updateboard' && (
-                        <DocModify />
-                    )}
-
-                    {data == 'qnaboard' && <QnaBoard />}
+                    {data === 'uploadnotice' && <DocForm code={noticecode} />}
+                    {data === 'uploadfaq' && <DocForm code={faqcode} />}
+                    {data === 'updateboard' && <DocModify />}
+                    {data === 'qnaboard' && <QnaBoard />}
                 </div>
             </div>
         </>
     );
 
-    function Categorylist() {
+    function Categorylist({ setTitle }) {
         const list = [
             {
                 dt: {
@@ -62,10 +79,10 @@ export default function Adminpage() {
                         text: '회원목록',
                         value: 'userboard',
                     },
-                    {
-                        text: '회원정보 수정',
-                        value: 'usermodify',
-                    },
+                    // {
+                    //     text: '회원정보 수정',
+                    //     value: 'usermodify',
+                    // },
                 ],
             },
             {
@@ -80,14 +97,14 @@ export default function Adminpage() {
                     },
                     {
                         text: '상품등록',
-                        value: 'productinput',
+                        value: 'ProductForm',
                     },
                 ],
             },
             {
                 dt: {
                     text: '페이지 관리',
-                    value: 'pagesetting'
+                    value: 'pagesetting',
                 },
                 dd: [
                     {
@@ -102,22 +119,27 @@ export default function Adminpage() {
                         text: 'QnA 목록',
                         value: 'qnaboard',
                     },
-                ]
-            }
+                ],
+            },
         ];
 
         return (
             <div id="adminpage_category">
-                {list.map((el) => (
-                    <dl>
+                {list.map((el, index) => (
+                    <dl key={index}>
                         <dt>
                             <Link to={`/adminpage/${el.dd[0].value}`}>
                                 {el.dt.text}
                             </Link>
                         </dt>
-                        {el.dd.map((dd) => (
-                            <dd>
-                                <Link to={`/adminpage/${dd.value}`}>
+                        {el.dd.map((dd, index) => (
+                            <dd key={index}>
+                                <Link
+                                    to={`/adminpage/${dd.value}`}
+                                    onClick={() => {
+                                        setTitle(dd.text);
+                                    }}
+                                >
                                     {dd.text}
                                 </Link>
                             </dd>
@@ -146,7 +168,7 @@ const noticecode = [
         code: 12,
         value: '기타',
     },
-]
+];
 
 const faqcode = [
     {
@@ -157,116 +179,193 @@ const faqcode = [
         code: 21,
         value: '제품 관련',
     },
-]
+];
 
-function UserBoard() {
-    const [userlist, setUserList] = useState([]);
-    const [pmk, setPmk] = useState({});
+// 임시 데이터
+const userheaders = [
+    {
+        text: '회원번호',
+        value: 'seq',
+    },
+    {
+        text: 'ID',
+        value: 'id',
+    },
+    {
+        text: '이름',
+        value: 'name',
+    },
+];
 
-    const userheaders = [
-        {
-            text: '회원번호',
-            value: 'seq',
-        },
-        {
-            text: 'ID',
-            value: 'id',
-        },
-        {
-            text: '이름',
-            value: 'name',
-        },
-    ];
+const useritems = [
+    {
+        seq: 0,
+        id: 'qotnwl',
+        name: '배수지',
+    },
+    {
+        seq: 1,
+        id: 'qotnwl',
+        name: '배수지',
+    },
+    {
+        seq: 2,
+        id: 'qotnwl',
+        name: '배수지',
+    },
+    {
+        seq: 3,
+        id: 'qotnwl',
+        name: '배수지',
+    },
+    {
+        seq: 4,
+        id: 'qotnwl',
+        name: '배수지',
+    },
+    {
+        seq: 5,
+        id: 'qotnwl',
+        name: '배수지',
+    },
+    {
+        seq: 6,
+        id: 'qotnwl',
+        name: '배수지',
+    },
+    {
+        seq: 7,
+        id: 'qotnwl',
+        name: '배수지',
+    },
+    {
+        seq: 8,
+        id: 'qotnwl',
+        name: '배수지',
+    },
+    {
+        seq: 9,
+        id: 'qotnwl',
+        name: '배수지',
+    },
+];
 
-    axios
-        .get('/user/userlist')
-        .then((response) => {
-            setUserList(response.data.list);
-            setPmk(response.data.pmk);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+const pheaders = [
+    {
+        text: '상품번호',
+        value: 'seq',
+    },
+    {
+        text: '카테고리',
+        value: 'category',
+    },
+    {
+        text: '상품명',
+        value: 'title',
+    },
+    {
+        text: '가격',
+        value: 'price',
+    },
+];
 
-    return <Listpage headers={userheaders} items={userlist} pmk={pmk} />;
-}
-
-
-function ProductBoard() {
-    const [productlist, setProductList] = useState([]);
-    const [pmk, setPmk] = useState({});
-
-    const pheaders = [
-        {
-            text: '상품번호',
-            value: 'seq',
-        },
-        {
-            text: '카테고리',
-            value: 'category',
-        },
-        {
-            text: '상품명',
-            value: 'title',
-        },
-        {
-            text: '가격',
-            value: 'price',
-        },
-    ];
-
-    axios
-        .get('/product/selectpro')
-        .then((response) => {
-            setProductList(response.data.list);
-            setPmk(response.data.pmk);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-
-    return <Listpage headers={pheaders} items={productlist} pmk={pmk} />
-}
+const pitems = [
+    {
+        seq: 0,
+        category: '청주',
+        title: '동학',
+        price: '1444',
+    },
+    {
+        seq: 1,
+        category: '와인',
+        title: '세인트어쩌고',
+        price: '12334',
+    },
+    {
+        seq: 2,
+        category: '소주',
+        title: '참이슬',
+        price: '12',
+    },
+    {
+        seq: 3,
+        category: '청주',
+        title: '동학',
+        price: '1444',
+    },
+    {
+        seq: 4,
+        category: '와인',
+        title: '세인트어쩌고',
+        price: '12334',
+    },
+    {
+        seq: 5,
+        category: '소주',
+        title: '참이슬',
+        price: '12',
+    },
+    {
+        seq: 6,
+        category: '청주',
+        title: '동학',
+        price: '1444',
+    },
+    {
+        seq: 7,
+        category: '와인',
+        title: '세인트어쩌고',
+        price: '12334',
+    },
+    {
+        seq: 8,
+        category: '소주',
+        title: '참이슬',
+        price: '12',
+    },
+    {
+        seq: 9,
+        category: '청주',
+        title: '동학',
+        price: '1444',
+    },
+];
 
 function QnaBoard() {
     const [qnalist, setQnalist] = useState([]);
     const [pmk, setPmk] = useState({});
     const [mis, setMis] = useState(false);
 
-    useEffect(() => {
-        fetchData();
-    }, [mis]);
-
-    const fetchData = async () => {
-        try {
-            axios
-                .get('/uscon/qnalist', {
-                    params: {
-                        mis: mis,
-                    }
-                })
-                .then((response) => {
-                    setQnalist(response.data.list);
-                    setPmk(response.data.pmk);
-
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        } catch (e){
-            console.log(e);
-        }
-    }
+    axios
+        .get('/mypage/qnalist', {
+            params: {
+                mis: mis,
+            },
+        })
+        .then((response) => {
+            setQnalist(response.data.list);
+            setPmk(response.data.pmk);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 
     return (
         <>
             <label>
-                <input type="checkbox" name="mis" value="mis" onChange={e=> {
-                    if (e.target.checked) setMis(true); else setMis(false);
-                }}/>
+                <input
+                    type="checkbox"
+                    name="mis"
+                    value="mis"
+                    onChange={(e) => {
+                        if (e.target.checked) setMis(true);
+                        else setMis(false);
+                    }}
+                />
                 미답변 항목만 보기
             </label>
             <QnaboxForm list={qnalist} pmk={pmk} />
         </>
-    )
+    );
 }

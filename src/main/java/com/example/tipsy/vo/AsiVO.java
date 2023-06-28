@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AsiVO {
-    int asi_seq;
-    int asi_code;
-    String asi_title;
-    String asi_contents;
-    String asi_date;
-    int asi_cnt;
+    private int asi_seq;
+    private int asi_code;
+    private String asi_title;
+    private String asi_contents;
+    private String asi_date;
+    private int asi_cnt;
 }
