@@ -4,11 +4,11 @@ import { PageButton } from '../Boardtable';
 import {useState} from "react";
 import axios from "axios";
 
-export default function Category() {
+export default function Category({loginInfo}) {
     return (
         <div className="category" id="category">
             <CategoryList />
-            <ListContents />
+            <ListContents loginInfo={loginInfo} />
         </div>
     );
 }
@@ -89,7 +89,7 @@ function CategoryList() {
     )
 }
 
-function ListContents() {
+function ListContents({loginInfo}) {
     const { data } = useParams();
 
     return (
@@ -107,16 +107,17 @@ function ListContents() {
     function Shipment() {
         if (1) {
             return <ShipmentForm />;
+
         } else {
             return (
-                <>
+                <div className='nullbox'>
                     <div className="icon">
                         <img
                             src={require('../../assets/mypage_img/noun-shipment-1540091.png')}
                         />
                     </div>
                     <div>주문 내역이 없습니다.</div>
-                </>
+                </div>
             );
         }
     }
@@ -127,9 +128,9 @@ function ListContents() {
         const [pmk, setPmk] = useState({});
 
         axios
-            .get('/mypage/qnalist',{
+            .get('/uscon/qnalist',{
                 params: {
-                    id: 'ddd', // 세션 아이디 전송
+                    id: loginInfo.id, // 세션 아이디 전송
                     rowsPerPage: 5,
                 }
             })
@@ -142,18 +143,19 @@ function ListContents() {
                 console.log(error);
             });
 
-        if (qnalist != null) {
+        if (qnalist[0] != null) {
             return <QnaboxForm list={qnalist} pmk={pmk}/>
+
         } else {
             return (
-                <>
+                <div className='nullbox'>
                     <div className="icon">
                         <img
                             src={require('../../assets/mypage_img/noun-browser-552736.png')}
                         />
                     </div>
                     <div>작성한 게시물이 없습니다.</div>
-                </>
+                </div>
             );
         }
     }
@@ -164,7 +166,11 @@ function ListContents() {
         const [pmk, setPmk] = useState({});
 
         axios
-            .get('/reviewlist')
+            .get('/uscon/reviewlist', {
+                params: {
+                    id: loginInfo.id, // 세션 아이디 전송
+                }
+            })
             .then((response) => {
                 setReviewlist(response.data.list);
                 setPmk(response.data.pmk);
@@ -174,54 +180,95 @@ function ListContents() {
                 console.log(error);
             });
 
-        if (1) {
+        if (reviewlist[0] != null) {
             return <ReviewboxForm list={reviewlist} pmk={pmk} />
+
         } else {
             return (
-                <>
+                <div className='nullbox'>
                     <div className="icon">
                         <img
                             src={require('../../assets/mypage_img/noun-browser-552736.png')}
                         />
                     </div>
                     <div>작성한 게시물이 없습니다.</div>
-                </>
+                </div>
             );
         }
     }
 
     // 찜한 상품
     function Likecon() {
-        if (1) {
-            return <ContentsForm />;
+        const [likecon, setLikecon] = useState([]);
+        const [pmk, setPmk] = useState({});
+
+        axios
+            .get('/uscon/likeconlist', {
+                params: {
+                    id: loginInfo.id,
+                    like: 1,
+                }
+            })
+            .then((response) => {
+                setLikecon(response.data.list);
+                setPmk(response.data.pmk);
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        if (likecon[0] != null) {
+            return <ContentsForm list={likecon} pmk={pmk}/>;
+
         } else {
             return (
-                <>
+                <div className='nullbox'>
                     <div className="icon">
                         <img
                             src={require('../../assets/mypage_img/noun-heart-10024.png')}
                         />
                     </div>
                     <div>찜한 상품이 없습니다.</div>
-                </>
+                </div>
             );
         }
     }
 
     // 최근 본 상품
     function Currentcon() {
-        if (1) {
-            return <ContentsForm />;
+        const [currcon, setCurrcon] = useState([]);
+        const [pmk, setPmk] = useState({});
+
+        axios
+            .get('/uscon/likeconlist', {
+                params: {
+                    id: loginInfo.id,
+                    like: 0,
+                }
+            })
+            .then((response) => {
+                setCurrcon(response.data.list);
+                setPmk(response.data.pmk);
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        if (currcon[0] != null) {
+            return <ContentsForm list={currcon} pmk={pmk}/>;
+
         } else {
             return (
-                <>
+                <div className='nullbox'>
                     <div className="icon">
                         <img
                             src={require('../../assets/mypage_img/noun-produce-2823265.png')}
                         />
                     </div>
                     <div>최근 본 상품이 없습니다.</div>
-                </>
+                </div>
             );
         }
     }

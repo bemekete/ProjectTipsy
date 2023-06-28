@@ -1,6 +1,8 @@
 package com.example.tipsy.model;
 
 
+import com.example.tipsy.dto.BasketProDto;
+import com.example.tipsy.criTest.SearchCriteria;
 import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.vo.ProVO;
 import lombok.AllArgsConstructor;
@@ -49,5 +51,23 @@ public class ProDAOImpl implements ProDAO {
 	@Override
 	public List<ProVO> topSort(String topSort) {
 		return mapper.topSort(topSort);
+	}
+
+
+	// 검색 및 페이징
+
+	@Override
+	public List<ProVO> procriList(SearchCriteria cri) {
+		return mapper.procriList(cri);
+	}
+	@Override
+	public int criTotalCount(SearchCriteria cri) {
+		return mapper.criTotalCount(cri);
+	}
+
+	// 장바구니 담긴 상품 호출
+	@Override
+	public List<BasketProDto> basketProduct(String id) {
+		return mapper.basketProduct(id);
 	}
 }

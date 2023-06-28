@@ -73,7 +73,7 @@ export default function Mypage() {
                         </div>
                     </div>
                 </div>
-                <Category />
+                <Category loginInfo={loginInfo}/>
             </div>
         </div>
     );

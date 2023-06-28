@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import '../styles/Header.scss';
+import {useEffect} from "react";
+import axios from "axios";
 
 function header({ isLoggedIn, handleLogout }) {
     return (

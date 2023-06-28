@@ -5,13 +5,15 @@ import axios from 'axios';
 
 
 
-import {StarScore} from "./Mypage/Tableform";
+import { StarScore } from "./Mypage/Tableform";
 
 function Detail() {
     const [pieces, setPieces] = useState(1); // 구매 정보 - 상품 개수
     const [viewOptionView, setViewOptionView] = useState(false);
     const [popupMessage, setPopupMessage] = useState(false);
     const [bottomPopupMessage, setBottomPopupMessage] = useState(false);
+
+    const [success, setSuccess] = useState(0);
     const navigate = new useNavigate();
 
 
@@ -19,20 +21,23 @@ function Detail() {
     const addcart = () => {
         try {
             axios.post('/product/addcart', {
-                p_name: item.title,
+                // p_name: item.title,
+                p_name: '술1',
                 cart_vol: pieces,
             }).then(request => {
-                if (request >= 0) {
-                    navigate("/shopbasket");
-                }else{
+                console.log(request);
+                if (request.data > 0) {
+                    setSuccess(1);
+                } else {
+                    setSuccess(0)
                     alert("로그인 후 이용해주세요.");
                 }
             })
-
         } catch (error) {
             console.log("가져오기 에러입니다.")
-
         }
+
+        console.log(success);
     }
 
     // 전체 HTML
@@ -192,6 +197,7 @@ function Detail() {
                 <div className="rightFloat">
                     <form>
                         <OrderForm />
+
                         <div className="guideofShipment">
                             <p>
                                 (전국택배) 3,000원
@@ -323,18 +329,12 @@ function Detail() {
         return (
             <>
                 <div
-                    onClick={() => {
-                        where === 'r'
-                            ? setPopupMessage(true)
-                            : setBottomPopupMessage(true);
-                    }}
+                    onClick={() => onClickBasket(where)}
                 >
                     장바구니
                 </div>
                 <button
-                    onClick={() => {
-                        onClickSubmit(where);
-                    }}
+                    onClick={() => onClickSubmit(where)}
                 >
                     구매하기
                 </button>
@@ -375,15 +375,38 @@ function Detail() {
         );
     }
 
-    // 구매 Button 클릭 시 연결 함수
-    function onClickSubmit(where) {
-        if (where === 'b' && !viewOptionView) return setViewOptionView(true);
-        else return formSubmit();
+
+
+
+    // 장바구니 Button 클릭 시 연결 함수
+    function onClickBasket(where) {
+        if (where === 'b' && !viewOptionView) {
+            setViewOptionView(true);
+        } else {
+            addcart();
+
+            if(success == 1){
+                if(where === 'b'){
+                    setViewOptionView(false);
+                    setBottomPopupMessage(true);
+                } else {
+                    setPopupMessage(true);
+                }
+            }
+        }
     }
 
-    function formSubmit() {
-        addcart();
+    // 구매 Button 클릭 시 연결 함수
+    function onClickSubmit(where) {
+        if (where === 'b' && !viewOptionView) {
+            setViewOptionView(true);
+        } else {
+            addcart();
 
+            if(success == 1){
+                navigate("/shopbasket");
+            }
+        }
     }
 }
 

@@ -15,23 +15,32 @@ export default function Notice() {
     const currpage = queryParams.get('currpage');
     const keyword = queryParams.get('keyword');
 
+    useEffect(() => {
+        fetchData();
+    }, [asicode, currpage, keyword]);
 
-    axios
-        .get('/bcrilist',{
-            params: {
-                asicode: asicode,
-                currPage: currpage,
-                keyword: keyword,
-            }
-        })
-        .then((response) => {
-            setNoticelist(response.data.list);
-            setPmk(response.data.pmk);
+    const fetchData = async () => {
+        try {
+            axios
+                .get('/bcrilist', {
+                    params: {
+                        asicode: asicode,
+                        currPage: currpage,
+                        keyword: keyword,
+                    }
+                })
+                .then((response) => {
+                    setNoticelist(response.data.list);
+                    setPmk(response.data.pmk);
 
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     return <Boardtable page={page} items={noticelist} pmk={pmk} />;
 }
