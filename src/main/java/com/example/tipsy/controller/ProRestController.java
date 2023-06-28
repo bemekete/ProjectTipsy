@@ -1,7 +1,5 @@
 package com.example.tipsy.controller;
 
-import com.example.tipsy.criTest.PageMaker;
-import com.example.tipsy.criTest.SearchCriteria;
 import com.example.tipsy.dto.BasketProDto;
 import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.service.ProService;
@@ -14,11 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/product")
@@ -48,66 +44,65 @@ public class ProRestController {
                           @RequestParam("uploadfile2") MultipartFile uploadFile2,
                           HttpServletRequest request) throws IOException {
 
-        ProVO vo = new ProVO();
-        vo.setP_name(p_name);
-        vo.setP_price(p_price);
-        vo.setP_category(p_category);
-        vo.setP_category_detail(p_category_detail);
-        vo.setP_alc(p_alc);
-        vo.setP_sweet(p_sweet);
-        vo.setP_sour(p_sour);
-        vo.setP_stock(p_stock);
-        vo.setUploadfile1(uploadFile1);
-        vo.setUploadfile2(uploadFile2);
+        try {
+            ProVO vo = new ProVO();
+            vo.setP_name(p_name);
+            vo.setP_price(p_price);
+            vo.setP_category(p_category);
+            vo.setP_category_detail(p_category_detail);
+            vo.setP_alc(p_alc);
+            vo.setP_sweet(p_sweet);
+            vo.setP_sour(p_sour);
+            vo.setP_stock(p_stock);
+            vo.setUploadfile1(uploadFile1);
+            vo.setUploadfile2(uploadFile2);
 
-        if (uploadFile1 != null && !uploadFile1.isEmpty()) {
-            String realPath = request.getServletContext().getRealPath("/");
+            if (uploadFile1 != null && !uploadFile1.isEmpty()) {
+                String realPath = System.getProperty("user.dir");
 
-            if (realPath == null || realPath.isEmpty()) {
-                // 인텔리제이에서 개발 중인 경우
-                realPath = System.getProperty("user.dir") + "/src/main/resources/static/images/";
-            } else {
-                // 배포된 상황인 경우
-                realPath += "resources/static/images/";
+                if (realPath == null || realPath.isEmpty()) {
+                    // 인텔리제이에서 개발 중인 경우
+                    realPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
+                } else {
+                    // 배포된 상황인 경우
+                    realPath += "\\src\\main\\resources\\static\\images\\";
+                }
+
+                String file1 = realPath + uploadFile1.getOriginalFilename();
+                uploadFile1.transferTo(new File(file1));
+
+                // => Table 저장경로 완성 (file2)
+                String file2 = "./images/" + uploadFile1.getOriginalFilename();
+                vo.setP_img(file2);
             }
-            String file1 = realPath + uploadFile1.getOriginalFilename();
-            uploadFile1.transferTo(new File(file1));
 
-            // => Table 저장경로 완성 (file2)
-            String file2 = "resources/static/images/" + uploadFile1.getOriginalFilename();
-            vo.setP_img(file2);
-        }
+            if (uploadFile2 != null && !uploadFile2.isEmpty()) {
+                String realPath = System.getProperty("user.dir");
 
-        if (uploadFile2 != null && !uploadFile2.isEmpty()) {
-            String realPath = request.getServletContext().getRealPath("/");
+                if (realPath == null || realPath.isEmpty()) {
+                    // 인텔리제이에서 개발 중인 경우
+                    realPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\";
+                } else {
+                    // 배포된 상황인 경우
+                    realPath += "\\src\\main\\resources\\static\\images\\";
+                }
+                String file3 = realPath + uploadFile2.getOriginalFilename();
+                uploadFile2.transferTo(new File(file3));
 
-            if (realPath == null || realPath.isEmpty()) {
-                // 인텔리제이에서 개발 중인 경우
-                realPath = System.getProperty("user.dir") + "/src/main/resources/static/images/";
-            } else {
-                // 배포된 상황인 경우
-                realPath += "resources/static/images/";
+                // => Table 저장경로 완성 (file2)
+                String file4 = "./images/" + uploadFile2.getOriginalFilename();
+                vo.setP_info_img(file4);
             }
-            String file3 = realPath + uploadFile2.getOriginalFilename();
-            uploadFile2.transferTo(new File(file3));
-
-            // => Table 저장경로 완성 (file2)
-            String file4 = "resources/static/images/" + uploadFile2.getOriginalFilename();
-            vo.setP_info_img(file4);
+            return service.addProduct(vo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
         }
-
-        System.out.println(vo);
-
-        return service.addProduct(vo);
     }
-
-
-
 
     //	상품 목록
 	@GetMapping("/selectpro")
 	public List<ProVO> selectPro(@RequestParam("p_category") String category) {
-		System.out.println(service.productList(category));
 		return service.productList(category);
 	}
 
