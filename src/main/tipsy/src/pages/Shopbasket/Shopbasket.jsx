@@ -3,14 +3,42 @@ import React from 'react';
 import '../../styles/Shopbasket.scss';
 import ProductData from "./ProductData";
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Shopbasket() {
     // 장바구니에 담긴 정보 변수
     const [shopData, setShopData] = useState([]);
 
-    //전체 선택/ 전체 해제 체크박스 변수
+    //전체 선택/ 전체 해제시 나머지 체크박스 상태 설정 변수
     const [checkValid, setCheckValid] = useState([]);
 
+    // 전체선택 input 체크박스 상태 변수
+    const [isCheckedAll, setIsCheckedAll] = useState(false);
+
+    // 합계 계산용 변수
+    const [sum, setSum] = useState([]);
+
+    // 최초 랜더링 시 전체 체크박스 체크를 위한 함수 호출
+    useEffect(() => {
+        inputAll(true);
+        setSum(shopData);
+    }, [shopData]);
+
+
+
+    const inputAll = (checked) => {
+        setIsCheckedAll(checked);
+        if (checked) {
+            // 모두 선택할 경우
+            const temp = []; shopData.map((item)=>temp.push(item.p_name)) ;
+            setCheckValid(temp);
+            setSum(shopData);
+        } else {
+            // 모두 해제할 경우
+            setCheckValid([]);
+            setSum([]);
+        }
+    };
     return (
         <div id="basket_container">
             <div id="contents">
@@ -45,7 +73,13 @@ export default function Shopbasket() {
                                     <thead>
                                         <tr>
                                             <th scope="col">
-                                                <input type="checkbox" name="allCheck" id="allCheck" defaultChecked />
+                                                <input
+                                                    type="checkbox"
+                                                    name="allCheck"
+                                                    id="allCheck"
+                                                    onChange={(e) => inputAll(e.target.checked)}
+                                                    checked={isCheckedAll}
+                                                />
                                             </th>
                                             <th scope="col">상품/옵션 정보
                                             </th>
@@ -56,7 +90,15 @@ export default function Shopbasket() {
                                             <th scope="col">배송비</th>
                                         </tr>
                                     </thead>
-                                    <ProductData shopData={shopData} setShopData={setShopData} checkValid={checkValid} setCheckValid={setCheckValid} />
+                                    <ProductData
+                                        shopData={shopData}
+                                        setShopData={setShopData}
+                                        checkValid={checkValid}
+                                        setCheckValid={setCheckValid}
+                                        setIsCheckedAll={setIsCheckedAll}
+                                        setSum={setSum}
+                                        sum={sum}
+                                    />
                                 </table>
                             </div>
                             <p className="no_data displayNone">장바구니에 담겨있는 상품이 없습니다.</p>
@@ -70,18 +112,18 @@ export default function Shopbasket() {
                     <div className="price_sum">
                         <div className="price_sum_list">
                             <dl>
-                                <dt>총 <strong>{shopData.reduce((calcul, item) => calcul + item.cart_vol, 0)}</strong>개의 상품</dt>
-                                <dd><strong>{shopData.reduce((calcul, item) => calcul + item.p_price, 0).toLocaleString()}</strong>원</dd>
+                                <dt>총 <strong>{sum.length >= 1 ? sum.reduce((calcul, item) => calcul + item.cart_vol, 0) : 0}</strong>개의 상품</dt>
+                                <dd><strong>{sum.length >= 1 ? sum.reduce((calcul, item) => calcul + (item.p_price * item.cart_vol), 0).toLocaleString() : 0}</strong>원</dd>
                             </dl>
                             <span><img src={require("../../assets/basket_img/plus.jpg")} alt="더하기 그림" width="20px" /></span>
                             <dl>
                                 <dt>배송비</dt>
-                                <dd><strong>3,000</strong>원</dd>
+                                <dd><strong>{sum.length >= 1 ? "3,000" : 0}</strong>원</dd>
                             </dl>
                             <span><img src={require("../../assets/basket_img/plus.jpg")} alt="더하기 그림" width="20px" /></span>
                             <dl>
                                 <dt>합계</dt>
-                                <dd><strong></strong>원</dd>
+                                <dd><strong>{((sum.length >= 1 ? sum.reduce((calcul, item) => calcul + (item.p_price * item.cart_vol), 0) : 0) + (sum.length >= 1 ? 3000 : 0)).toLocaleString()} </strong>원</dd>
                             </dl>
                         </div>
                     </div>
