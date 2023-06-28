@@ -27,11 +27,9 @@ export default function ProductData(props) {
             setShopData(response.data); // head 등 정보 제외 실제 데이터만 사용하기위해 .data 사용
 
         } catch (error) {
-            console.log("error" + error);
         }
     }
 
-    console.log(sum);
 
     const inputChange = async (inputId) => {
         // 이미 체크 돼 있을 시 해제
@@ -42,7 +40,6 @@ export default function ProductData(props) {
             // 체크 안되어 있을 시 체크
         } else {
             await setCheckValid([...checkValid, inputId]);
-            console.log(checkValid);
             if (checkValid.length >= shopData.length - 1) {
                 props.setIsCheckedAll(true);
             }
