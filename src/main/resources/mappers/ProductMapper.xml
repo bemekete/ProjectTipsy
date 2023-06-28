@@ -4,8 +4,8 @@
 
     <!-- 관리자페이지 상품등록 -->
     <insert id="addProduct">
-        insert into product(p_name, p_price, p_category, p_category_detail, p_alc, p_sweet, p_sour, p_img, p_info_img, p_stock)
-        values(#{p_name},#{p_price},#{p_category},#{p_category_detail},#{p_alc},#{p_sweet},#{p_sour},#{p_img},#{p_info_img},#{p_stock})
+        insert into product(p_name, p_price, p_category, p_category_detail, p_alc, p_sweet, p_sour,p_regdate, p_img, p_info_img, p_stock)
+        values(#{p_name},#{p_price},#{p_category},#{p_category_detail},#{p_alc},#{p_sweet},#{p_sour},now(),#{p_img},#{p_info_img},#{p_stock})
     </insert>
     <!--  /////////////////////////////////////////////////////////////////////////////////  -->
    <!-- 상품목록 -->

@@ -19,8 +19,9 @@ public class ProVO {
 	private String p_sour;
 	private String p_regdate;
 	private String p_img;
-	private MultipartFile multipartFile;
+	private MultipartFile uploadfile1;
 	private String p_info_img;
+	private MultipartFile uploadfile2;
 	private int p_cnt;
 	private int p_stock;
 

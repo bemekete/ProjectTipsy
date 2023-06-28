@@ -17,16 +17,13 @@ public interface UserMapper {
     // 회원가입
     int joinUser(UserVO vo);
 
-    @Select(value = "select * from user where id = #{id}")
-    UserVO selectOne(UserVO vo);
-
     @Select("select id from user")
     List<String> checkId();
     // 아이디 찾기
-    public List<String> findId(String email);
+    List<String> findId(String email);
 
     // 비밀번호 찾기
-    public UserVO findPw(UserVO vo);
+    UserVO findPw(UserVO vo);
 
     // 개인정보 수정
     int updateUser(UserVO vo);

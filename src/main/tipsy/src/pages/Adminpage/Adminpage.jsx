@@ -55,7 +55,7 @@ export default function Adminpage() {
                             axios={axios}
                         />
                     )}
-                    {data === 'productinput' && (
+                    {data === 'ProductForm' && (
                         <ProductForm onSubmit={onSubmitProduct} item="" />
                     )}
                     {data === 'uploadnotice' && <DocForm code={noticecode} />}
@@ -97,7 +97,7 @@ export default function Adminpage() {
                     },
                     {
                         text: '상품등록',
-                        value: 'productinput',
+                        value: 'ProductForm',
                     },
                 ],
             },

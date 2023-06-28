@@ -29,30 +29,76 @@ public class ProRestController {
     }
 
     // 상품 등록
-    @PostMapping("/addProduct")
-    public int addProduct(@RequestBody ProVO vo , HttpServletRequest request) throws IOException {
-        MultipartFile uploadFile = vo.getMultipartFile();
-            if (uploadFile != null && !uploadFile.isEmpty()) {
-                String realPath = request.getServletContext().getRealPath("/");
+    @PostMapping(value = "/addProduct", consumes = "multipart/form-data")
+    public int addProduct(@RequestParam("p_name") String p_name,
+                          @RequestParam("p_price") Integer p_price,
+                          @RequestParam("p_category") String p_category,
+                          @RequestParam("p_category_detail") String p_category_detail,
+                          @RequestParam("p_alc") String p_alc,
+                          @RequestParam("p_sweet") String p_sweet,
+                          @RequestParam("p_sour") String p_sour,
+                          @RequestParam("p_stock") Integer p_stock,
+                          @RequestParam("uploadfile1") MultipartFile uploadFile1,
+                          @RequestParam("uploadfile2") MultipartFile uploadFile2,
+                          HttpServletRequest request) throws IOException {
 
-                if (realPath == null || realPath.isEmpty()) {
-                    // 인텔리제이에서 개발 중인 경우
-                    realPath = System.getProperty("user.dir") + "/src/main/resources/static/images/";
-                } else {
-                    // 배포된 상황인 경우
-                    realPath += "resources/static/images/";
-                }
-            String file1 = realPath + uploadFile.getOriginalFilename(); //저장경로 완성
-            uploadFile.transferTo(new File(file1));  // IO 발생: Checked Exception 처리
+        ProVO vo = new ProVO();
+        vo.setP_name(p_name);
+        vo.setP_price(p_price);
+        vo.setP_category(p_category);
+        vo.setP_category_detail(p_category_detail);
+        vo.setP_alc(p_alc);
+        vo.setP_sweet(p_sweet);
+        vo.setP_sour(p_sour);
+        vo.setP_stock(p_stock);
+        vo.setUploadfile1(uploadFile1);
+        vo.setUploadfile2(uploadFile2);
+
+        if (uploadFile1 != null && !uploadFile1.isEmpty()) {
+            String realPath = request.getServletContext().getRealPath("/");
+
+            if (realPath == null || realPath.isEmpty()) {
+                // 인텔리제이에서 개발 중인 경우
+                realPath = System.getProperty("user.dir") + "/src/main/resources/static/images/";
+            } else {
+                // 배포된 상황인 경우
+                realPath += "resources/static/images/";
+            }
+            String file1 = realPath + uploadFile1.getOriginalFilename();
+            uploadFile1.transferTo(new File(file1));
 
             // => Table 저장경로 완성 (file2)
-            String file2="resources/static/images/" + uploadFile.getOriginalFilename();
+            String file2 = "resources/static/images/" + uploadFile1.getOriginalFilename();
             vo.setP_img(file2);
         }
+
+        if (uploadFile2 != null && !uploadFile2.isEmpty()) {
+            String realPath = request.getServletContext().getRealPath("/");
+
+            if (realPath == null || realPath.isEmpty()) {
+                // 인텔리제이에서 개발 중인 경우
+                realPath = System.getProperty("user.dir") + "/src/main/resources/static/images/";
+            } else {
+                // 배포된 상황인 경우
+                realPath += "resources/static/images/";
+            }
+            String file3 = realPath + uploadFile2.getOriginalFilename();
+            uploadFile2.transferTo(new File(file3));
+
+            // => Table 저장경로 완성 (file2)
+            String file4 = "resources/static/images/" + uploadFile2.getOriginalFilename();
+            vo.setP_info_img(file4);
+        }
+
+        System.out.println(vo);
+
         return service.addProduct(vo);
     }
 
-	//	상품 목록
+
+
+
+    //	상품 목록
 	@GetMapping("/selectpro")
 	public List<ProVO> selectPro(@RequestParam("p_category") String category) {
 		System.out.println(service.productList(category));
