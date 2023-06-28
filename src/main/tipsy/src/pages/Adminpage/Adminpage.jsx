@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useLocation, useParams} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -22,26 +22,28 @@ export default function Adminpage() {
 
                 <div id="contents">
                     <p>TITLE</p>
-                    {data == 'userboard' && (
-                        <Listpage headers={userheaders} items={useritems} />
-                    )}
+                    {data == 'userboard' && <UserBoard />}
+
                     {data == 'usermodify' && <UserModifyForm />}
 
-                    {data == 'productboard' && (
-                        <Listpage headers={pheaders} items={pitems} />
-                    )}
+                    {data == 'productboard' && <ProductBoard />}
+
                     {data == 'productinput' && (
                         <ProductForm onSubmit={onSubmitProduct} item="" />
                     )}
+
                     {data == 'uploadnotice' && (
                         <DocForm code={noticecode} />
                     )}
+
                     {data == 'uploadfaq' && (
                         <DocForm code={faqcode} />
                     )}
+
                     {data == 'updateboard' && (
                         <DocModify />
                     )}
+
                     {data == 'qnaboard' && <QnaBoard />}
                 </div>
             </div>
@@ -157,177 +159,104 @@ const faqcode = [
     },
 ]
 
-// 임시 데이터
-const userheaders = [
-    {
-        text: '회원번호',
-        value: 'seq',
-    },
-    {
-        text: 'ID',
-        value: 'id',
-    },
-    {
-        text: '이름',
-        value: 'name',
-    },
-];
+function UserBoard() {
+    const [userlist, setUserList] = useState([]);
+    const [pmk, setPmk] = useState({});
 
-const useritems = [
-    {
-        seq: 0,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 1,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 2,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 3,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 4,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 5,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 6,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 7,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 8,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 9,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-];
+    const userheaders = [
+        {
+            text: '회원번호',
+            value: 'seq',
+        },
+        {
+            text: 'ID',
+            value: 'id',
+        },
+        {
+            text: '이름',
+            value: 'name',
+        },
+    ];
 
-const pheaders = [
-    {
-        text: '상품번호',
-        value: 'seq',
-    },
-    {
-        text: '카테고리',
-        value: 'category',
-    },
-    {
-        text: '상품명',
-        value: 'title',
-    },
-    {
-        text: '가격',
-        value: 'price',
-    },
-];
+    axios
+        .get('/user/userlist')
+        .then((response) => {
+            setUserList(response.data.list);
+            setPmk(response.data.pmk);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 
-const pitems = [
-    {
-        seq: 0,
-        category: '청주',
-        title: '동학',
-        price: '1444',
-    },
-    {
-        seq: 1,
-        category: '와인',
-        title: '세인트어쩌고',
-        price: '12334',
-    },
-    {
-        seq: 2,
-        category: '소주',
-        title: '참이슬',
-        price: '12',
-    },
-    {
-        seq: 3,
-        category: '청주',
-        title: '동학',
-        price: '1444',
-    },
-    {
-        seq: 4,
-        category: '와인',
-        title: '세인트어쩌고',
-        price: '12334',
-    },
-    {
-        seq: 5,
-        category: '소주',
-        title: '참이슬',
-        price: '12',
-    },
-    {
-        seq: 6,
-        category: '청주',
-        title: '동학',
-        price: '1444',
-    },
-    {
-        seq: 7,
-        category: '와인',
-        title: '세인트어쩌고',
-        price: '12334',
-    },
-    {
-        seq: 8,
-        category: '소주',
-        title: '참이슬',
-        price: '12',
-    },
-    {
-        seq: 9,
-        category: '청주',
-        title: '동학',
-        price: '1444',
-    },
-];
+    return <Listpage headers={userheaders} items={userlist} pmk={pmk} />;
+}
+
+
+function ProductBoard() {
+    const [productlist, setProductList] = useState([]);
+    const [pmk, setPmk] = useState({});
+
+    const pheaders = [
+        {
+            text: '상품번호',
+            value: 'seq',
+        },
+        {
+            text: '카테고리',
+            value: 'category',
+        },
+        {
+            text: '상품명',
+            value: 'title',
+        },
+        {
+            text: '가격',
+            value: 'price',
+        },
+    ];
+
+    axios
+        .get('/product/selectpro')
+        .then((response) => {
+            setProductList(response.data.list);
+            setPmk(response.data.pmk);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+    return <Listpage headers={pheaders} items={productlist} pmk={pmk} />
+}
 
 function QnaBoard() {
     const [qnalist, setQnalist] = useState([]);
     const [pmk, setPmk] = useState({});
     const [mis, setMis] = useState(false);
 
+    useEffect(() => {
+        fetchData();
+    }, [mis]);
 
-    axios
-        .get('/mypage/qnalist',{
-            params: {
-                mis: mis,
-            }
-        })
-        .then((response) => {
-            setQnalist(response.data.list);
-            setPmk(response.data.pmk);
+    const fetchData = async () => {
+        try {
+            axios
+                .get('/uscon/qnalist', {
+                    params: {
+                        mis: mis,
+                    }
+                })
+                .then((response) => {
+                    setQnalist(response.data.list);
+                    setPmk(response.data.pmk);
 
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } catch (e){
+            console.log(e);
+        }
+    }
 
     return (
         <>
@@ -337,7 +266,7 @@ function QnaBoard() {
                 }}/>
                 미답변 항목만 보기
             </label>
-            <QnaboxForm list={qnalist} pmk={pmk}/>
+            <QnaboxForm list={qnalist} pmk={pmk} />
         </>
     )
 }

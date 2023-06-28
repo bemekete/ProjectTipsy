@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapperInterface.LikeConMapper">
+
+    <sql id="likefrom">
+        <!-- curr -->
+        <if test="like == 0">
+            us_currcon u
+        </if>
+
+        <!-- like -->
+        <if test="like == 1">
+            us_likecon u
+        </if>
+    </sql>
+
+    <sql id="likeorder">
+        <!-- curr -->
+        <if test="like == 0">
+            cur_seq
+        </if>
+
+        <!-- like -->
+        <if test="like == 1">
+            like_seq
+        </if>
+    </sql>
+
+        <select id="likeConList" resultType="com.example.tipsy.vo.LikeConVO">
+            SELECT * FROM product p, <include refid="likefrom"></include>
+            WHERE id = #{id} AND p.p_seq = u.p_seq
+            ORDER BY <include refid="likeorder"></include> desc
+        </select>
+
+        <select id="criTotalCount" resultType="int">
+            SELECT count(*) from <include refid="likefrom"></include>
+            WHERE id = #{id}
+        </select>
+</mapper>

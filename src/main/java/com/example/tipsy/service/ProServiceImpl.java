@@ -1,5 +1,6 @@
 package com.example.tipsy.service;
 
+import com.example.tipsy.criTest.SearchCriteria;
 import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.model.ProDAO;
 import com.example.tipsy.vo.ProVO;
@@ -35,5 +36,18 @@ public class ProServiceImpl implements ProService {
 	@Override
 	public int insertCart(CartDto dto) {
 		return dao.insertCart(dto);
+	}
+
+
+	// 검색 및 페이징
+
+	@Override
+	public List<ProVO> procriList(SearchCriteria cri) {
+		return dao.procriList(cri);
+	}
+
+	@Override
+	public int criTotalCount(SearchCriteria cri) {
+		return dao.criTotalCount(cri);
 	}
 }

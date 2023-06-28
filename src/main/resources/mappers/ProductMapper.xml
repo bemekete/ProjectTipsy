@@ -3,11 +3,11 @@
 <mapper namespace="mapperInterface.ProductMapper">
    <!-- 상품목록 -->
     <select id="productList" resultType="com.example.tipsy.vo.ProVO">
-      <if test="category == 0">
-         select *
-        from product
-        order by p_cnt desc
-      </if>
+          <if test="category == 0">
+            select *
+            from product
+            order by p_cnt desc
+          </if>
         <if test="category != 0">
             select *
             from product
@@ -32,5 +32,46 @@
     <insert id="insertCart" parameterType="com.example.tipsy.dto.CartDto">
         insert into cart(id, p_seq, cart_vol) values (#{id},(select p_seq from product where p_name = #{p_name}),#{cart_vol})
     </insert>
+
+
+
+    <!-- 검색 및 페이징-->
+    <!-- 검색 키워드 -->
+    <sql id="keywordsearch">
+        <if test="keyword!=null">
+            <bind name="keyVal" value="'%'+keyword+'%'"/>
+            AND p_name LIKE #{keyVal}
+        </if>
+    </sql>
+
+    <select id="procriList" resultType="com.example.tipsy.vo.ProVO">
+        <if test="category == 0">
+            SELECT *
+            FROM product
+            WHERE p_seq > 0 <include refid="keywordsearch"></include>
+            ORDER BY p_cnt DESC
+            LIMIT #{sno}, #{rowsPerPage}
+        </if>
+
+        <if test="category != 0">
+            SELECT *
+            FROM product
+            WHERE p_category = #{category} <include refid="keywordsearch"></include>
+            ORDER BY p_cnt DESC
+            LIMIT #{sno}, #{rowsPerPage}
+        </if>
+    </select>
+
+    <select id="criTotalCount" resultType="int">
+        <if test="category == 0">
+            SELECT count(*) FROM product
+            WHERE p_seq > 0 <include refid="keywordsearch"></include>
+        </if>
+
+        <if test="category != 0">
+            SELECT count(*) FROM product
+            WHERE p_category = #{category} <include refid="keywordsearch"></include>
+        </if>
+    </select>
 </mapper>
 

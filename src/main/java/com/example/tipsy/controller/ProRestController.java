@@ -1,14 +1,19 @@
 package com.example.tipsy.controller;
 
+import com.example.tipsy.criTest.PageMaker;
+import com.example.tipsy.criTest.SearchCriteria;
 import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.service.ProService;
 import com.example.tipsy.vo.ProVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/product")
@@ -55,4 +60,21 @@ public class ProRestController {
 		}
 		return service.topSort(sort);
 	}
+
+
+    @GetMapping("procrilist")
+    public ResponseEntity<?> procrilist(@ModelAttribute SearchCriteria cri, PageMaker pmk) {
+        cri.setSno();
+        service.procriList(cri); // 리스트화
+
+        pmk.setCri(cri); // pageMaker에 crilist 적용
+        pmk.setTotalRowsCount(service.criTotalCount(cri)); // 실제 DB row 개수 반영
+
+        // 매핑하여 출력
+        Map<String, Object> response = new HashMap<>();
+        response.put("pmk", pmk);
+        response.put("list", service.procriList(cri));
+
+        return ResponseEntity.ok(response);
+    }
 }

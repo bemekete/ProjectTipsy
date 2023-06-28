@@ -1,5 +1,6 @@
 package mapperInterface;
 
+import com.example.tipsy.criTest.SearchCriteria;
 import com.example.tipsy.dto.CartDto;
 import com.example.tipsy.vo.ProVO;
 import org.apache.ibatis.annotations.Select;
@@ -21,4 +22,7 @@ public interface ProductMapper {
     int insertCart(CartDto dto);
 
 
+    // 검색 및 페이징
+    List<ProVO> procriList(SearchCriteria cri);
+    int criTotalCount(SearchCriteria cri);
 }

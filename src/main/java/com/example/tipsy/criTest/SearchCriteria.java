@@ -11,4 +11,8 @@ public class SearchCriteria extends Criteria {
 
     private String id;
     private boolean mis;
+
+    private int like;
+
+    private int category;
 }
