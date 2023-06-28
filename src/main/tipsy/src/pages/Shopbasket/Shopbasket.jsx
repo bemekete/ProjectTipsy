@@ -30,7 +30,7 @@ export default function Shopbasket() {
         setIsCheckedAll(checked);
         if (checked) {
             // 모두 선택할 경우
-            const temp = []; shopData.map((item)=>temp.push(item.p_name)) ;
+            const temp = []; shopData.map((item) => temp.push(item.p_name));
             setCheckValid(temp);
             setSum(shopData);
         } else {
@@ -222,7 +222,7 @@ export default function Shopbasket() {
                     <div>
                         <p>옵션 선택
                             <span className="overviewRemover">
-                                <img src="../image/close.png" alt="닫기" />
+                                <img src="./images/close.png" alt="닫기" />
                             </span>
                         </p>
                         <div className="count_box_main">
