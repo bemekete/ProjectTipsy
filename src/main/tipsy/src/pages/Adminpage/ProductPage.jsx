@@ -32,7 +32,7 @@ export default function Listpage({ axios }) {
                         <th>상품가격</th>
                         <th>재고</th>
                         <th>상품조회수</th>
-                        <th>수정</th>
+                        <th>상품상세</th>
                         <th>삭제</th>
                     </tr>
                 </thead>

@@ -15,7 +15,7 @@ export function ProductInfo() {
                             <td>
                                 <img
                                     src={process.env.PUBLIC_URL + product.p_img}
-                                    alt="product.p_img"
+                                    alt="상품이미지"
                                 />
                             </td>
                         </tr>
