@@ -21,17 +21,17 @@ public class QnaServiceImpl implements QnaService{
 
     @Override
     public int insertQna(QnaVO vo) {
-        return 0;
+        return dao.insertQna(vo);
     }
 
     @Override
-    public int updateQna(QnaVO vo) {
-        return 0;
+    public int commentQna(QnaVO vo) {
+        return dao.commentQna(vo);
     }
 
     @Override
     public int deleteQna(QnaVO vo) {
-        return 0;
+        return dao.commentQna(vo);
     }
 
     @Override

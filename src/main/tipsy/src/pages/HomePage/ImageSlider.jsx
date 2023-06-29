@@ -66,18 +66,21 @@ const ImageSlider = () => {
             </ul>
 
             <div className="pageOfPages">
-                <a href="/event">
+                <a href="/eventboard">
                     {currentIndex + 1} / {images.length}
                 </a>
             </div>
             <div className="pager">
                 {images.map((_, index) => (
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid
                     <a
                         key={index}
                         href="#"
                         className={currentIndex === index ? 'active' : ''}
                         onClick={() => goToSlide(index)}
-                    ></a>
+                    >
+                        /
+                    </a>
                 ))}
             </div>
         </div>

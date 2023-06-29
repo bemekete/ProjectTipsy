@@ -1,16 +1,11 @@
 {
   "files": {
     "main.css": "/static/css/main.a501d870.css",
-    "main.js": "/static/js/main.b8570bd9.js",
+    "main.js": "/static/js/main.12322968.js",
     "static/js/787.0ff01fae.chunk.js": "/static/js/787.0ff01fae.chunk.js",
     "static/media/gift-main.png": "/static/media/gift-main.a0021fa24fc586e2e32a.png",
     "static/media/gift-small.png": "/static/media/gift-small.90345733bc45f07ba753.png",
-    "static/media/hansiwool_detail.png": "/static/media/hansiwool_detail.0e12d128304f073d62ac.png",
     "static/media/donghak_detail.png": "/static/media/donghak_detail.56e51727fc36d70abec9.png",
-    "static/media/monkey_detail.png": "/static/media/monkey_detail.66852f2cd872348a1c27.png",
-    "static/media/yeon_detail.png": "/static/media/yeon_detail.b4b59de0db1a463ef521.png",
-    "static/media/mildam_detail.png": "/static/media/mildam_detail.a67100184c2729c9f590.png",
-    "static/media/hans_detail.png": "/static/media/hans_detail.e778ae0ee56de4d65188.png",
     "static/media/event (7).png": "/static/media/event (7).075276599df16ece168b.png",
     "static/media/event (3).png": "/static/media/event (3).70fa7f57e0de48bd10d2.png",
     "static/media/slide2.png": "/static/media/slide2.70fa7f57e0de48bd10d2.png",
@@ -56,11 +51,11 @@
     "static/media/arrow-left.svg": "/static/media/arrow-left.c2f448c5164d01e45bc2.svg",
     "static/media/down.svg": "/static/media/down.c84a0bfbda313288feb7aed6b2c86394.svg",
     "main.a501d870.css.map": "/static/css/main.a501d870.css.map",
-    "main.b8570bd9.js.map": "/static/js/main.b8570bd9.js.map",
+    "main.12322968.js.map": "/static/js/main.12322968.js.map",
     "787.0ff01fae.chunk.js.map": "/static/js/787.0ff01fae.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a501d870.css",
-    "static/js/main.b8570bd9.js"
+    "static/js/main.12322968.js"
   ]
 }

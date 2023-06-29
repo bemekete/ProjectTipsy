@@ -1,38 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import { Boardtable } from './Boardtable';
 import {useLocation} from "react-router-dom";
 
 export default function Notice() {
-    const [noticelist, setNoticelist] = useState([]);
-    const [pmk, setPmk] = useState({});
+    const [state, setState] = useState({
+        noticelist: [],
+        pmk: {},
+    })
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-
-    const asicode = queryParams.get('asicode');
-    const currpage = queryParams.get('currpage');
-    const keyword = queryParams.get('keyword');
+    const query = {
+        asicode: queryParams.get('asicode'),
+        currpage: queryParams.get('currpage'),
+        keyword: queryParams.get('keyword'),
+    }
 
     useEffect(() => {
         fetchData();
-    }, [asicode, currpage, keyword]);
+    }, [query.asicode, query.currpage, query.keyword]);
 
     const fetchData = async () => {
         try {
             axios
-                .get('/bcrilist', {
+                .get('/asi/bcrilist', {
                     params: {
-                        asicode: asicode,
-                        currPage: currpage,
-                        keyword: keyword,
+                        asicode: query.asicode,
+                        currPage: query.currpage,
+                        keyword: query.keyword,
                     }
                 })
                 .then((response) => {
-                    setNoticelist(response.data.list);
-                    setPmk(response.data.pmk);
-
+                    setState({
+                        noticelist: response.data.list,
+                        pmk: response.data.pmk,
+                    });
                 })
                 .catch((error) => {
                     console.log(error);
@@ -42,7 +46,7 @@ export default function Notice() {
         }
     }
 
-    return <Boardtable page={page} items={noticelist} pmk={pmk} />;
+    return <Boardtable page={page} items={state.noticelist} pmk={state.pmk} />;
 }
 
 const page = {

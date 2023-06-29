@@ -48,7 +48,14 @@ public class ProServiceImpl implements ProService {
         return dao.topSort(topSort);
     }
 
+	@Override
+	public int insertCart(CartDto dto) {
+		return dao.insertCart(dto);
+	}
+
+
 	// 검색 및 페이징
+
 	@Override
 	public List<ProVO> procriList(SearchCriteria cri) {
 		return dao.procriList(cri);
@@ -59,7 +66,7 @@ public class ProServiceImpl implements ProService {
 		return dao.criTotalCount(cri);
 	}
     // 장바구니 담기
-    @Override
+	 @Override
     public int insertCart(CartDto dto) {
         return dao.insertCart(dto);
     }

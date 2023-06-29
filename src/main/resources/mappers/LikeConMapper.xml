@@ -2,15 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapperInterface.LikeConMapper">
 
+    <!-- 목록 -->
     <sql id="likefrom">
         <!-- curr -->
         <if test="like == 0">
-            us_currcon u
+            us_CurrCon
         </if>
 
         <!-- like -->
         <if test="like == 1">
-            us_likecon u
+            us_LikeCon
         </if>
     </sql>
 
@@ -26,14 +27,33 @@
         </if>
     </sql>
 
-        <select id="likeConList" resultType="com.example.tipsy.vo.LikeConVO">
-            SELECT * FROM product p, <include refid="likefrom"></include>
-            WHERE id = #{id} AND p.p_seq = u.p_seq
-            ORDER BY <include refid="likeorder"></include> desc
-        </select>
+    <select id="likeConList" resultType="com.example.tipsy.vo.LikeConVO">
+        SELECT * FROM product p, <include refid="likefrom"></include> u
+        WHERE id = #{id} AND p.p_seq = u.p_seq
+        ORDER BY <include refid="likeorder"></include> desc
+    </select>
 
-        <select id="criTotalCount" resultType="int">
-            SELECT count(*) from <include refid="likefrom"></include>
-            WHERE id = #{id}
-        </select>
+    <select id="criTotalCount" resultType="int">
+        SELECT count(*) from <include refid="likefrom"></include>
+        WHERE id = #{id}
+    </select>
+
+
+    <!-- 아이디별 항목 출력 -->
+    <select id="likeConListId" resultType="com.example.tipsy.vo.LikeConVO">
+        SELECT p_seq FROMus_LikeCon
+        WHERE id = #{id}
+    </select>
+
+    <!-- 등록 -->
+    <insert id="insertQna">
+        INSERT INTO us_LikeCon(id, p_seq)
+        VALUES(#{id}, #{p_seq})
+    </insert>
+
+    <!-- 삭제 -->
+    <delete id="deleteQna">
+        DELETE FROM us_LikeCon
+        WHERE like_seq = #{like_seq}
+    </delete>
 </mapper>

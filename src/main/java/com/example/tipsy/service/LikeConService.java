@@ -6,6 +6,7 @@ import com.example.tipsy.vo.LikeConVO;
 import java.util.List;
 
 public interface LikeConService {
+    List<LikeConVO> likeConListId(LikeConVO vo);
     int insertLikeCon(LikeConVO vo);
     int deleteLikeCon(LikeConVO vo);
 

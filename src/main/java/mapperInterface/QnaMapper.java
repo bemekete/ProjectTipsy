@@ -8,7 +8,7 @@ import java.util.List;
 public interface QnaMapper {
     QnaVO qnaDetail(QnaVO vo);
     int insertQna(QnaVO vo);
-    int updateQna(QnaVO vo);
+    int commentQna(QnaVO vo);
     int deleteQna(QnaVO vo);
 
 

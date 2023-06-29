@@ -9,25 +9,33 @@ export function DocModify() {
     const queryParams = new URLSearchParams(location.search);
     const asi_seq = queryParams.get('asi_seq'); // seq 쿼리스트링
 
-    const [title, setTitle] = useState(''); // form title
-    const [contents, setContents] = useState(''); // form contents
+    const [state, setState] = useState({
+        title: '',
+        contents: '',
+    })
 
     let flag = 0; // 0:notice - 1:faq
 
     // boarddetail - 객체 불러오기
     useEffect(() => {
         axios
-                .get(`/boarddetail?asi_seq=${asi_seq}`)
-                .then((response) => {
-                    setTitle(response.data.asi_title);
-                    setContents(response.data.asi_contents);
-
-                    if(response.data.asi_code < 20) flag = 0;
-                    else flag = 1;
-                })
-                .catch((error) => {
-                    console.log(error);
+            .get(`/asi/boarddetail`, {
+                params:{
+                    asi_seq: asi_seq,
+                }
+            })
+            .then((response) => {
+                setState({
+                    title: response.data.asi_title,
+                    contents: response.data.asi_contents,
                 });
+
+                if(response.data.asi_code < 20) flag = 0;
+                else flag = 1;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
 
 
@@ -38,11 +46,11 @@ export function DocModify() {
 
             const formdata = {
                 asi_seq: asi_seq,
-                asi_title: title,
-                asi_contents: contents,
+                asi_title: state.title,
+                asi_contents: state.contents,
             };
             axios
-                .post("/updateboard", formdata)
+                .post("/asi/updateboard", formdata)
                 .then(response => {
                     if(flag == 0) window.location.href = '/notice';
                     else window.location.href = '/faq';
@@ -55,6 +63,7 @@ export function DocModify() {
 
         } catch (error) {
             console.log(error);
+            alert("게시글 수정을 실패했습니다.");
         }
     }
 
@@ -62,28 +71,30 @@ export function DocModify() {
         <form onSubmit={onSubmitForm} className="forminfo">
             <table className="userinfoTable boardform">
                 <tbody>
-                    <tr>
-                        <th>제목</th>
-                        <td>
-                            <input
-                                type="text"
-                                name="asi_title"
-                                value={title}
-                                onChange={e => setTitle(e.target.value)}
-                            />
-                        </td>
-                    </tr>
+                <tr>
+                    <th>제목</th>
+                    <td>
+                        <input
+                            type="text"
+                            name="asi_title"
+                            value={state.title}
+                            onChange={e => setState({...state, title: e.target.value})}
+                            required
+                        />
+                    </td>
+                </tr>
 
-                    <tr>
-                        <th>내용</th>
-                        <td>
+                <tr>
+                    <th>내용</th>
+                    <td>
                             <textarea
                                 name="asi_contents"
-                                value={contents}
-                                onChange={e => setContents(e.target.value)}
+                                value={state.contents}
+                                onChange={e => setState({...state, contents: e.target.value})}
+                                required
                             />
-                        </td>
-                    </tr>
+                    </td>
+                </tr>
                 </tbody>
             </table>
 

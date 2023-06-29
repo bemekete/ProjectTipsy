@@ -54,7 +54,7 @@ function ChangePw({ setIsLoggedIn }) {
             console.log(response.data); // 서버 응답 확인
             alert('비밀번호 변경 성공');
             setIsLoggedIn(false);
-            navigate('/'); // 비밀번호 수정 후 이동할 경로 설정
+            navigate('/login'); // 비밀번호 수정 후 이동할 경로 설정
         } catch (error) {
             console.error(error);
             alert('비밀번호 변경 실패');

@@ -47,7 +47,6 @@ function App() {
             });
     };
 
-    // 로그인
     const handleLoginFormSubmit = (inputId, inputPw) => {
         // 서버에 로그인 요청을 보냅니다.
         axios

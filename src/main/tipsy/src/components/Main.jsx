@@ -19,7 +19,6 @@ import FindPassword from '../pages//Find/Find_password';
 import FAQ from '../pages/FAQ';
 import CreateOrder from '../pages/CreateOrder';
 import Shopbasket from '../pages/Shopbasket/Shopbasket';
-import Alcstyletest from '../pages/Alcstyletest';
 import Map from '../pages/Map/Map';
 import Adminpage from '../pages/Adminpage/Adminpage';
 import UserModify from '../pages/Adminpage/UserModify';
@@ -68,7 +67,6 @@ function Main({ setIsLoggedIn, handleLoginFormSubmit }) {
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/createorder" element={<CreateOrder />} />
                     <Route path="/shopbasket" element={<Shopbasket />} />
-                    <Route path="/alcstyletest" element={<Alcstyletest />} />
                     <Route path="/map" element={<Map />} />
                     <Route path="/adminpage/:data" element={<Adminpage />} />
                     <Route path="/usermodify" element={<UserModify />} />

@@ -6,34 +6,37 @@ import { BoardTitle, BoardSearch, BoardScope } from './Boardtable';
 import axios from "axios";
 
 function FAQ() {
-    const [faqlist, setFaqlist] = useState([]);
-    const [pmk, setPmk] = useState({});
+    const [state, setState] = useState({
+        faqlist: [],
+        pmk: {},
+    })
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-
-    const asicode = queryParams.get('asicode');
-    const currpage = queryParams.get('currpage');
-    const keyword = queryParams.get('keyword');
+    const query = {
+        asicode: queryParams.get('asicode'),
+        currpage: queryParams.get('currpage'),
+        keyword: queryParams.get('keyword'),
+    }
 
     useEffect(() => {
         fetchData();
-    }, [asicode, currpage, keyword]);
-
+    }, [query.asicode, query.currpage, query.keyword]);
     const fetchData = async () => {
         try {
             axios
-                .get('/bcrilist', {
+                .get('/asi/bcrilist', {
                     params: {
-                        asicode: asicode,
-                        currPage: currpage,
-                        keyword: keyword,
+                        asicode: query.asicode,
+                        currPage: query.currpage,
+                        keyword: query.keyword,
                     }
                 })
                 .then((response) => {
-                    setFaqlist(response.data.list);
-                    setPmk(response.data.pmk);
-
+                    setState({
+                        faqlist: response.data.list,
+                        pmk: response.data.pmk,
+                    });
                 })
                 .catch((error) => {
                     console.log(error);
@@ -52,7 +55,7 @@ function FAQ() {
                 <div>
                     <FaqContainer />
                     <BoardSearch />
-                    <BoardScope page={page} items={faqlist} pmk={pmk} />
+                    <BoardScope page={page} items={state.faqlist} pmk={state.pmk} />
                 </div>
             </div>
         </div>
