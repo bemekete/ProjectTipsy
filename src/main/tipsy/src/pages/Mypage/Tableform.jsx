@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import '../../styles/Mypage.scss';
 import {PageButton} from "../Boardtable";
+import {Link} from "react-router-dom";
+import axios from "axios";
 
 function FormContainer() {
     return (
@@ -43,12 +45,65 @@ function ShipmentForm() {
                 </tr>
             </table>
 
-             {/*<PageButton pmk={pmk}  /> */}
+            {/*<PageButton pmk={pmk}  /> */}
         </div>
     )
 }
 
-function QnaboxForm({list, pmk}) {
+function QnaboxForm({list, pmk, loginInfo}) {
+    const [comment, setComment] = useState('');
+
+    const DeleteQna = async (e, seq) => {
+        try {
+            e.preventDefault();
+
+            if (window.confirm("정말 삭제하시겠습니까?")) {
+                await axios.post('/uscon/deleteqna', {
+                    q_seq: seq,
+
+                }).then(response => {
+                    console.log(response.data);
+                    if(response.data == 1){
+                        window.location.reload();
+                    } else {
+                        alert("게시글 삭제를 실패했습니다.");
+                    }
+
+                }).catch(error => {
+                    console.log(error);
+                    alert("게시글 삭제를 실패했습니다.");
+                })
+            }
+
+        } catch (error) {
+            console.log(error);
+            alert("게시글 삭제를 실패했습니다.");
+        }
+    }
+
+    const onSubmitComment = async (seq) => {
+        try{
+            await axios
+                .post('/uscon/commentqna',{
+                    q_seq: seq,
+                    q_comment: comment,
+                }).catch(response => {
+                    console.log(response.data);
+                    if(response.data == 1){
+                        window.location.reload();
+                    } else {
+                        alert("답변 등록을 실패했습니다.");
+                    }
+                }).catch(error => {
+                    console.log(error);
+                    alert("답변 등록을 실패했습니다.");
+                })
+        } catch (e) {
+            console.log(e);
+            alert("답변 등록을 실패했습니다.");
+        }
+    }
+
     return (
         <div className="mypageform">
             <table className="qnaboxtable">
@@ -58,43 +113,100 @@ function QnaboxForm({list, pmk}) {
                     <col width="80%" />
                 </colgroup>
                 {
-                        list.map((item, i) => (
-                            <tr key={`list${i}`}>
-                                <td>{item.q_category}</td>
-                                <td>{AnswerMiss(item.q_comment)}</td>
-                                <td>
-                                    <details>
-                                        <summary>
-                                            <span>{item.q_title}</span>
-                                            <img
-                                                src={require('../../assets/notice_img/down.svg')}
-                                                alt=""
-                                            />
-                                        </summary>
-                                    </details>
-                                    <div className="innerCon">
-                                        <div>
-                                            {item.q_content}
-                                        </div>
-                                        <div className="innerComment">
-                                            {item.q_comment}
-                                        </div>
+                    list.map((item, i) => (
+                        <tr key={`list${i}`}>
+                            <td>{Category(item.q_category)}</td>
+                            <td>{AnswerMiss(item.q_comment)}</td>
+                            <td>
+                                <details>
+                                    <summary>
+                                        <span>{item.q_title}</span>
+                                        <img
+                                            src={require('../../assets/notice_img/down.svg')}
+                                            alt=""
+                                        />
+                                    </summary>
+                                </details>
+                                <div className="innerCon">
+                                    <div>
+                                        {item.q_content}
+
+                                        {/* admin 기능 */}
+                                        {('admin' == loginInfo.id || item.id == loginInfo.id) && (
+                                            <div className='conModify'>
+                                                <Link to="/" onClick={e => DeleteQna(e, item.q_seq)}>삭제</Link>
+                                            </div>
+                                        )}
                                     </div>
-                                </td>
-                            </tr>
-                        ))
-                    }
+                                    {CommentVisible(item.q_comment)}
+                                </div>
+                            </td>
+                        </tr>
+                    ))
+                }
             </table>
 
-             <PageButton pmk={pmk} />
+            <PageButton pmk={pmk} />
         </div>
     )
+
+    function Category(item) {
+        const category = [
+            {
+                key: "상품",
+                value: 1,
+            },
+            {
+                key: "주문/배송",
+                value: 2,
+            },
+            {
+                key: "홈페이지",
+                value: 3,
+            },
+        ]
+
+        for(let i = 0; i < category.length; i++){
+            if(item == category[i].value){
+                return category[i].key;
+            }
+        }
+    }
 
     function AnswerMiss(item) {
         if(item == null){
             return '미답변';
         } else {
             return '답변완료';
+        }
+    }
+
+    function CommentVisible(item) {
+        if(item == null){
+            if('admin' == loginInfo.id){
+                return (
+                    <div className="innerComment">
+                        <textarea
+                            name="comment"
+                            cols="130"
+                            rows="20"
+                            minLength="10"
+                            placeholder="답변을 입력 하세요."
+                            onChange={e => setComment(e.target.value)}>
+                        </textarea>
+                        <button onClick={()=>onSubmitComment(item.q_seq)}></button>
+                    </div>
+                )
+            } else {
+                return null;
+            }
+
+        } else {
+            return (
+                <div className="innerComment">
+                    {item.q_comment}
+                </div>
+            );
         }
     }
 }
@@ -122,10 +234,10 @@ function ReviewboxForm({list, pmk}) {
                                 </td>
                             </tr>
 
-                             <style jsx>{`
-                                .review${i} .review_star::after {
-                                    content: '${StarScore(item.re_score)}';
-                                }
+                            <style jsx>{`
+                              .review${i} .review_star::after {
+                                content: '${StarScore(item.re_score)}';
+                              }
                             `}</style>
                         </>
                     ))
@@ -175,18 +287,5 @@ function ContentsForm({list, pmk}) {
         </div>
     )
 }
-
-// function Nullbox({ img }) {
-//     return (
-//         <>
-//             <div className="icon">
-//                 <img
-//                     src={require('../../assets/mypage_img/noun-produce-2823265.png')}
-//                 />
-//             </div>
-//             <div>최근 본 상품이 없습니다.</div>
-//         </>
-//     )
-// }
 
 export { ShipmentForm, QnaboxForm, ReviewboxForm, ContentsForm, StarScore };

@@ -9,7 +9,7 @@ public interface QnaService {
 
     QnaVO qnaDetail(QnaVO vo);
     int insertQna(QnaVO vo);
-    int updateQna(QnaVO vo);
+    int commentQna(QnaVO vo);
     int deleteQna(QnaVO vo);
 
 

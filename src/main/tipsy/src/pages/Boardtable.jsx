@@ -1,7 +1,7 @@
 import '../styles/Boardtable.scss';
-import { Link, useLocation } from 'react-router-dom';
-import axios from 'axios';
-import { useState } from 'react';
+import {Link, useLocation, useSearchParams} from 'react-router-dom';
+import axios from "axios";
+import {useEffect, useState} from "react";
 
 function Boardtable({ page, items, pmk }) {
     return (
@@ -110,14 +110,14 @@ function BoardTable({ page, items }) {
                     </colgroup>
 
                     <thead>
-                        <tr>
-                            <th>구분</th>
-                            <th>제목</th>
-                        </tr>
+                    <tr>
+                        <th>구분</th>
+                        <th>제목</th>
+                    </tr>
                     </thead>
 
                     <tbody>
-                        <BodyTable page={page} items={items} />
+                    <BodyTable page={page} items={items} />
                     </tbody>
                 </table>
             </figure>
@@ -126,14 +126,29 @@ function BoardTable({ page, items }) {
 }
 
 function BodyTable({ page, items }) {
+    const [loginInfo, setLoginInfo] = useState([]);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('/user/userinfo');
+            setLoginInfo(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const deleteBoard = async (e, seq) => {
         try {
             e.preventDefault();
 
             if (window.confirm('정말 삭제하시겠습니까?')) {
                 await axios
-                    .post('/deleteboard', {
-                        asi_seq: seq, // qna와 통합할 경우, 컬럼명도 받아와야 함
+                    .post('/asi/deleteboard', {
+                        asi_seq: seq,
                     })
                     .then((response) => {
                         console.log(response.data);
@@ -168,21 +183,10 @@ function BodyTable({ page, items }) {
                         {item.asi_contents}
 
                         {/* admin 기능 */}
-                        {1 == 1 && (
-                            <div className="conModify">
-                                <Link
-                                    to={`/adminpage/updateboard?asi_seq=${item.asi_seq}`}
-                                >
-                                    수정
-                                </Link>
-                                <Link
-                                    to="/"
-                                    onClick={(e) =>
-                                        deleteBoard(e, item.asi_seq)
-                                    }
-                                >
-                                    삭제
-                                </Link>
+                        {'admin' == loginInfo.id && (
+                            <div className='conModify'>
+                                <Link to={`/adminpage/updateboard?asi_seq=${item.asi_seq}`}>수정</Link>
+                                <Link to="/" onClick={e => deleteBoard(e, item.asi_seq)}>삭제</Link>
                             </div>
                         )}
                     </span>
@@ -206,26 +210,30 @@ function PageButton({ pmk }) {
     );
 
     function pathbuild(ppp) {
-        let path = '';
+        let path = location.pathname + '?currpage=' + ppp;
 
-        if (location.search.includes('keyword')) {
-            // 검색 키워드 有
-            const que = location.search;
-            const asicode = que.substring(que.indexOf('asicode')).split('&')[0];
-            const keyword = que.substring(que.indexOf('keyword')).split('&')[0];
-            path =
-                location.pathname +
-                '?' +
-                asicode +
-                '&' +
-                keyword +
-                '&currpage=' +
-                ppp;
-        } else {
-            // 검색 키워드 無
-            let que = location.search;
-            que = que.substring(que.indexOf('asicode')).split('&')[0];
-            path = location.pathname + '?' + que + '&currpage=' + ppp;
+        // BoardTable (Notice/Faq)
+        if(location.search.includes('asicode')){
+            if (location.search.includes('keyword')) {
+                // 검색 키워드 有
+                const que = location.search;
+                const asicode = que.substring(que.indexOf('asicode')).split('&')[0];
+                const keyword = que.substring(que.indexOf('keyword')).split('&')[0];
+                path =
+                    location.pathname +
+                    '?' +
+                    asicode +
+                    '&' +
+                    keyword +
+                    '&currpage=' +
+                    ppp;
+
+            } else {
+                // 검색 키워드 無
+                let que = location.search;
+                que = que.substring(que.indexOf('asicode')).split('&')[0];
+                path = location.pathname + '?' + que + '&currpage=' + ppp;
+            }
         }
 
         return path;

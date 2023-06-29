@@ -6,7 +6,7 @@ import com.example.tipsy.vo.LikeConVO;
 import java.util.List;
 
 public interface LikeConDAO {
-
+    List<LikeConVO> likeConListId(LikeConVO vo);
     int insertLikeCon(LikeConVO vo);
     int deleteLikeCon(LikeConVO vo);
 
@@ -15,5 +15,4 @@ public interface LikeConDAO {
     List<LikeConVO> likeConList(SearchCriteria cri);
     List<LikeConVO> currConList(SearchCriteria cri);
     int criTotalCount(SearchCriteria cri);
-
 }
