@@ -58,7 +58,7 @@ public class UserRestController {
     public List<String> checkId(){
        return service.checkId();
     }
-
+    
     // 로그인
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserVO vo,  HttpSession session, Model model){
@@ -115,7 +115,6 @@ public class UserRestController {
             service.sendUsernames(email, usernames);
             return new ResponseEntity<Object>(HttpStatus.OK);
         }
-
         return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
     }
 

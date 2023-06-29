@@ -120,7 +120,10 @@ public class ProRestController {
     // 장바구니 담기 기능
     @PostMapping("/addcart")
     public int addCart(@RequestBody CartDto dto, HttpSession session) {
+
         String loginID = (String) session.getAttribute("loginID");
+
+        System.out.println("로그인 아이디 입니다"+loginID);
 
         if (null != loginID && loginID.length() > 0) {
             dto.setId(loginID);
@@ -142,6 +145,18 @@ public class ProRestController {
         } else {
             return ResponseEntity.badRequest().body(null);
         }
+    }
+
+    // 장바구니 선택 상품 삭제 기능
+    @PostMapping("/deletecart")
+    public int deleteCart(@RequestBody List<String> productname, HttpSession session){
+        String loginID = (String) session.getAttribute("loginID");
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("loginID", loginID);
+        params.put("data", productname);
+
+        return service.deleteCart(params);
     }
 
     @GetMapping("/topsort")

@@ -3,7 +3,7 @@
     padding: 0;
     list-style: none;
     font-family: 'NEXON Lv2 Gothic';
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
 }
 
 @font-face {

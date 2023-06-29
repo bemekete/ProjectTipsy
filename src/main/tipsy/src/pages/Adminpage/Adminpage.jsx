@@ -11,6 +11,8 @@ import ProductPage from './ProductPage';
 import { DocForm } from './DocForm';
 import { DocModify } from './DocModify';
 import { QnaboxForm } from '../Mypage/Tableform';
+import { UserInfo } from './UserInfo';
+import { ProductInfo } from './ProductInfo';
 
 export default function Adminpage() {
     const { data } = useParams();
@@ -42,10 +44,10 @@ export default function Adminpage() {
         <>
             <div id="adminpage_container">
                 <Categorylist setTitle={setTitle} />
-
                 <div id="contents">
                     <p>{title}</p>
                     {data === 'userboard' && <UserPage userData={userData} />}
+                    {data === 'userinfo' && <UserInfo />}
 
                     {data === 'productboard' && (
                         <ProductPage
@@ -54,6 +56,7 @@ export default function Adminpage() {
                             axios={axios}
                         />
                     )}
+                    {data === 'productinfo' && <ProductInfo />}
                     {data === 'ProductForm' && (
                         <ProductForm onSubmit={onSubmitProduct} item="" />
                     )}

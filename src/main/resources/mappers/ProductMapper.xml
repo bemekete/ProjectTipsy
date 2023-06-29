@@ -7,6 +7,7 @@
         insert into product(p_name, p_price, p_category, p_category_detail, p_alc, p_sweet, p_sour,p_regdate, p_img, p_info_img, p_stock)
         values(#{p_name},#{p_price},#{p_category},#{p_category_detail},#{p_alc},#{p_sweet},#{p_sour},now(),#{p_img},#{p_info_img},#{p_stock})
     </insert>
+
     <!--  /////////////////////////////////////////////////////////////////////////////////  -->
    <!-- 상품목록 -->
     <select id="productList" resultType="com.example.tipsy.vo.ProVO">
@@ -31,7 +32,7 @@
             ORDER BY p_cnt DESC
         </if>
         <if test="sort == 2">
-            ORDER BY p_regdate
+            ORDER BY p_regdate desc
         </if>
     </select>
 
@@ -48,6 +49,14 @@
                 from cart join user on cart.id = user.id) as temp
         join product on temp.p_seq = product.p_seq where id = #{id};
     </select>
+
+    <delete id="deleteCart" parameterType="java.util.Map">
+        delete from cart
+        where id=#{loginID} and p_seq in
+            (<foreach collection="data" item="p_name" separator="UNION ALL">
+            select p_seq from product where p_name=#{p_name}
+            </foreach>)
+    </delete>
 
 
 
