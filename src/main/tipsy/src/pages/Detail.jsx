@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react';
 import '../styles/Detail.scss';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { StarScore } from "./Mypage/Tableform";
+import { StarScore } from './Mypage/Tableform';
 
 function Detail(props) {
     const [pieces, setPieces] = useState(1); // 구매 정보 - 상품 개수
@@ -10,18 +10,15 @@ function Detail(props) {
     const [popupMessage, setPopupMessage] = useState(false);
     const [bottomPopupMessage, setBottomPopupMessage] = useState(false);
 
-
-
     const [success, setSuccess] = useState(0);
     const navigate = new useNavigate();
 
     // URL 쿼리 Param 분석 변수 사용
     const location = useLocation();
 
-
     const queryparam = new URLSearchParams(location.search);
 
-    const site = queryparam.get("site");
+    const site = queryparam.get('site');
 
     const [mainImage, setMainImage] = useState(null);
 
@@ -29,13 +26,14 @@ function Detail(props) {
     const [items, setItems] = useState({
         donghak: {
             title: '동학 1957',
-            titDetail: '평창동계올림픽 공식 판매주로 선정된 우리 쌀로 빚은 청주',
+            titDetail:
+                '평창동계올림픽 공식 판매주로 선정된 우리 쌀로 빚은 청주',
             titTag: '#구수한 쌀의 맛 #담백한 맛 뒤 느껴지는 쌉쌀함',
             type: '청주',
             alc: 13.0,
             capacity: 375,
             price: 2988,
-            detailData: require("../assets/detail_img/donghak_detail.png"),
+            detailData: require('../assets/detail_img/donghak_detail.png'),
         },
         hans: {
             title: '한스오차드',
@@ -45,7 +43,7 @@ function Detail(props) {
             alc: 11.0,
             capacity: 750,
             price: 20160,
-            detailData: require("../assets/detail_img/hans_detail.png"),
+            detailData: require('../assets/detail_img/hans_detail.png'),
         },
         hansiwool: {
             title: '한시울 40%',
@@ -55,7 +53,7 @@ function Detail(props) {
             alc: 40.0,
             capacity: 500,
             price: 21000,
-            detailData: require("../assets/detail_img/hansiwool_detail.png"),
+            detailData: require('../assets/detail_img/hansiwool_detail.png'),
         },
         mildam: {
             title: '밀담 40%',
@@ -65,7 +63,7 @@ function Detail(props) {
             alc: 40.0,
             capacity: 360,
             price: 17910,
-            detailData: require("../assets/detail_img/mildam_detail.png"),
+            detailData: require('../assets/detail_img/mildam_detail.png'),
         },
         monkey: {
             title: '술취한 원숭이 X 4병',
@@ -75,7 +73,7 @@ function Detail(props) {
             alc: 10.8,
             capacity: 375,
             price: 36000,
-            detailData: require("../assets/detail_img/monkey_detail.png"),
+            detailData: require('../assets/detail_img/monkey_detail.png'),
         },
         saint: {
             title: '세인트하우스 복숭아 스파클링 와인',
@@ -85,7 +83,7 @@ function Detail(props) {
             alc: 12.0,
             capacity: 500,
             price: 23000,
-            detailData: require("../assets/detail_img/yeon_detail.png"),
+            detailData: require('../assets/detail_img/yeon_detail.png'),
         },
         yeon: {
             title: '오미로제 연',
@@ -95,7 +93,7 @@ function Detail(props) {
             alc: 8.0,
             capacity: 750,
             price: 50000,
-            detailData: require("../assets/detail_img/yeon_detail.png"),
+            detailData: require('../assets/detail_img/yeon_detail.png'),
         },
     });
 
@@ -120,34 +118,35 @@ function Detail(props) {
     ];
 
     const variableSite = () => {
-
         setMainImage(props.productData[site]);
         setItem(items[site]);
     };
 
-
     useEffect(() => {
         variableSite();
         window.scrollTo(0, 0);
-        console.log("site 입니다 : " + site);
+        console.log('site 입니다 : ' + site);
     }, []);
 
     // 장바구니 테이블 데이터 전송 함수
     const addcart = () => {
-        axios.post('/product/addcart', {
-            p_name: item.title,
-            cart_vol: pieces,
-        }).then(request => {
-            console.log(request);
-            if (request.data > 0) {
-                setSuccess(1);
-            } else {
-                setSuccess(0)
-                alert("로그인 후 이용해주세요.");
-            }
-        }).catch("에러입니다.");
-
-    }
+        axios
+            .post('/product/addcart', {
+                p_name: item.title,
+                cart_vol: pieces,
+            })
+            .then((request) => {
+                console.log(request);
+                if (request.data > 0) {
+                    setSuccess(1);
+                } else {
+                    setSuccess(0);
+                    alert('로그인 후 이용해주세요.');
+                    navigate('/login');
+                }
+            })
+            .catch('에러입니다.');
+    };
 
     // 전체 HTML
     return (
@@ -176,37 +175,33 @@ function Detail(props) {
         const OnClicklikebtn = async (item) => {
             try {
                 axios
-                    .post("/uscon/insertlikecon", {
+                    .post('/uscon/insertlikecon', {
                         params: {
                             p_seq: item,
-                        }
+                        },
                     })
-                    .then(response => {
+                    .then((response) => {
                         console.log(response.data);
 
-                        if(response.data == 2){
-                            alert("로그인 후 이용해주세요.");
-                        } else if(response.data == 3) {
-                            alert("이미 찜하신 상품입니다.")
+                        if (response.data == 2) {
+                            alert('로그인 후 이용해주세요.');
+                        } else if (response.data == 3) {
+                            alert('이미 찜하신 상품입니다.');
                         }
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         console.log(error);
-                        alert("내부 오류로 관심상품 등록을 실패했습니다.");
-                    })
-
+                        alert('내부 오류로 관심상품 등록을 실패했습니다.');
+                    });
             } catch (error) {
                 console.log(error);
             }
-        }
+        };
 
         return (
             <div className="flex">
                 <div className="detail_tit_img">
-                    <img
-                        src={`${mainImage}`}
-                        alt=""
-                    />
+                    <img src={`${mainImage}`} alt="" />
                     {/* <img src=${item.img} alt=${item.title} /> */}
                 </div>
                 <div className="detail_tit">
@@ -228,15 +223,24 @@ function Detail(props) {
                     </div>
                     <div>판매가격:</div>
                     <div className="price">
-                        <span>{item.price != null ? item.price.toLocaleString('ko-KR') : 0}</span>원
+                        <span>
+                            {item.price != null
+                                ? item.price.toLocaleString('ko-KR')
+                                : 0}
+                        </span>
+                        원
                     </div>
                     <div className="blue opa5">유통기한: 병입일로부터 2년</div>
                     <div className="blue opa5">보관방법: 냉장보관</div>
 
                     <div className="likebtn">
-                        <button onClick={()=> {
-                            OnClicklikebtn(1)
-                        }}>♥</button>
+                        <button
+                            onClick={() => {
+                                OnClicklikebtn(1);
+                            }}
+                        >
+                            ♥
+                        </button>
                     </div>
                 </div>
             </div>
@@ -246,10 +250,7 @@ function Detail(props) {
     function Description() {
         return (
             <div className="detailScript">
-                <img
-                    src={`${item.detailData}`}
-                    alt=""
-                />
+                <img src={`${item.detailData}`} alt="" />
                 {/* <img src={item.detailScript} alt='상세이미지' /> */}
                 <img src={require('../assets/detail_img/kakaotalk.png')} />
             </div>
@@ -353,7 +354,8 @@ function Detail(props) {
                             <BuyBtn where="r" />
 
                             <div
-                                className={`popupBasket ${popupMessage ? '' : 'displayNone'
+                                className={`popupBasket ${
+                                    popupMessage ? '' : 'displayNone'
                                 }`}
                             >
                                 <CartPopupMessage where="r" />
@@ -373,7 +375,8 @@ function Detail(props) {
                 </div>
 
                 <div
-                    className={`bottomPopupBasket ${bottomPopupMessage ? '' : 'displayNone'
+                    className={`bottomPopupBasket ${
+                        bottomPopupMessage ? '' : 'displayNone'
                     }`}
                 >
                     <CartPopupMessage where="b" />
@@ -470,14 +473,8 @@ function Detail(props) {
     function BuyBtn({ where }) {
         return (
             <>
-                <div
-                    onClick={(e) => onClickBasket(e, where)}
-                >
-                    장바구니
-                </div>
-                <button
-                    onClick={(e) => onClickSubmit(e, where)}
-                >
+                <div onClick={(e) => onClickBasket(e, where)}>장바구니</div>
+                <button onClick={(e) => onClickSubmit(e, where)}>
                     구매하기
                 </button>
             </>
@@ -500,7 +497,15 @@ function Detail(props) {
                         장바구니로 이동하시겠습니까?
                     </p>
                     <div className="popupBasketBtn">
-                        <Link to="#" onClick={e => { e.preventDefault(); whereis(where) }}>쇼핑 계속하기</Link>
+                        <Link
+                            to="#"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                whereis(where);
+                            }}
+                        >
+                            쇼핑 계속하기
+                        </Link>
                         <Link to="/shopbasket">장바구니 가기</Link>
                     </div>
                 </div>
@@ -516,9 +521,6 @@ function Detail(props) {
             </>
         );
     }
-
-
-
 
     // 장바구니 Button 클릭 시 연결 함수
     function onClickBasket(e, where) {
@@ -550,14 +552,12 @@ function Detail(props) {
             addcart();
 
             if (success == 1) {
-                navigate("/shopbasket");
+                navigate('/shopbasket');
             }
         }
     }
 }
 
 // 임시 삽입할 데이터 객체
-
-
 
 export default Detail;

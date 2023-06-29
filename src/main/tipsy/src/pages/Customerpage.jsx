@@ -2,7 +2,13 @@ import React from 'react';
 import '../styles/Customerpage.scss';
 import { Link } from 'react-router-dom';
 
-export default function Customerpage() {
+export default function Customerpage({ isLoggedIn, navigate }) {
+    // 로그인 하지않은 상태에서는 장바구니로 갈 수 없게
+    const goLogin = (e) => {
+        e.preventDefault();
+        alert('로그인 후 이용해주세요.');
+        navigate('/login');
+    };
     return (
         <div id="customerpage_container">
             <p className="pageTitle">고객지원</p>
@@ -11,7 +17,7 @@ export default function Customerpage() {
                     <div className="guidement">
                         <p>
                             월요일 ~ 금요일: 08:30 ~ 17:30 | 점심시간: 12:00 ~
-                            13:00 | 주말 및 공휴일 휴무
+                            13:00 | 주말 및 공휴일 휴무 
                             <br />
                             <br />
                             <span>
@@ -58,10 +64,17 @@ export default function Customerpage() {
                             </Link>
                         </li>
                         <li className="menu4">
-                            <Link to="/mypage/shipment">
-                                <span className="menuicon myPage"></span>
-                                <span>마이페이지</span>
-                            </Link>
+                            {isLoggedIn ? (
+                                <Link to="/mypage/shipment">
+                                    <span className="menuicon myPage"></span>
+                                    <span>마이페이지</span>
+                                </Link>
+                            ) : (
+                                <Link onClick={goLogin}>
+                                    <span className="menuicon myPage"></span>
+                                    <span>마이페이지</span>
+                                </Link>
+                            )}
                         </li>
                         <li className="menu5">
                             <Link to="/faq?asicode=2">
