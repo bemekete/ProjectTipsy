@@ -208,7 +208,6 @@ function Content({
             console.log(error);
         }
     };
-
     return (
         <>
             <p className="pageTit">{title}</p>
@@ -239,7 +238,7 @@ function Content({
                                 <div className="img">
                                     <img
                                         src={
-                                            process.env.PUBLIC_URL + item.p_img
+                                            process.env.PUBLIC_URL + item.p_img 
                                         }
                                         alt="상품 이미지"
                                     />

@@ -11,6 +11,8 @@ import ProductPage from './ProductPage';
 import { DocForm } from './DocForm';
 import { DocModify } from './DocModify';
 import { QnaboxForm } from '../Mypage/Tableform';
+import { UserInfo } from './UserInfo';
+import { ProductInfo } from './ProductInfo';
 
 export default function Adminpage() {
     const { data } = useParams();
@@ -42,11 +44,10 @@ export default function Adminpage() {
         <>
             <div id="adminpage_container">
                 <Categorylist setTitle={setTitle} />
-
                 <div id="contents">
                     <p>{title}</p>
                     {data === 'userboard' && <UserPage userData={userData} />}
-                    {/* {data === 'usermodify' && <UserModifyForm />} */}
+                    {data === 'userinfo' && <UserInfo />}
 
                     {data === 'productboard' && (
                         <ProductPage
@@ -55,6 +56,7 @@ export default function Adminpage() {
                             axios={axios}
                         />
                     )}
+                    {data === 'productinfo' && <ProductInfo />}
                     {data === 'ProductForm' && (
                         <ProductForm onSubmit={onSubmitProduct} item="" />
                     )}
@@ -79,10 +81,6 @@ export default function Adminpage() {
                         text: '회원목록',
                         value: 'userboard',
                     },
-                    // {
-                    //     text: '회원정보 수정',
-                    //     value: 'usermodify',
-                    // },
                 ],
             },
             {
@@ -178,157 +176,6 @@ const faqcode = [
     {
         code: 21,
         value: '제품 관련',
-    },
-];
-
-// 임시 데이터
-const userheaders = [
-    {
-        text: '회원번호',
-        value: 'seq',
-    },
-    {
-        text: 'ID',
-        value: 'id',
-    },
-    {
-        text: '이름',
-        value: 'name',
-    },
-];
-
-const useritems = [
-    {
-        seq: 0,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 1,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 2,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 3,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 4,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 5,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 6,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 7,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 8,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 9,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-];
-
-const pheaders = [
-    {
-        text: '상품번호',
-        value: 'seq',
-    },
-    {
-        text: '카테고리',
-        value: 'category',
-    },
-    {
-        text: '상품명',
-        value: 'title',
-    },
-    {
-        text: '가격',
-        value: 'price',
-    },
-];
-
-const pitems = [
-    {
-        seq: 0,
-        category: '청주',
-        title: '동학',
-        price: '1444',
-    },
-    {
-        seq: 1,
-        category: '와인',
-        title: '세인트어쩌고',
-        price: '12334',
-    },
-    {
-        seq: 2,
-        category: '소주',
-        title: '참이슬',
-        price: '12',
-    },
-    {
-        seq: 3,
-        category: '청주',
-        title: '동학',
-        price: '1444',
-    },
-    {
-        seq: 4,
-        category: '와인',
-        title: '세인트어쩌고',
-        price: '12334',
-    },
-    {
-        seq: 5,
-        category: '소주',
-        title: '참이슬',
-        price: '12',
-    },
-    {
-        seq: 6,
-        category: '청주',
-        title: '동학',
-        price: '1444',
-    },
-    {
-        seq: 7,
-        category: '와인',
-        title: '세인트어쩌고',
-        price: '12334',
-    },
-    {
-        seq: 8,
-        category: '소주',
-        title: '참이슬',
-        price: '12',
-    },
-    {
-        seq: 9,
-        category: '청주',
-        title: '동학',
-        price: '1444',
     },
 ];
 

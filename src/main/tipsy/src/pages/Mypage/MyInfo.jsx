@@ -19,6 +19,7 @@ export function MyInfoForm({ setIsLoggedIn }) {
     const [loginInfo, setLoginInfo] = useState(null); // db에서 받아온 정보를 담는 변수
     const navigate = useNavigate();
 
+    // 로그인한 회원의 개인정보 가져오기
     useEffect(() => {
         fetchData();
     }, []);

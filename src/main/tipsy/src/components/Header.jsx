@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 import '../styles/Header.scss';
-import {useEffect} from "react";
-import axios from "axios";
 
 function header({ isLoggedIn, handleLogout }) {
     return (
@@ -60,9 +58,7 @@ function header({ isLoggedIn, handleLogout }) {
                             <div className="detailCategoryList">
                                 <ul>
                                     <li className="hoverCategory">
-                                        <Link to="/mainpage?p_category=1">
-                                            주류
-                                        </Link>
+                                        <Link to="/mainpage">주류</Link>
                                         <ul className="detailCategoryListof">
                                             <li>
                                                 <Link to="/mainpage">와인</Link>
@@ -87,9 +83,9 @@ function header({ isLoggedIn, handleLogout }) {
                                             </li>
                                         </ul>
                                     </li>
-                                    <li className="hoverCategory">
+                                    {/* <li className="hoverCategory">
                                         <Link to="/mainpage">안주</Link>
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </div>
                         </li>

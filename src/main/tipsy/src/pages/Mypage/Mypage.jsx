@@ -7,7 +7,6 @@ import axios from 'axios';
 export default function Mypage() {
     const [loginInfo, setLoginInfo] = useState([]);
 
-    // db에서 상품 리스트 받아 리액트 화면에 뿌려주기
     useEffect(() => {
         fetchData();
     }, []);
@@ -73,7 +72,7 @@ export default function Mypage() {
                         </div>
                     </div>
                 </div>
-                <Category loginInfo={loginInfo}/>
+                <Category loginInfo={loginInfo} />
             </div>
         </div>
     );

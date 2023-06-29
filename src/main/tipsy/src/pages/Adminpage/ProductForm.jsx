@@ -52,6 +52,7 @@ export default function ProductForm() {
             .post('/product/addProduct', formDataToSend, config)
             .then((response) => {
                 console.log(response.data);
+                alert('상품추가완료');
                 navigate('/adminpage/productboard');
             })
             .catch((error) => {
