@@ -1,43 +1,152 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import '../styles/Detail.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-
-
-
 import { StarScore } from "./Mypage/Tableform";
 
-function Detail() {
+function Detail(props) {
     const [pieces, setPieces] = useState(1); // 구매 정보 - 상품 개수
     const [viewOptionView, setViewOptionView] = useState(false);
     const [popupMessage, setPopupMessage] = useState(false);
     const [bottomPopupMessage, setBottomPopupMessage] = useState(false);
 
+
+
     const [success, setSuccess] = useState(0);
     const navigate = new useNavigate();
 
+    // URL 쿼리 Param 분석 변수 사용
+    const location = useLocation();
+
+
+    const queryparam = new URLSearchParams(location.search);
+
+    const site = queryparam.get("site");
+
+    const [mainImage, setMainImage] = useState(null);
+
+    // 표시할 상품 정보 객체
+    const [items, setItems] = useState({
+        donghak: {
+            title: '동학 1957',
+            titDetail: '평창동계올림픽 공식 판매주로 선정된 우리 쌀로 빚은 청주',
+            titTag: '#구수한 쌀의 맛 #담백한 맛 뒤 느껴지는 쌉쌀함',
+            type: '청주',
+            alc: 13.0,
+            capacity: 375,
+            price: 2988,
+            detailData: require("../assets/detail_img/donghak_detail.png"),
+        },
+        hans: {
+            title: '한스오차드',
+            titDetail: '누구나 쉽게 즐길 수 있는 와인',
+            titTag: '#우리나라 최초의 사과 와인 #산뜻하게 피어오르는 오크 풍미',
+            type: '과실주',
+            alc: 11.0,
+            capacity: 750,
+            price: 20160,
+            detailData: require("../assets/detail_img/hans_detail.png"),
+        },
+        hansiwool: {
+            title: '한시울 40%',
+            titDetail: '물 좋기로 소문난 백족산의 지하 암반수로 빚은 증류주',
+            titTag: '#누룽지 같은 구수한 풍미 #고도수 증류주를 좋아하신다면',
+            type: '증류식소주',
+            alc: 40.0,
+            capacity: 500,
+            price: 21000,
+            detailData: require("../assets/detail_img/hansiwool_detail.png"),
+        },
+        mildam: {
+            title: '밀담 40%',
+            titDetail: '해적의 술 럼(RUM) 맞아요!',
+            titTag: '#럼콕으로 마시면 꿀맛 #홈바 필수템',
+            type: '일반증류주',
+            alc: 40.0,
+            capacity: 360,
+            price: 17910,
+            detailData: require("../assets/detail_img/mildam_detail.png"),
+        },
+        monkey: {
+            title: '술취한 원숭이 X 4병',
+            titDetail: '빨간맛, 궁금해 Monkey',
+            titTag: '#홈파티를 빛낼 술 #우도주막, 로제막걸리!',
+            type: '탁주',
+            alc: 10.8,
+            capacity: 375,
+            price: 36000,
+            detailData: require("../assets/detail_img/monkey_detail.png"),
+        },
+        saint: {
+            title: '세인트하우스 복숭아 스파클링 와인',
+            titDetail: '딸기와인 명인이 만든 복숭아 스파클링 와인',
+            titTag: '#통조림 복숭아 같은 달콤한 향 #자두의 새콤한 맛',
+            type: '과실주',
+            alc: 12.0,
+            capacity: 500,
+            price: 23000,
+            detailData: require("../assets/detail_img/yeon_detail.png"),
+        },
+        yeon: {
+            title: '오미로제 연',
+            titDetail: '오미자로 만든 스파클링 와인',
+            titTag: '#오미자 스파클링 와인 #샤르마 방식 사용',
+            type: '과실주주',
+            alc: 8.0,
+            capacity: 750,
+            price: 50000,
+            detailData: require("../assets/detail_img/yeon_detail.png"),
+        },
+    });
+
+    const [item, setItem] = useState({});
+
+    const reviewItem = [
+        {
+            user: '황인규',
+            product: item.title,
+            star: 4,
+            date: '2022.12.23',
+            contents:
+                '달아서 너무 맛있어요. 입문 하시는 분으로 아주 좋을것 같습니다. 단맛을 싫어 하시는 분은 비추이고 달달한 와인 찾으시면 좋을꺼 같네요. 포도 향도 아주 진하게 잘나서 한변 금방 마셨어요.',
+        },
+        {
+            user: '황인규',
+            product: item.title,
+            star: 2,
+            date: '2022.12.23',
+            contents: '달아서 너무 맛없어요.',
+        },
+    ];
+
+    const variableSite = () => {
+
+        setMainImage(props.productData[site]);
+        setItem(items[site]);
+    };
+
+
+    useEffect(() => {
+        variableSite();
+        window.scrollTo(0, 0);
+        console.log("site 입니다 : " + site);
+    }, []);
 
     // 장바구니 테이블 데이터 전송 함수
     const addcart = () => {
-        try {
-            axios.post('/product/addcart', {
-                // p_name: item.title,
-                p_name: '술1',
-                cart_vol: pieces,
-            }).then(request => {
-                console.log(request);
-                if (request.data > 0) {
-                    setSuccess(1);
-                } else {
-                    setSuccess(0)
-                    alert("로그인 후 이용해주세요.");
-                }
-            })
-        } catch (error) {
-            console.log("가져오기 에러입니다.")
-        }
+        axios.post('/product/addcart', {
+            p_name: item.title,
+            cart_vol: pieces,
+        }).then(request => {
+            console.log(request);
+            if (request.data > 0) {
+                setSuccess(1);
+            } else {
+                setSuccess(0)
+                alert("로그인 후 이용해주세요.");
+            }
+        }).catch("에러입니다.");
 
-        console.log(success);
     }
 
     // 전체 HTML
@@ -64,11 +173,38 @@ function Detail() {
     }
 
     function Title() {
+        const OnClicklikebtn = async (item) => {
+            try {
+                axios
+                    .post("/uscon/insertlikecon", {
+                        params: {
+                            p_seq: item,
+                        }
+                    })
+                    .then(response => {
+                        console.log(response.data);
+
+                        if(response.data == 2){
+                            alert("로그인 후 이용해주세요.");
+                        } else if(response.data == 3) {
+                            alert("이미 찜하신 상품입니다.")
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        alert("내부 오류로 관심상품 등록을 실패했습니다.");
+                    })
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
         return (
             <div className="flex">
                 <div className="detail_tit_img">
                     <img
-                        src="https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/detail/TOnv-1655794504098-1.jpg"
+                        src={`${mainImage}`}
                         alt=""
                     />
                     {/* <img src=${item.img} alt=${item.title} /> */}
@@ -92,10 +228,16 @@ function Detail() {
                     </div>
                     <div>판매가격:</div>
                     <div className="price">
-                        <span>{item.price.toLocaleString('ko-KR')}</span>원
+                        <span>{item.price != null ? item.price.toLocaleString('ko-KR') : 0}</span>원
                     </div>
                     <div className="blue opa5">유통기한: 병입일로부터 2년</div>
                     <div className="blue opa5">보관방법: 냉장보관</div>
+
+                    <div className="likebtn">
+                        <button onClick={()=> {
+                            OnClicklikebtn(1)
+                        }}>♥</button>
+                    </div>
                 </div>
             </div>
         );
@@ -105,7 +247,7 @@ function Detail() {
         return (
             <div className="detailScript">
                 <img
-                    src={require('../assets/detail_img/donghak_detail.png')}
+                    src={`${item.detailData}`}
                     alt=""
                 />
                 {/* <img src={item.detailScript} alt='상세이미지' /> */}
@@ -212,7 +354,7 @@ function Detail() {
 
                             <div
                                 className={`popupBasket ${popupMessage ? '' : 'displayNone'
-                                    }`}
+                                }`}
                             >
                                 <CartPopupMessage where="r" />
                             </div>
@@ -232,7 +374,7 @@ function Detail() {
 
                 <div
                     className={`bottomPopupBasket ${bottomPopupMessage ? '' : 'displayNone'
-                        }`}
+                    }`}
                 >
                     <CartPopupMessage where="b" />
                 </div>
@@ -252,7 +394,7 @@ function Detail() {
                             setViewOptionView(false);
                         }}
                     >
-                        <img src="../assets/detail_img/down.svg" alt="닫기" />
+                        {/* <img src="../assets/detail_img/down.svg" alt="닫기" /> */}
                     </span>
                 </div>
             </div>
@@ -329,12 +471,12 @@ function Detail() {
         return (
             <>
                 <div
-                    onClick={() => onClickBasket(where)}
+                    onClick={(e) => onClickBasket(e, where)}
                 >
                     장바구니
                 </div>
                 <button
-                    onClick={() => onClickSubmit(where)}
+                    onClick={(e) => onClickSubmit(e, where)}
                 >
                     구매하기
                 </button>
@@ -379,14 +521,16 @@ function Detail() {
 
 
     // 장바구니 Button 클릭 시 연결 함수
-    function onClickBasket(where) {
+    function onClickBasket(e, where) {
+        e.preventDefault();
+
         if (where === 'b' && !viewOptionView) {
             setViewOptionView(true);
         } else {
             addcart();
 
-            if(success == 1){
-                if(where === 'b'){
+            if (success == 1) {
+                if (where === 'b') {
                     setViewOptionView(false);
                     setBottomPopupMessage(true);
                 } else {
@@ -397,13 +541,15 @@ function Detail() {
     }
 
     // 구매 Button 클릭 시 연결 함수
-    function onClickSubmit(where) {
+    function onClickSubmit(e, where) {
+        e.preventDefault();
+
         if (where === 'b' && !viewOptionView) {
             setViewOptionView(true);
         } else {
             addcart();
 
-            if(success == 1){
+            if (success == 1) {
                 navigate("/shopbasket");
             }
         }
@@ -411,32 +557,7 @@ function Detail() {
 }
 
 // 임시 삽입할 데이터 객체
-const item = {
-    title: '동학 1957',
-    titDetail: '평창동계올림픽 공식 판매주로 선정된 우리 쌀로 빚은 청주',
-    titTag: '#구수한 쌀의 맛 #담백한 맛 뒤 느껴지는 쌉쌀함',
-    type: '청주',
-    alc: 13.0,
-    capacity: 375,
-    price: 2988,
-};
 
-const reviewItem = [
-    {
-        user: '황인규',
-        product: item.title,
-        star: 4,
-        date: '2022.12.23',
-        contents:
-            '달아서 너무 맛있어요. 입문 하시는 분으로 아주 좋을것 같습니다. 단맛을 싫어 하시는 분은 비추이고 달달한 와인 찾으시면 좋을꺼 같네요. 포도 향도 아주 진하게 잘나서 한변 금방 마셨어요.',
-    },
-    {
-        user: '황인규',
-        product: item.title,
-        star: 2,
-        date: '2022.12.23',
-        contents: '달아서 너무 맛없어요.',
-    },
-];
+
 
 export default Detail;

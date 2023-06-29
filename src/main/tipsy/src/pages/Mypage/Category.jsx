@@ -1,7 +1,7 @@
-import { useParams, Link } from 'react-router-dom';
+import {useParams, Link, useSearchParams} from 'react-router-dom';
 import { ContentsForm, PostboxForm, QnaboxForm, ReviewboxForm, ShipmentForm } from './Tableform';
 import { PageButton } from '../Boardtable';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 
 export default function Category({loginInfo}) {
@@ -75,22 +75,20 @@ function CategoryList() {
                     최근 본 상품
                 </Link>
             </li>
-            <li>
-                <Link
-                    to="/mypage/alcstyle"
-                    onClick={(e) => {
-                        onClickCategory(e);
-                    }}
-                >
-                    나의 음주 스타일
-                </Link>
-            </li>
         </ul>
     )
 }
 
 function ListContents({loginInfo}) {
     const { data } = useParams();
+
+    const [searchParams, setSearchParams] = useSearchParams([]);
+    const currpage = searchParams.get('currpage');
+
+    const [state, setState] = useState({
+        list: [],
+        pmk: {},
+    })
 
     return (
         <div className="listContents">
@@ -99,7 +97,6 @@ function ListContents({loginInfo}) {
             {data == 'reviewbox' && <Reviewbox />}
             {data == 'likecon' && <Likecon />}
             {data == 'currentcon' && <Currentcon />}
-            {data == 'alcstyle' && <Alcstyle />}
         </div>
     );
 
@@ -124,27 +121,39 @@ function ListContents({loginInfo}) {
 
     // 문의내역
     function Qnabox() {
-        const [qnalist, setQnalist] = useState([]);
-        const [pmk, setPmk] = useState({});
 
-        axios
-            .get('/uscon/qnalist',{
-                params: {
-                    id: loginInfo.id, // 세션 아이디 전송
-                    rowsPerPage: 5,
-                }
-            })
-            .then((response) => {
-                setQnalist(response.data.list);
-                setPmk(response.data.pmk);
+        useEffect(() => {
+            fetchData();
+        }, [currpage]);
 
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        const fetchData = async () => {
+            try{
+                axios
+                    .get('/uscon/qnalist',{
+                        params: {
+                            id: loginInfo.id,
+                            currpage: currpage,
+                            rowsPerPage: 7,
+                        }
+                    })
+                    .then((response) => {
+                        setState({
+                            list: response.data.list,
+                            pmk: response.data.pmk,
+                        });
 
-        if (qnalist[0] != null) {
-            return <QnaboxForm list={qnalist} pmk={pmk}/>
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        if (state.list[0] != null) {
+            return <QnaboxForm list={state.list} pmk={state.pmk} loginInfo={loginInfo}/>
 
         } else {
             return (
@@ -162,26 +171,38 @@ function ListContents({loginInfo}) {
 
     // 리뷰
     function Reviewbox() {
-        const [reviewlist, setReviewlist] = useState([]);
-        const [pmk, setPmk] = useState({});
 
-        axios
-            .get('/uscon/reviewlist', {
-                params: {
-                    id: loginInfo.id, // 세션 아이디 전송
-                }
-            })
-            .then((response) => {
-                setReviewlist(response.data.list);
-                setPmk(response.data.pmk);
+        useEffect(() => {
+            fetchData();
+        }, []);
 
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        const fetchData = async () => {
+            try {
+                axios
+                    .get('/uscon/reviewlist', {
+                        params: {
+                            id: loginInfo.id, // 세션 아이디 전송
+                            currpage: currpage,
+                            rowsPerPage: 7,
+                        }
+                    })
+                    .then((response) => {
+                        setState({
+                            list: response.data.list,
+                            pmk: response.data.pmk,
+                        });
 
-        if (reviewlist[0] != null) {
-            return <ReviewboxForm list={reviewlist} pmk={pmk} />
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        if (state.list[0] != null) {
+            return <ReviewboxForm list={state.list} pmk={state.pmk} />
 
         } else {
             return (
@@ -199,27 +220,39 @@ function ListContents({loginInfo}) {
 
     // 찜한 상품
     function Likecon() {
-        const [likecon, setLikecon] = useState([]);
-        const [pmk, setPmk] = useState({});
 
-        axios
-            .get('/uscon/likeconlist', {
-                params: {
-                    id: loginInfo.id,
-                    like: 1,
-                }
-            })
-            .then((response) => {
-                setLikecon(response.data.list);
-                setPmk(response.data.pmk);
+        useEffect(() => {
+            fetchData();
+        }, []);
 
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        const fetchData = async () => {
+            try {
+                axios
+                    .get('/uscon/likeconlist', {
+                        params: {
+                            id: loginInfo.id,
+                            like: 1,
+                            currpage: currpage,
+                            rowsPerPage: 9,
+                        }
+                    })
+                    .then((response) => {
+                        setState({
+                            list: response.data.list,
+                            pmk: response.data.pmk,
+                        });
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
 
-        if (likecon[0] != null) {
-            return <ContentsForm list={likecon} pmk={pmk}/>;
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        if (state.list[0] != null) {
+            return <ContentsForm list={state.list} pmk={state.pmk}/>;
 
         } else {
             return (
@@ -237,27 +270,38 @@ function ListContents({loginInfo}) {
 
     // 최근 본 상품
     function Currentcon() {
-        const [currcon, setCurrcon] = useState([]);
-        const [pmk, setPmk] = useState({});
 
-        axios
-            .get('/uscon/likeconlist', {
-                params: {
-                    id: loginInfo.id,
-                    like: 0,
-                }
-            })
-            .then((response) => {
-                setCurrcon(response.data.list);
-                setPmk(response.data.pmk);
+        useEffect(() => {
+            fetchData();
+        }, []);
 
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        const fetchData = async () => {
+            try {
+                axios
+                    .get('/uscon/likeconlist', {
+                        params: {
+                            id: loginInfo.id,
+                            like: 0,
+                            currpage: currpage,
+                            rowsPerPage: 9,
+                        }
+                    })
+                    .then((response) => {
+                        setState({
+                            list: response.data.list,
+                            pmk: response.data.pmk,
+                        });
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } catch (e) {
+                console.log(e);
+            }
+        }
 
-        if (currcon[0] != null) {
-            return <ContentsForm list={currcon} pmk={pmk}/>;
+        if (state.list[0] != null) {
+            return <ContentsForm list={state.list} pmk={state.pmk}/>;
 
         } else {
             return (
@@ -270,26 +314,6 @@ function ListContents({loginInfo}) {
                     <div>최근 본 상품이 없습니다.</div>
                 </div>
             );
-        }
-    }
-
-    // 나의 음주스타일
-    function Alcstyle() {
-        if (1) {
-            return (
-                <div className='nullbox'>
-                    <div className="icon">
-                        <img
-                            src={require('../../assets/mypage_img/noun-style-4384241.png')}
-                        />
-                    </div>
-                    <div>테스트 결과가 없습니다.</div>
-                    <button>그거뭐냐</button>
-                    <Link to="#">그거뭐냐</Link>
-                </div>
-            );
-        } else {
-            return null;
         }
     }
 }

@@ -8,11 +8,12 @@ import java.util.List;
 public interface QnaDAO {
     QnaVO qnaDetail(QnaVO vo);
     int insertQna(QnaVO vo);
-    int updateQna(QnaVO vo);
+    int commentQna(QnaVO vo);
     int deleteQna(QnaVO vo);
 
 
     // Paging Controller 페이징
     List<QnaVO> qnaList(SearchCriteria cri);
     int criTotalCount(SearchCriteria cri);
+
 }

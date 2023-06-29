@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -180,23 +180,34 @@ const faqcode = [
 ];
 
 function QnaBoard() {
-    const [qnalist, setQnalist] = useState([]);
-    const [pmk, setPmk] = useState({});
-    const [mis, setMis] = useState(false);
+    const [searchParams, setSearchParams] = useSearchParams([]);
+    const currpage = searchParams.get('currpage');
 
-    axios
-        .get('/mypage/qnalist', {
-            params: {
-                mis: mis,
-            },
-        })
-        .then((response) => {
-            setQnalist(response.data.list);
-            setPmk(response.data.pmk);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    const [state, setState] = useState({
+        qnalist: [],
+        pmk: {},
+        mis: false,
+    })
+
+    useEffect(() => {
+        axios
+            .get('/uscon/qnalist', {
+                params: {
+                    mis: state.mis,
+                    currpage: currpage,
+                },
+            })
+            .then((response) => {
+                setState({
+                    ...state,
+                    qnalist: response.data.list,
+                    pmk: response.data.pmk,
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [state.mis, currpage]);
 
     return (
         <>
@@ -206,13 +217,13 @@ function QnaBoard() {
                     name="mis"
                     value="mis"
                     onChange={(e) => {
-                        if (e.target.checked) setMis(true);
-                        else setMis(false);
+                        if (e.target.checked) setState({...state, mis: true,});
+                        else setState({...state, mis: false,});
                     }}
                 />
                 미답변 항목만 보기
             </label>
-            <QnaboxForm list={qnalist} pmk={pmk} />
+            <QnaboxForm list={state.qnalist} pmk={state.pmk} />
         </>
     );
 }

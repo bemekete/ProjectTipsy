@@ -21,17 +21,17 @@ public class QnaDAOImpl implements QnaDAO{
 
     @Override
     public int insertQna(QnaVO vo) {
-        return 0;
+        return mapper.insertQna(vo);
     }
 
     @Override
-    public int updateQna(QnaVO vo) {
-        return 0;
+    public int commentQna(QnaVO vo) {
+        return mapper.commentQna(vo);
     }
 
     @Override
     public int deleteQna(QnaVO vo) {
-        return 0;
+        return mapper.deleteQna(vo);
     }
 
     @Override

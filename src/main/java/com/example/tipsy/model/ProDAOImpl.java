@@ -10,6 +10,7 @@ import mapperInterface.ProductMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @AllArgsConstructor
@@ -69,5 +70,13 @@ public class ProDAOImpl implements ProDAO {
 	@Override
 	public List<BasketProDto> basketProduct(String id) {
 		return mapper.basketProduct(id);
+	}
+
+
+	// 장바구니 선택 삭제
+
+	@Override
+	public int deleteCart(Map<String, Object> productname) {
+		return mapper.deleteCart(productname);
 	}
 }

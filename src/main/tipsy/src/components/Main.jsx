@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Home from '../pages/HomePage/Home';
@@ -19,7 +19,6 @@ import FindPassword from '../pages//Find/Find_password';
 import FAQ from '../pages/FAQ';
 import CreateOrder from '../pages/CreateOrder';
 import Shopbasket from '../pages/Shopbasket/Shopbasket';
-import Alcstyletest from '../pages/Alcstyletest';
 import Map from '../pages/Map/Map';
 import Adminpage from '../pages/Adminpage/Adminpage';
 import UserModify from '../pages/Adminpage/UserModify';
@@ -27,13 +26,25 @@ import MyInfo from '../pages/Mypage/MyInfo';
 import ChangePw from '../pages/Find/ChangePw';
 
 function Main({ setIsLoggedIn, handleLoginFormSubmit }) {
+
+    const [productData, setProductData] = useState({
+        donghak: "https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/detail/TOnv-1655794504098-1.jpg",
+        hans: "https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/detail/fe1w-1631180181351-hsocd+ap0.jpg",
+        hansiwool: "https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/detail/7DjO-1669259690558-%ED%95%9C%EC%8B%9C%EC%9A%B8.jpg",
+        mildam: "https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/detail/r9a3-1653530958733-mildam40_thumbnail.jpg",
+        monkey: "https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/detail/Gt8e-1623070755884-%EC%88%A0%EC%B7%A8%ED%95%9C%EC%9B%90%EC%88%AD%EC%9D%B4-5.jpg",
+        saint: "./detail_img/1.jpg",
+        yeon: "https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/detail/5YHz-1651137039043-1.jpg",
+    });
+
+
     return (
         <>
             <div>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/mainpage" element={<Mainpage />} />
-                    <Route path="/detail" element={<Detail />} />
+                    <Route path="/mainpage" element={<Mainpage/>} />
+                    <Route path="/detail" element={<Detail  productData={productData} setProductData={setProductData}  />} />
                     <Route
                         path="/login"
                         element={
@@ -56,7 +67,6 @@ function Main({ setIsLoggedIn, handleLoginFormSubmit }) {
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/createorder" element={<CreateOrder />} />
                     <Route path="/shopbasket" element={<Shopbasket />} />
-                    <Route path="/alcstyletest" element={<Alcstyletest />} />
                     <Route path="/map" element={<Map />} />
                     <Route path="/adminpage/:data" element={<Adminpage />} />
                     <Route path="/usermodify" element={<UserModify />} />

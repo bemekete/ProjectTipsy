@@ -3,21 +3,24 @@ import axios from 'axios';
 import { Dateformat } from '../../components/Function';
 
 export function DocForm({ code }) {
-    const [formcode, setFormCode] = useState('');
-    const [title, setTitle] = useState('');
-    const [contents, setContents] = useState('');
+    const [state, setState] = useState({
+        formcode: '',
+        title: '',
+        contents: '',
+    });
     const onSubmitForm = async (e) => {
         try {
             e.preventDefault();
 
             const formdata = {
-                asi_code: formcode,
-                asi_title: title,
-                asi_contents: contents,
+                asi_code: state.formcode,
+                asi_title: state.title,
+                asi_contents: state.contents,
                 asi_date: Dateformat(),
             };
-            axios
-                .post('/insertboard', formdata)
+
+            await axios
+                .post('/asi/insertboard', formdata)
                 .then((response) => {
                     console.log(response.data);
 
@@ -31,6 +34,7 @@ export function DocForm({ code }) {
                 });
         } catch (error) {
             console.log(error);
+            alert('게시글 작성을 실패했습니다.');
         }
     };
 
@@ -49,7 +53,7 @@ export function DocForm({ code }) {
                                         name="asi_code"
                                         value={item.code}
                                         onChange={(e) =>
-                                            setFormCode(e.target.value)
+                                            setState({ ...state, formcode: e.target.value })
                                         }
                                     />
                                     {item.value}
@@ -65,7 +69,7 @@ export function DocForm({ code }) {
                             <input
                                 type="text"
                                 name="asi_title"
-                                onChange={(e) => setTitle(e.target.value)}
+                                onChange={(e) => setState({ ...state, title: e.target.value })}
                             />
                         </td>
                     </tr>
@@ -75,7 +79,7 @@ export function DocForm({ code }) {
                         <td>
                             <textarea
                                 name="asi_contents"
-                                onChange={(e) => setContents(e.target.value)}
+                                onChange={(e) => setState({ ...state, contents: e.target.value })}
                             />
                         </td>
                     </tr>

@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -52,7 +53,9 @@ public class ProServiceImpl implements ProService {
 		return dao.insertCart(dto);
 	}
 
+
 	// 검색 및 페이징
+
 	@Override
 	public List<ProVO> procriList(SearchCriteria cri) {
 		return dao.procriList(cri);
@@ -63,10 +66,20 @@ public class ProServiceImpl implements ProService {
 		return dao.criTotalCount(cri);
 	}
     // 장바구니 담기
+	 @Override
+    public int insertCart(CartDto dto) {
+        return dao.insertCart(dto);
+    }
 
     // 장바구니 담긴 상품 호출
     @Override
     public List<BasketProDto> basketProduct(String id) {
         return dao.basketProduct(id);
     }
+
+	// 장바구니 선택 삭제
+	@Override
+	public int deleteCart(Map<String,Object> productname) {
+		return dao.deleteCart(productname);
+	}
 }

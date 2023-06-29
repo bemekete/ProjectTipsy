@@ -58,7 +58,7 @@ public class UserRestController {
     public List<String> checkId(){
        return service.checkId();
     }
-
+    
     // 로그인
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserVO vo,  HttpSession session, Model model){
