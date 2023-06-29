@@ -115,7 +115,6 @@ public class UserRestController {
             service.sendUsernames(email, usernames);
             return new ResponseEntity<Object>(HttpStatus.OK);
         }
-
         return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
     }
 

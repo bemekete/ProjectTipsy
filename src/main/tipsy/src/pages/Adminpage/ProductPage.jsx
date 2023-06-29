@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Listpage({ axios }) {
     const [productData, setProductData] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchProductData();
@@ -43,7 +45,13 @@ export default function Listpage({ axios }) {
                             <td>{product.p_stock}</td>
                             <td>{product.p_cnt}</td>
                             <td className="listdet">
-                                <button onClick={onClickDetail}>Detail</button>
+                                <button
+                                    onClick={() => {
+                                        onClickDetail(product);
+                                    }}
+                                >
+                                    Detail
+                                </button>
                             </td>
                             <td className="listdel">
                                 <button onClick={onClickDelete}>Delete</button>
@@ -57,7 +65,9 @@ export default function Listpage({ axios }) {
         </>
     );
 
-    function onClickDetail() {}
+    function onClickDetail(product) {
+        navigate('/adminpage/productinfo', { state: { product } });
+    }
 
     function onClickDelete() {}
 }

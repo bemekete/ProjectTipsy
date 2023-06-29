@@ -1,7 +1,9 @@
 import React from 'react';
-// import { PageButton } from '../Boardtable';
+import { useNavigate } from 'react-router-dom';
 
-export default function Listpage({userData }) {
+export default function Listpage({ userData }) {
+    const navigate = useNavigate();
+
     return (
         <>
             <table className="ListTable">
@@ -22,7 +24,13 @@ export default function Listpage({userData }) {
                             <td>{user.id}</td>
                             <td>{user.name}</td>
                             <td className="listdet">
-                                <button onClick={onClickDetail}>Detail</button>
+                                <button
+                                    onClick={() => {
+                                        onClickDetail(user);
+                                    }}
+                                >
+                                    Detail
+                                </button>
                             </td>
                             <td className="listdel">
                                 <button onClick={onClickDelete}>Delete</button>
@@ -31,11 +39,12 @@ export default function Listpage({userData }) {
                     ))}
                 </tbody>
             </table>
-            {/* <PageButton /> */}
         </>
     );
 
-    function onClickDetail() {}
+    function onClickDetail(user) {
+        navigate('/adminpage/userinfo', { state: { user } });
+    }
 
-    function onClickDelete() {}
+    function onClickDelete(user) {}
 }
