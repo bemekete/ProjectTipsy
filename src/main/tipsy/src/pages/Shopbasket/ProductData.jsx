@@ -20,6 +20,7 @@ export default function ProductData(props) {
         fetchData();
     }, [])
 
+
     // 장바구니 테이블에 담겨져 있는 정보 가져오는 함수
     const fetchData = async () => {
         try {
@@ -62,14 +63,15 @@ export default function ProductData(props) {
                             checked={checkValid.includes(item.p_name)}
                         />
                     </td>
-                    <td className="td_goods">
-                        <Link to="/detail">
+                    <td className="td_goods" style={{ display: "grid", gridTemplateColumns: "1.5fr 2fr 3fr 0.5fr", alignItems: "center", border: "none" }}>
+                        <div></div>
+                        <Link to="/detail" >
                             <img className="goods_img"
                                 src={item.p_img}
                                 alt="상품 사진" />
-                        </Link>{item.p_name}
+                        </Link><span>{item.p_name}</span>
                     </td>
-                    <td className="td_count_Pdt">
+                    <td className="td_count_Pdt" style={{ borderLeft: "none" }}>
                         <div className="goods_num">
                             <span>{item.cart_vol}개</span>
                             <div>

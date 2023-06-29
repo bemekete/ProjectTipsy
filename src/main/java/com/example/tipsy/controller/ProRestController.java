@@ -127,7 +127,6 @@ public class ProRestController {
 
         if (null != loginID && loginID.length() > 0) {
             dto.setId(loginID);
-            System.out.println(service.insertCart(dto));
             return service.insertCart(dto);
         } else {
             return 0;

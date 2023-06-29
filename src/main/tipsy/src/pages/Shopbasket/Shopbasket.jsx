@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import React from 'react';
 import '../../styles/Shopbasket.scss';
 import ProductData from './ProductData';
@@ -9,6 +9,7 @@ import axios from 'axios';
 export default function Shopbasket() {
     // 장바구니에 담긴 정보 변수
     const [shopData, setShopData] = useState([]);
+
 
     //전체 선택/ 전체 해제시 나머지 체크박스 상태 설정 변수
     const [checkValid, setCheckValid] = useState([]);
@@ -22,7 +23,7 @@ export default function Shopbasket() {
     // 최초 랜더링 시 전체 체크박스 체크를 위한 함수 호출
     useEffect(() => {
         inputAll(true);
-        setSum(shopData);
+
     }, [shopData]);
 
     const inputAll = (checked) => {
@@ -43,19 +44,12 @@ export default function Shopbasket() {
     const deleteCart = async (e) => {
         e.preventDefault();
         if (checkValid.length >= 1) {
-            await axios
-                .post('/product/deletecart', checkValid)
-                .then((response) => {
-                    console.log('출력 데이터입니다.' + response.data);
-                })
-                .then(() => {
-                    setSum(shopData);
-                    
-                    // window.location.reload();
-                })
-                .catch('에러입니다.');
+            await axios.post("/product/deletecart", checkValid).then((response) => {
+            }).then(() => setSum(shopData)).catch("에러입니다.");
+            axios.get("/product/basketproduct")
+                .then((response) => setShopData(response.data))
         }
-    };
+    }
     return (
         <div id="basket_container">
             <div id="contents">
@@ -102,7 +96,6 @@ export default function Shopbasket() {
                                         <col />
                                         <col />
                                         <col />
-                                        <col />
                                     </colgroup>
                                     <thead>
                                         <tr>
@@ -138,9 +131,7 @@ export default function Shopbasket() {
                                     />
                                 </table>
                             </div>
-                            <p className="no_data displayNone">
-                                장바구니에 담겨있는 상품이 없습니다.
-                            </p>
+                            {shopData.length <= 0 && <p className="no_data">장바구니에 담겨있는 상품이 없습니다.</p>}
                         </form>
                         <div className="btn_Cart_Under">
                             <Link to="/mainpage">
@@ -228,16 +219,8 @@ export default function Shopbasket() {
                     </div>
                     <div className="order_box">
                         <span className="left_order_box">
-                            <button
-                                className="goods_delete_btn"
-                                type="button"
-                                onClick={deleteCart}
-                            >
-                                선택 상품 삭제
-                            </button>
-                            <button className="" type="button">
-                                선택 상품 찜
-                            </button>
+                            <button className="goods_delete_btn" type="button" onClick={deleteCart}>선택 상품 삭제</button>
+                            <button className="" type="button">선택 상품 찜</button>
                         </span>
                         <form action="../createOrder/createOrder.html">
                             <span className="right_order_box">

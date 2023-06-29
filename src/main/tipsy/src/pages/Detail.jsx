@@ -66,7 +66,7 @@ function Detail(props) {
             detailData: require('../assets/detail_img/mildam_detail.png'),
         },
         monkey: {
-            title: '술취한 원숭이 X 4병',
+            title: '술취한 원숭이',
             titDetail: '빨간맛, 궁금해 Monkey',
             titTag: '#홈파티를 빛낼 술 #우도주막, 로제막걸리!',
             type: '탁주',
@@ -125,7 +125,6 @@ function Detail(props) {
     useEffect(() => {
         variableSite();
         window.scrollTo(0, 0);
-        console.log('site 입니다 : ' + site);
     }, []);
 
     // 장바구니 테이블 데이터 전송 함수
@@ -136,8 +135,7 @@ function Detail(props) {
                 cart_vol: pieces,
             })
             .then((request) => {
-                console.log(request);
-                if (request.data > 0) {
+                    if (request.data > 0) {
                     setSuccess(1);
                 } else {
                     setSuccess(0);
@@ -180,8 +178,7 @@ function Detail(props) {
                             p_seq: item,
                         },
                     })
-                    .then((response) => {
-                        console.log(response.data);
+                    .then(response => {
 
                         if (response.data == 2) {
                             alert('로그인 후 이용해주세요.');
@@ -189,12 +186,11 @@ function Detail(props) {
                             alert('이미 찜하신 상품입니다.');
                         }
                     })
-                    .catch((error) => {
-                        console.log(error);
-                        alert('내부 오류로 관심상품 등록을 실패했습니다.');
-                    });
+                    .catch(error => {
+                        alert("내부 오류로 관심상품 등록을 실패했습니다.");
+                    })
+
             } catch (error) {
-                console.log(error);
             }
         };
 
@@ -234,13 +230,9 @@ function Detail(props) {
                     <div className="blue opa5">보관방법: 냉장보관</div>
 
                     <div className="likebtn">
-                        <button
-                            onClick={() => {
-                                OnClicklikebtn(1);
-                            }}
-                        >
-                            ♥
-                        </button>
+                        <button onClick={() => {
+                            OnClicklikebtn(1)
+                        }}>♥</button>
                     </div>
                 </div>
             </div>
@@ -354,9 +346,8 @@ function Detail(props) {
                             <BuyBtn where="r" />
 
                             <div
-                                className={`popupBasket ${
-                                    popupMessage ? '' : 'displayNone'
-                                }`}
+                                className={`popupBasket ${popupMessage ? '' : 'displayNone'
+                                    }`}
                             >
                                 <CartPopupMessage where="r" />
                             </div>
@@ -375,9 +366,8 @@ function Detail(props) {
                 </div>
 
                 <div
-                    className={`bottomPopupBasket ${
-                        bottomPopupMessage ? '' : 'displayNone'
-                    }`}
+                    className={`bottomPopupBasket ${bottomPopupMessage ? '' : 'displayNone'
+                        }`}
                 >
                     <CartPopupMessage where="b" />
                 </div>
