@@ -48,12 +48,6 @@ public class ProServiceImpl implements ProService {
         return dao.topSort(topSort);
     }
 
-	@Override
-	public int insertCart(CartDto dto) {
-		return dao.insertCart(dto);
-	}
-
-
 	// 검색 및 페이징
 
 	@Override
