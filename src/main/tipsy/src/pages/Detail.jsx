@@ -361,7 +361,7 @@ function Detail(props) {
                             setViewOptionView(false);
                         }}
                     >
-                        <img src="../assets/detail_img/down.svg" alt="닫기" />
+                        {/* <img src="../assets/detail_img/down.svg" alt="닫기" /> */}
                     </span>
                 </div>
             </div>
