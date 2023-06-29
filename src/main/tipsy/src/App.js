@@ -75,8 +75,14 @@ function App() {
     return (
         <>
             <div className="App">
-                <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+                <Header
+                    isLoggedIn={isLoggedIn}
+                    handleLogout={handleLogout}
+                    navigate={navigate}
+                />
                 <Main
+                    navigate={navigate}
+                    isLoggedIn={isLoggedIn}
                     handleLogin={handleLogin}
                     setIsLoggedIn={setIsLoggedIn}
                     handleLoginFormSubmit={handleLoginFormSubmit}
