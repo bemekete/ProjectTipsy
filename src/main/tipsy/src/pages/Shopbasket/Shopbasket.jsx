@@ -4,6 +4,7 @@ import '../../styles/Shopbasket.scss';
 import ProductData from "./ProductData";
 import { useState } from "react";
 import { useEffect } from "react";
+import axios from "axios";
 
 export default function Shopbasket() {
     // 장바구니에 담긴 정보 변수
@@ -25,7 +26,6 @@ export default function Shopbasket() {
     }, [shopData]);
 
 
-
     const inputAll = (checked) => {
         setIsCheckedAll(checked);
         if (checked) {
@@ -37,6 +37,16 @@ export default function Shopbasket() {
             // 모두 해제할 경우
             setCheckValid([]);
             setSum([]);
+        }
+    };
+
+    const deleteCart = async (e) => {
+        e.preventDefault();
+        if(checkValid.length>=1){
+            await axios.post("/product/deletecart", checkValid).then((response) => {
+            console.log("출력 데이터입니다."+ response.data);
+
+        }).then(()=>setSum(shopData)).catch("에러입니다.");
         }
     };
     return (
@@ -129,7 +139,7 @@ export default function Shopbasket() {
                     </div>
                     <div className="order_box">
                         <span className="left_order_box">
-                            <button className="goods_delete_btn" type="button">선택 상품 삭제</button>
+                            <button className="goods_delete_btn" type="button" onClick={deleteCart }>선택 상품 삭제</button>
                             <button className="" type="button">선택 상품 찜</button>
                         </span>
                         <form action="../createOrder/createOrder.html">

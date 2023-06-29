@@ -72,7 +72,6 @@ function App() {
                 console.error('로그인 실패');
             });
     };
-
     return (
         <>
             <div className="App">
