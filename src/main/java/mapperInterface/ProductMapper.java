@@ -7,6 +7,7 @@ import com.example.tipsy.vo.ProVO;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductMapper {
 
@@ -34,8 +35,11 @@ public interface ProductMapper {
     // 장바구니 담긴 상품 호출
     List<BasketProDto> basketProduct(String id);
 
+    // 장바구니 선택 삭제
+    int deleteCart(Map<String,Object> productname);
 
     // 검색 및 페이징
     List<ProVO> procriList(SearchCriteria cri);
     int criTotalCount(SearchCriteria cri);
+
 }

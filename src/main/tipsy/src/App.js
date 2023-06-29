@@ -56,10 +56,15 @@ function App() {
                 // 로그인 성공 시 처리할 작업을 수행합니다.
                 console.log('로그인 성공');
                 handleLogin();
-                if (response.data.id === 'admin') {
-                    navigate('/adminpage/userboard');
+                if (response.data === '로그인성공') {
+                    if (inputId === 'admin') {
+                        navigate('/adminpage/userboard');
+                    } else {
+                        navigate('/');
+                    }
                 } else {
-                    navigate('/');
+                    alert('로그인실패 - 다시 ㄱㄱ');
+                    console.error('로그인 실패');
                 }
             })
             .catch((error) => {
@@ -68,7 +73,6 @@ function App() {
                 console.error('로그인 실패');
             });
     };
-
     return (
         <>
             <div className="App">

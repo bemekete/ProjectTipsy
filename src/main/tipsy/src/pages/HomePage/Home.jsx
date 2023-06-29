@@ -4,6 +4,8 @@ import ImageSlider from '../../pages/HomePage/ImageSlider';
 import { Link } from 'react-router-dom';
 
 function Home() {
+    {
+    }
     return (
         <>
             <main id="home_main">
@@ -21,7 +23,7 @@ function Home() {
                                     <span>10.8% |&nbsp; </span>
                                     <strong> 36,000</strong>원
                                 </p>
-                                <Link to="/detail" className="winePageButton">
+                                <Link to="/detail?site=monkey" className="winePageButton">
                                     자세히 알아보기
                                 </Link>
                             </div>
@@ -31,7 +33,7 @@ function Home() {
                                     <span>13% |&nbsp; </span>
                                     <strong> 2,980</strong>원
                                 </p>
-                                <Link to="/detail" className="winePageButton">
+                                <Link to="/detail?site=donghak" className="winePageButton">
                                     자세히 알아보기
                                 </Link>
                             </div>
@@ -41,7 +43,7 @@ function Home() {
                                     <span>8% |&nbsp; </span>
                                     <strong> 50,000</strong>원
                                 </p>
-                                <Link to="/detail" className="winePageButton">
+                                <Link to="/detail?site=yeon" className="winePageButton">
                                     자세히 알아보기
                                 </Link>
                             </div>
@@ -54,7 +56,7 @@ function Home() {
                                     <span>11% |&nbsp; </span>
                                     <strong> 20,160</strong>원
                                 </p>
-                                <Link to="/detail" className="winePageButton">
+                                <Link to="/detail?site=hans" className="winePageButton">
                                     자세히 알아보기
                                 </Link>
                             </div>
@@ -64,7 +66,7 @@ function Home() {
                                     <span>40% |&nbsp; </span>
                                     <strong> 21,000</strong>원
                                 </p>
-                                <Link to="/detail" className="winePageButton">
+                                <Link to="/detail?site=hansiwool" className="winePageButton">
                                     자세히 알아보기
                                 </Link>
                             </div>
@@ -74,7 +76,7 @@ function Home() {
                                     <span>40% |&nbsp; </span>
                                     <strong> 17,910</strong>원
                                 </p>
-                                <Link to="/detail" className="winePageButton">
+                                <Link to="/detail?site=mildam" className="winePageButton">
                                     자세히 알아보기
                                 </Link>
                             </div>

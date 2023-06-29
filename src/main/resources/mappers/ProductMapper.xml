@@ -49,6 +49,14 @@
         join product on temp.p_seq = product.p_seq where id = #{id};
     </select>
 
+    <delete id="deleteCart" parameterType="java.util.Map">
+        delete from cart
+        where id=#{loginID} and p_seq in
+            (<foreach collection="data" item="p_name" separator="UNION ALL">
+            select p_seq from product where p_name=#{p_name}
+            </foreach>)
+    </delete>
+
 
 
     <!-- 검색 및 페이징-->
