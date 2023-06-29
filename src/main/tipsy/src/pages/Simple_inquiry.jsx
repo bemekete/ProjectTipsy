@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/Simple_inquiry.scss';
 import { Link } from 'react-router-dom';
+import { Dateformat } from "../components/Function";
+import axios from "axios";
 
 function Simpleinquiry() {
+    const [loginInfo, setLoginInfo] = useState([]);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('/user/userinfo');
+            setLoginInfo(response.data);
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <div id="simple_inquiry">
             <div id="simple_inquiry_container">
@@ -23,20 +41,55 @@ function Simpleinquiry() {
                     </div>
                 </div>
 
-                <UploadForm onSubmit={onSubmit} />
+                <UploadForm loginInfo={loginInfo} />
 
             </div>
         </div>
     );
 }
 
-function onSubmit() {
+function UploadForm({ loginInfo }) {
+    const [state, setState] = useState({
+        category: 0,
+        title: '',
+        content: '',
+    })
 
-}
+    const OnSubmitInquiry = async (e) => {
+        try {
+            e.preventDefault();
 
-function UploadForm({ onSubmit }) {
+            const formdata = {
+                id: loginInfo.id,
+                q_category: state.category,
+                q_title: state.title,
+                q_content: state.content,
+            };
+
+            axios
+                .post("/uscon/insertqna", formdata)
+                .then(response => {
+                    console.log(response.data);
+
+                    if (response.data == 1) {
+                        window.location.href = '/mypage/qnabox';
+                    } else if (response.data == 2) {
+                        alert("로그인 후 이용해주세요.");
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert("게시글 작성을 실패했습니다.");
+                })
+
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
-        <form onSubmit={onSubmit} className="simple_inquirybox">
+        <form onSubmit={OnSubmitInquiry} className="simple_inquirybox">
             <div className="contens">
                 <p>
                     <span>*</span>필수 입력 사항
@@ -49,166 +102,47 @@ function UploadForm({ onSubmit }) {
                         </colgroup>
 
                         <tbody>
-                            <tr>
-                                <th>
-                                    문의내용<span>&#42;</span>
-                                </th>
-                                <td>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="contens"
-                                            value="purchase"
-                                            checked
-                                        />
-                                        구입 문의
-                                    </label>
+                        <tr>
+                            <th>
+                                문의내용<span>&#42;</span>
+                            </th>
+                            <CodeInquiry />
+                        </tr>
 
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="contens"
-                                            value="product"
-                                        />
-                                        제품 문의
-                                    </label>
+                        <tr>
+                            <th>
+                                제목<span>&#42;</span>
+                            </th>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    maxlength="50"
+                                    size="60"
+                                    minlength="5"
+                                    placeholder="제목을 입력 하세요."
+                                    onChange={e => setState({ ...state, title: e.target.value })}
+                                    required
+                                />
+                            </td>
+                        </tr>
 
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="contens"
-                                            value="event"
-                                        />
-                                        이벤트 문의
-                                    </label>
-
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="contens"
-                                            value="homepage"
-                                        />
-                                        홈페이지 문의
-                                    </label>
-
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="contens"
-                                            value="shipping_inquiry"
-                                        />
-                                        배송 문의
-                                    </label>
-
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="contens"
-                                            value="shipping_complaint"
-                                        />
-                                        배송 불만
-                                    </label>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    이름<span>&#42;</span>
-                                </th>
-                                <td>
-                                    <input
-                                        type="text"
-                                        minlength="2"
-                                        maxlength="10"
-                                        name="userName"
-                                        placeholder="이름을 입력해 주세요."
-                                        required
-                                    />
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    비밀번호<span>&#42;</span>
-                                </th>
-                                <td>
-                                    <input
-                                        type="password"
-                                        name="inquiryPSW"
-                                        minlength="3"
-                                        maxlength="4"
-                                        size="20px"
-                                        placeholder="비밀번호를 입력해 주세요."
-                                        required
-                                    />
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    제목<span>&#42;</span>
-                                </th>
-                                <td>
-                                    <input
-                                        type="text"
-                                        name="Title"
-                                        maxlength="50"
-                                        size="60"
-                                        minlength="5"
-                                        placeholder="제목을 입력 하세요."
-                                        required
-                                    />
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    내용<span>&#42;</span>
-                                </th>
-                                <td>
+                        <tr>
+                            <th>
+                                내용<span>&#42;</span>
+                            </th>
+                            <td>
                                     <textarea
-                                        name="inquiries"
+                                        name="content"
                                         cols="130"
                                         rows="20"
                                         minlength="10"
                                         placeholder="내용을 입력 하세요."
+                                        onChange={e => setState({ ...state, content: e.target.value })}
                                         required
                                     ></textarea>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>
-                                    주소<span>&#42;</span>
-                                </th>
-                                <td>
-                                    <input
-                                        type="text"
-                                        name="userPostcode1"
-                                        size="10px"
-                                        placeholder="우편번호"
-                                        required
-                                    />
-                                    <Link to="#">우편번호</Link>
-                                    <br />
-                                    <input
-                                        type="text"
-                                        name="userPostcode2"
-                                        size="50"
-                                        placeholder="주소"
-                                        required
-                                    />
-                                    <span>기본주소</span>
-                                    <br />
-                                    <input
-                                        type="text"
-                                        name="userPostcode3"
-                                        size="50"
-                                        placeholder="상세 주소"
-                                    />
-                                    <span>상세주소 (선택입력)</span>
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </figure>
@@ -220,6 +154,44 @@ function UploadForm({ onSubmit }) {
             </div>
         </form>
     )
+
+
+    function CodeInquiry() {
+        const category = [
+            {
+                key: "상품",
+                value: 1,
+            },
+            {
+                key: "주문/배송",
+                value: 2,
+            },
+            {
+                key: "홈페이지",
+                value: 3,
+            },
+        ]
+
+        return (
+            <td>
+                {
+                    category.map((item, i) => (
+                        <>
+                            <input
+                                key={i}
+                                type="radio"
+                                name="category"
+                                value={item.value}
+                                onChange={e => setState({ ...state, category: e.target.value })}
+                                required
+                            />
+                            {item.key} 문의
+                        </>
+                    ))
+                }
+            </td>
+        )
+    }
 }
 
 export { Simpleinquiry, UploadForm };

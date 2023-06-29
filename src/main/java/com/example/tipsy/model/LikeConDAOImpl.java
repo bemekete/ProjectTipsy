@@ -15,13 +15,18 @@ public class LikeConDAOImpl implements LikeConDAO {
     LikeConMapper mapper;
 
     @Override
+    public List<LikeConVO> likeConListId(LikeConVO vo) {
+        return mapper.likeConListId(vo);
+    }
+
+    @Override
     public int insertLikeCon(LikeConVO vo) {
-        return 0;
+        return mapper.insertLikeCon(vo);
     }
 
     @Override
     public int deleteLikeCon(LikeConVO vo) {
-        return 0;
+        return mapper.deleteLikeCon(vo);
     }
 
     @Override

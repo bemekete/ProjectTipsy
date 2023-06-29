@@ -18,7 +18,7 @@ function Detail() {
 
 
     // 장바구니 테이블 데이터 전송 함수
-    const addcart = () => {
+    const addcart = async (e) => {
         try {
             axios.post('/product/addcart', {
                 // p_name: item.title,
@@ -26,19 +26,19 @@ function Detail() {
                 cart_vol: pieces,
             }).then(request => {
                 console.log(request);
+
                 if (request.data > 0) {
                     setSuccess(1);
                 } else {
                     setSuccess(0)
                     alert("로그인 후 이용해주세요.");
                 }
-            })
-        } catch (error) {
-            console.log("가져오기 에러입니다.")
-        }
+            }).catch()
 
-        console.log(success);
-    }
+            console.log(success);
+        } catch (e) {
+            console.log(e);
+        }}
 
     // 전체 HTML
     return (
@@ -64,6 +64,33 @@ function Detail() {
     }
 
     function Title() {
+        const OnClicklikebtn = async (item) => {
+            try {
+                axios
+                    .post("/uscon/insertlikecon", {
+                        params: {
+                            p_seq: item,
+                        }
+                    })
+                    .then(response => {
+                        console.log(response.data);
+
+                        if(response.data == 2){
+                            alert("로그인 후 이용해주세요.");
+                        } else if(response.data == 3) {
+                            alert("이미 찜하신 상품입니다.")
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        alert("내부 오류로 관심상품 등록을 실패했습니다.");
+                    })
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
         return (
             <div className="flex">
                 <div className="detail_tit_img">
@@ -96,6 +123,12 @@ function Detail() {
                     </div>
                     <div className="blue opa5">유통기한: 병입일로부터 2년</div>
                     <div className="blue opa5">보관방법: 냉장보관</div>
+
+                    <div className="likebtn">
+                        <button onClick={()=> {
+                            OnClicklikebtn(1)
+                        }}>♥</button>
+                    </div>
                 </div>
             </div>
         );
@@ -212,7 +245,7 @@ function Detail() {
 
                             <div
                                 className={`popupBasket ${popupMessage ? '' : 'displayNone'
-                                    }`}
+                                }`}
                             >
                                 <CartPopupMessage where="r" />
                             </div>
@@ -232,7 +265,7 @@ function Detail() {
 
                 <div
                     className={`bottomPopupBasket ${bottomPopupMessage ? '' : 'displayNone'
-                        }`}
+                    }`}
                 >
                     <CartPopupMessage where="b" />
                 </div>
@@ -329,12 +362,12 @@ function Detail() {
         return (
             <>
                 <div
-                    onClick={() => onClickBasket(where)}
+                    onClick={(e) => onClickBasket(e, where)}
                 >
                     장바구니
                 </div>
                 <button
-                    onClick={() => onClickSubmit(where)}
+                    onClick={(e) => onClickSubmit(e, where)}
                 >
                     구매하기
                 </button>
@@ -379,7 +412,9 @@ function Detail() {
 
 
     // 장바구니 Button 클릭 시 연결 함수
-    function onClickBasket(where) {
+    function onClickBasket(e, where) {
+        e.preventDefault();
+
         if (where === 'b' && !viewOptionView) {
             setViewOptionView(true);
         } else {
@@ -397,7 +432,9 @@ function Detail() {
     }
 
     // 구매 Button 클릭 시 연결 함수
-    function onClickSubmit(where) {
+    function onClickSubmit(e, where) {
+        e.preventDefault();
+
         if (where === 'b' && !viewOptionView) {
             setViewOptionView(true);
         } else {

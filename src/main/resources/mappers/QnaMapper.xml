@@ -15,7 +15,7 @@
     <!-- 게시물 수정 -->
     <update id="updateQna">
         UPDATE us_qna
-        SET q_title=#{q_title}, q_content=#{q_content}, q_comment=#{q_comment}
+        SET q_comment=#{q_comment}
         WHERE q_seq=#{q_seq};
     </update>
 
@@ -31,18 +31,18 @@
             <bind name="id" value="id"/>
         </if>
 
-            <choose>
-                <!-- 미답변 항목 -->
-                <when test="mis==true">
-                    WHERE q_comment IS NULL
-                </when>
-                <!-- id별 항목 -->
-                <when test="id!=null">
-                    WHERE id = #{id}
-                </when>
-                <!-- 전체 항목 -->
-                <otherwise> </otherwise>
-            </choose>
+        <choose>
+            <!-- 미답변 항목 -->
+            <when test="mis==true">
+                WHERE q_comment IS NULL
+            </when>
+            <!-- id별 항목 -->
+            <when test="id!=null">
+                WHERE id = #{id}
+            </when>
+            <!-- 전체 항목 -->
+            <otherwise> </otherwise>
+        </choose>
     </sql>
 
     <select id="qnaList" resultType="com.example.tipsy.vo.QnaVO">

@@ -4,6 +4,7 @@ import com.example.tipsy.criTest.SearchCriteria;
 import com.example.tipsy.model.LikeConDAO;
 import com.example.tipsy.vo.LikeConVO;
 import lombok.AllArgsConstructor;
+import mapperInterface.LikeConMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,21 +13,26 @@ import java.util.List;
 @AllArgsConstructor
 public class LikeConServiceImpl implements LikeConService{
 
-    LikeConDAO dao;
+    LikeConMapper mapper;
+
+    @Override
+    public List<LikeConVO> likeConListId(LikeConVO vo) {
+        return mapper.likeConListId(vo);
+    }
 
     @Override
     public int insertLikeCon(LikeConVO vo) {
-        return 0;
+        return mapper.insertLikeCon(vo);
     }
 
     @Override
     public int deleteLikeCon(LikeConVO vo) {
-        return 0;
+        return mapper.deleteLikeCon(vo);
     }
 
     @Override
     public List<LikeConVO> likeConList(SearchCriteria cri) {
-        return dao.likeConList(cri);
+        return mapper.likeConList(cri);
     }
 
     @Override
@@ -36,6 +42,6 @@ public class LikeConServiceImpl implements LikeConService{
 
     @Override
     public int criTotalCount(SearchCriteria cri) {
-        return dao.criTotalCount(cri);
+        return mapper.criTotalCount(cri);
     }
 }

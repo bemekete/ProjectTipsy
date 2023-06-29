@@ -133,25 +133,21 @@ function TotalSearchArea({list, pmk}) {
     return(
         <div className="totalSearchArea">
             <div id="totalSearchList1">
-                {/*<p>*/}
-                {/*    주류(전체 <span>0</span> 건 / <span>0</span>{' '}*/}
-                {/*    건)*/}
-                {/*</p>*/}
                 <div className="totalSearch List1">
                     <table>
                         <thead>
-                            <colgroup>
-                                <col width="70%" />
-                                <col />
-                            </colgroup>
-                            <tr>
-                                <th>상품/옵션 정보</th>
-                                <th>상품 금액</th>
-                            </tr>
+                        <colgroup>
+                            <col width="70%" />
+                            <col />
+                        </colgroup>
+                        <tr>
+                            <th>상품/옵션 정보</th>
+                            <th>상품 금액</th>
+                        </tr>
                         </thead>
 
                         <tbody>
-                            <TotalSearch />
+                        <TotalSearch />
                         </tbody>
                     </table>
                 </div>
@@ -160,37 +156,31 @@ function TotalSearchArea({list, pmk}) {
     )
 
     function TotalSearch() {
-        // if(list[0] == null){
-        //     return (
-        //         <p className="noneResult">
-        //             검색 결과가 없습니다.
-        //         </p>
-        //     )
-        //
-        // } else {
+        if(list[0] == null){
             return (
-                <>
-                    {
-                        list.map((item, i)=> (
-                            <tr key={`item${i}`}>
-                                <td>
-                                    <Link to={`/detail?p_name=${item.p_name}`}>
-                                        {/*<img src={item.p_img} alt={item.p_name} />*/}
-                                        {/*<img*/}
-                                        {/*    src={*/}
-                                        {/*        'https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/thumbnail/fWO1-1668403134296-1Z7A1584.jpg'*/}
-                                        {/*    }*/}
-                                        {/*    alt=""*/}
-                                        {/*/>*/}
-                                        {item.p_name}
-                                    </Link>
-                                </td>
-                                <td><span>{item.p_price}</span>원</td>
-                            </tr>
-                        ))
-                    }
-                </>
+                <p className="noneResult">
+                    검색 결과가 없습니다.
+                </p>
             )
-        }
-    // }
+
+        } else {
+        return (
+            <>
+                {
+                    list.map((item, i)=> (
+                        <tr key={`item${i}`}>
+                            <td>
+                                <Link to={`/detail?p_name=${item.p_name}`}>
+                                    <img src={item.p_img} alt={item.p_name} />
+                                    {item.p_name}
+                                </Link>
+                            </td>
+                            <td><span>{item.p_price}</span>원</td>
+                        </tr>
+                    ))
+                }
+            </>
+        )
+    }
+    }
 }

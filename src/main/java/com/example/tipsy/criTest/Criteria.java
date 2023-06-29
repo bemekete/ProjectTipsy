@@ -23,11 +23,11 @@ public class Criteria {
     }
 
     // 한 페이지 당 row 개수 (제한조건 점검)
-//    public void setRowsPerPage(int rowsPerPage){
-//        if(rowsPerPage > 5 && rowsPerPage < 51) // 50개까지 허용
-//            this.rowsPerPage = rowsPerPage;
-//        else this.rowsPerPage = 3;
-//    }
+    public void setRowsPerPage(int rowsPerPage){
+        if(rowsPerPage > 5 && rowsPerPage < 51) // 50개까지 허용
+            this.rowsPerPage = rowsPerPage;
+        else this.rowsPerPage = 5;
+    }
 
     // sno 계산
     public void setSno() {

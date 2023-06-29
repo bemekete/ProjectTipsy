@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -46,7 +46,6 @@ export default function Adminpage() {
                 <div id="contents">
                     <p>{title}</p>
                     {data === 'userboard' && <UserPage userData={userData} />}
-                    {/* {data === 'usermodify' && <UserModifyForm />} */}
 
                     {data === 'productboard' && (
                         <ProductPage
@@ -79,10 +78,6 @@ export default function Adminpage() {
                         text: '회원목록',
                         value: 'userboard',
                     },
-                    // {
-                    //     text: '회원정보 수정',
-                    //     value: 'usermodify',
-                    // },
                 ],
             },
             {
@@ -181,175 +176,35 @@ const faqcode = [
     },
 ];
 
-// 임시 데이터
-const userheaders = [
-    {
-        text: '회원번호',
-        value: 'seq',
-    },
-    {
-        text: 'ID',
-        value: 'id',
-    },
-    {
-        text: '이름',
-        value: 'name',
-    },
-];
-
-const useritems = [
-    {
-        seq: 0,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 1,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 2,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 3,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 4,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 5,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 6,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 7,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 8,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-    {
-        seq: 9,
-        id: 'qotnwl',
-        name: '배수지',
-    },
-];
-
-const pheaders = [
-    {
-        text: '상품번호',
-        value: 'seq',
-    },
-    {
-        text: '카테고리',
-        value: 'category',
-    },
-    {
-        text: '상품명',
-        value: 'title',
-    },
-    {
-        text: '가격',
-        value: 'price',
-    },
-];
-
-const pitems = [
-    {
-        seq: 0,
-        category: '청주',
-        title: '동학',
-        price: '1444',
-    },
-    {
-        seq: 1,
-        category: '와인',
-        title: '세인트어쩌고',
-        price: '12334',
-    },
-    {
-        seq: 2,
-        category: '소주',
-        title: '참이슬',
-        price: '12',
-    },
-    {
-        seq: 3,
-        category: '청주',
-        title: '동학',
-        price: '1444',
-    },
-    {
-        seq: 4,
-        category: '와인',
-        title: '세인트어쩌고',
-        price: '12334',
-    },
-    {
-        seq: 5,
-        category: '소주',
-        title: '참이슬',
-        price: '12',
-    },
-    {
-        seq: 6,
-        category: '청주',
-        title: '동학',
-        price: '1444',
-    },
-    {
-        seq: 7,
-        category: '와인',
-        title: '세인트어쩌고',
-        price: '12334',
-    },
-    {
-        seq: 8,
-        category: '소주',
-        title: '참이슬',
-        price: '12',
-    },
-    {
-        seq: 9,
-        category: '청주',
-        title: '동학',
-        price: '1444',
-    },
-];
-
 function QnaBoard() {
-    const [qnalist, setQnalist] = useState([]);
-    const [pmk, setPmk] = useState({});
-    const [mis, setMis] = useState(false);
+    const [searchParams, setSearchParams] = useSearchParams([]);
+    const currpage = searchParams.get('currpage');
 
-    axios
-        .get('/mypage/qnalist', {
-            params: {
-                mis: mis,
-            },
-        })
-        .then((response) => {
-            setQnalist(response.data.list);
-            setPmk(response.data.pmk);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    const [state, setState] = useState({
+        qnalist: [],
+        pmk: {},
+        mis: false,
+    })
+
+    useEffect(() => {
+        axios
+            .get('/uscon/qnalist', {
+                params: {
+                    mis: state.mis,
+                    currpage: currpage,
+                },
+            })
+            .then((response) => {
+                setState({
+                    ...state,
+                    qnalist: response.data.list,
+                    pmk: response.data.pmk,
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [state.mis, currpage]);
 
     return (
         <>
@@ -359,13 +214,13 @@ function QnaBoard() {
                     name="mis"
                     value="mis"
                     onChange={(e) => {
-                        if (e.target.checked) setMis(true);
-                        else setMis(false);
+                        if (e.target.checked) setState({...state, mis: true,});
+                        else setState({...state, mis: false,});
                     }}
                 />
                 미답변 항목만 보기
             </label>
-            <QnaboxForm list={qnalist} pmk={pmk} />
+            <QnaboxForm list={state.qnalist} pmk={state.pmk} />
         </>
     );
 }
